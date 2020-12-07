@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".homepage.TalentProfileActivity"
+    android:background="#E5E5E5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_myprofile"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_marginTop="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/talentImage"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginLeft="98dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/kiryusento"/>
+
+            <ImageView
+                android:id="@+id/iv_editProfile"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="16dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@android:drawable/ic_menu_edit" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_profileTalentName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context="Talent name"
+            android:gravity="center"
+            android:fontFamily="@font/opensans"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textStyle="bold"
+            android:textSize="28sp"/>
+
+        <TextView
+            android:id="@+id/tv_profileTalentTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context="Talent title"
+            android:gravity="center"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tv_profileTalentLocation"
+            android:layout_marginTop="6dp"
+            android:drawableEnd="@drawable/ic_location"
+            android:drawablePadding="8dp"
+            tools:context="Talent location"
+            android:textAlignment="textEnd"
+            android:textSize="14sp"
+            android:textColor="#BDBCBC"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_profileTalentDesc"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/opensans"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"/>
+
+        <TextView
+            android:text="Skill"
+            android:textSize="22sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/opensans"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="92dp">
+
+            <TextView
+                android:id="@+id/profile_talentSkill1"
+                tools:context="Talent Skill 1"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:fontFamily="@font/opensans"
+                android:padding="6dp"
+                android:gravity="center"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/white"
+                android:background="@drawable/round_bg"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/profile_talentSkill2"
+                android:layout_toRightOf="@+id/profile_talentSkill1"
+                tools:context="Talent Skill 2"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:fontFamily="@font/opensans"
+                android:padding="6dp"
+                android:gravity="center"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="12dp"
+                android:textColor="@color/white"
+                android:background="@drawable/round_bg"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/profile_talentSkill3"
+                android:layout_toRightOf="@+id/profile_talentSkill2"
+                tools:context="Talent Skill 3"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:fontFamily="@font/opensans"
+                android:padding="6dp"
+                android:gravity="center"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="12dp"
+                android:textColor="@color/white"
+                android:background="@drawable/round_bg"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/profile_talentSkill4"
+                android:layout_below="@+id/profile_talentSkill1"
+                tools:context="Talent Skill 4"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:fontFamily="@font/opensans"
+                android:padding="6dp"
+                android:gravity="center"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/white"
+                android:background="@drawable/round_bg"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/profile_talentSkill5"
+                android:layout_below="@id/profile_talentSkill2"
+                android:layout_toRightOf="@+id/profile_talentSkill4"
+                tools:context="Talent Skill 5"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:fontFamily="@font/opensans"
+                android:padding="6dp"
+                android:gravity="center"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="12dp"
+                android:textColor="@color/white"
+                android:background="@drawable/round_bg"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_profileTalentEmail"
+            android:drawableStart="@drawable/ic_email"
+            tools:context="Talent Email"
+            android:drawablePadding="8dp"
+            android:gravity="start|center_vertical"
+            android:padding="8dp"
+            android:textSize="14sp"
+            android:textColor="#7A7A7A"
+            android:fontFamily="@font/opensans"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/profile_talentGithub"
+            android:drawableStart="@drawable/ic_github"
+            tools:context="Talent Github"
+            android:drawablePadding="8dp"
+            android:gravity="start|center_vertical"
+            android:padding="8dp"
+            android:textSize="14sp"
+            android:textColor="#7A7A7A"
+            android:fontFamily="@font/opensans"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:id="@+id/tv_workTime"
+            android:drawableStart="@drawable/ic_worktime"
+            tools:context="Talent Github"
+            android:drawablePadding="8dp"
+            android:gravity="start|center_vertical"
+            android:padding="8dp"
+            android:textSize="14sp"
+            android:textColor="#7A7A7A"
+            android:fontFamily="@font/opensans"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <RelativeLayout
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/profile_talentTab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

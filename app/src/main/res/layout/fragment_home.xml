@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    tools:context=".homepage.item.HomeFragment">
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/bg_header"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_homeDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="85dp"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                tools:context="Today Date" />
+
+            <TextView
+                android:id="@+id/tv_userGreeting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_homeDate"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/white"
+                android:textSize="23sp"
+                tools:context="Today Date" />
+
+            <ImageView
+                android:id="@+id/iv_notif_bell"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="85dp"
+                android:layout_marginRight="24dp"
+                android:src="@drawable/ic_notif_bell" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout5"
+        android:layout_width="380dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_menuoffering"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <TextView
+            android:id="@+id/tv_offeringMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/opensans"
+            android:text="@string/project_offered"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="360dp"
+            android:layout_height="2dp"
+            android:layout_below="@+id/tv_offeringMenu"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="5dp"
+            android:background="#E5E5E5" />
+
+
+        <ImageView
+            android:id="@+id/iv_approved"
+            android:layout_width="62dp"
+            android:layout_height="61dp"
+            android:layout_below="@+id/tv_offeringMenu"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="31dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+            android:src="@drawable/approved" />
+
+        <View
+            android:id="@+id/line_1"
+            android:layout_width="2dp"
+            android:layout_height="62dp"
+            android:layout_marginLeft="29dp"
+            android:layout_marginTop="67dp"
+            android:layout_toRightOf="@+id/iv_approved"
+            android:background="#E5E5E5" />
+
+        <ImageView
+            android:id="@+id/iv_rejected"
+            android:layout_width="66dp"
+            android:layout_height="58dp"
+            android:layout_alignTop="@+id/iv_approved"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="24dp"
+            android:layout_toEndOf="@id/line_1"
+            android:src="@drawable/rejected" />
+
+        <View
+            android:id="@+id/line_2"
+            android:layout_width="2dp"
+            android:layout_height="62dp"
+            android:layout_marginLeft="34dp"
+            android:layout_marginTop="67dp"
+            android:layout_toRightOf="@+id/iv_rejected"
+            android:background="#E5E5E5" />
+
+        <ImageView
+            android:id="@+id/iv_waiting"
+            android:layout_width="65dp"
+            android:layout_height="59dp"
+            android:layout_alignTop="@+id/iv_rejected"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="31dp"
+            android:layout_marginBottom="23dp"
+            android:layout_toEndOf="@+id/line_2"
+            android:src="@drawable/waiting" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="380dp"
+        android:layout_height="260dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_menuoffering"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout5"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/tv_highlight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/opensans"
+            android:text="@string/highlight"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="360dp"
+            android:layout_height="2dp"
+            android:layout_below="@+id/tv_highlight"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="7dp"
+            android:background="#E5E5E5" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="7dp">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_project"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="38dp">
+
+                <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+                    android:id="@+id/worm_dots_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    app:dotsColor="@color/primary"
+                    app:dotsCornerRadius="8dp"
+                    app:dotsSize="6dp"
+                    app:dotsSpacing="4dp"
+                    app:dotsStrokeColor="@color/white"
+                    app:dotsStrokeWidth="1dp" />
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
