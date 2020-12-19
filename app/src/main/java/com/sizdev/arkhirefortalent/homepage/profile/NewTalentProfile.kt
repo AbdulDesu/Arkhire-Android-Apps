@@ -1,4 +1,4 @@
-package com.sizdev.arkhirefortalent.homepage
+package com.sizdev.arkhirefortalent.homepage.profile
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -10,7 +10,6 @@ import android.widget.PopupMenu
 import android.widget.Toast
 import com.sizdev.arkhirefortalent.R
 import kotlinx.android.synthetic.main.activity_new_talent_profile.*
-import kotlinx.android.synthetic.main.activity_register.*
 
 class NewTalentProfile : AppCompatActivity() {
     @SuppressLint("SetTextI18n")

@@ -1,8 +1,7 @@
-package com.sizdev.arkhirefortalent
+package com.sizdev.arkhirefortalent.onboarding
 
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION
 import android.os.Bundle
 import android.os.Handler
 import androidx.fragment.app.Fragment
@@ -10,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.homepage.HomeActivity
 
 class SplashScreenFragment : Fragment() {

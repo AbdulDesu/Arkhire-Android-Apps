@@ -1,17 +1,27 @@
-package com.sizdev.arkhirefortalent.homepage
+package com.sizdev.arkhirefortalent.homepage.profile
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.databinding.DataBindingUtil
 import com.google.android.material.tabs.TabLayout
 import com.sizdev.arkhirefortalent.R
+import com.sizdev.arkhirefortalent.databinding.ActivityTalentProfileBinding
 import kotlinx.android.synthetic.main.activity_talent_profile.*
 
 class TalentProfileActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityTalentProfileBinding
+    private lateinit var pagerAdapter: TalentTabAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_talent_profile)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_talent_profile)
+        pagerAdapter = TalentTabAdapter(supportFragmentManager)
+        binding.vpTalentProfile.adapter = pagerAdapter
+
+        binding.tabTalentProfile.setupWithViewPager(binding.vpTalentProfile)
 
         //Get Saved Profile
         val sharedPrefData = this.getSharedPreferences("fullData", Context.MODE_PRIVATE)

@@ -1,19 +1,13 @@
 package com.sizdev.arkhirefortalent.homepage
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.sizdev.arkhirefortalent.LoginActivity
-import com.sizdev.arkhirefortalent.LoginFragment
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.homepage.item.AccountFragment
 import com.sizdev.arkhirefortalent.homepage.item.ChatFragment
 import com.sizdev.arkhirefortalent.homepage.item.HomeFragment
 import com.sizdev.arkhirefortalent.homepage.item.SearchFragment
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.fragment_account.*
 
 class HomeActivity : AppCompatActivity() {
     lateinit var accountFragment: AccountFragment

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashScreenFragment"
-        android:name="com.sizdev.arkhirefortalent.SplashScreenFragment"
+        android:name="com.sizdev.arkhirefortalent.onboarding.SplashScreenFragment"
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.sizdev.arkhirefortalent.LoginFragment"
+        android:name="com.sizdev.arkhirefortalent.administration.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
 </navigation>

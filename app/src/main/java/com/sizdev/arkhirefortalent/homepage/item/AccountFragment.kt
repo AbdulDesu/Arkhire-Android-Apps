@@ -10,11 +10,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.sizdev.arkhirefortalent.LoginActivity
+import com.sizdev.arkhirefortalent.administration.LoginActivity
 import com.sizdev.arkhirefortalent.R
-import com.sizdev.arkhirefortalent.homepage.NewTalentProfile
+import com.sizdev.arkhirefortalent.homepage.profile.NewTalentProfile
 import com.sizdev.arkhirefortalent.homepage.ResetPasswordActivity
-import com.sizdev.arkhirefortalent.homepage.TalentProfileActivity
+import com.sizdev.arkhirefortalent.homepage.profile.TalentProfileActivity
 
 import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.fragment_account.view.*

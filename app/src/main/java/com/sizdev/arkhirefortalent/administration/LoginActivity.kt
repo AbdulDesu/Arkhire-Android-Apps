@@ -1,8 +1,8 @@
-package com.sizdev.arkhirefortalent
+package com.sizdev.arkhirefortalent.administration
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_register.*
+import com.sizdev.arkhirefortalent.R
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

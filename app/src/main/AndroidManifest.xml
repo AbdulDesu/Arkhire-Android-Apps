@@ -13,17 +13,17 @@
         android:theme="@style/Theme.ArkhireTalent">
         <activity android:name=".homepage.ResetPasswordActivity"></activity>
         <activity android:name=".homepage.item.DemoHiringProgress" />
-        <activity android:name=".homepage.NewTalentProfile" />
-        <activity android:name=".homepage.TalentProfileActivity" />
-        <activity android:name=".ForgetPassword" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".homepage.profile.NewTalentProfile" />
+        <activity android:name=".homepage.profile.TalentProfileActivity" />
+        <activity android:name=".administration.ForgetPassword" />
+        <activity android:name=".administration.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".administration.RegisterActivity" />
         <activity android:name=".homepage.HomeActivity" />
     </application>
 

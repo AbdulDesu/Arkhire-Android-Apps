@@ -1,4 +1,4 @@
-package com.sizdev.arkhirefortalent
+package com.sizdev.arkhirefortalent.administration
 
 import android.content.Context
 import android.content.Intent
@@ -8,8 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.homepage.HomeActivity
-import com.sizdev.arkhirefortalent.homepage.item.HomeFragment
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
 

@@ -1,346 +1,320 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".homepage.TalentProfileActivity">
+    tools:context=".homepage.profile.TalentProfileActivity">
 
-
-    <RelativeLayout
-        android:id="@+id/headerProfile"
-        android:layout_width="411dp"
-        android:layout_height="360dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <ImageView
-            android:id="@+id/iv_companyProfileCover"
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:background="@color/primary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/linearProfileTalentPhoto"
-            android:layout_marginTop="120dp"
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="96dp">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/talentImage"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:src="@drawable/kiryusento"
-                app:civ_border_color="#FFFFFF"
-                app:civ_border_width="2dp" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_profileTalentName"
-            android:layout_below="@id/linearProfileTalentPhoto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:fontFamily="@font/opensans"
-            android:gravity="center"
-            android:text="Kiryuu Sento"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            tools:context="Talent name" />
-
-        <TextView
-            android:id="@+id/tv_profileTalentTitle"
-            android:layout_below="@id/tv_profileTalentName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="24dp"
-            android:gravity="center"
-            android:text="Android Developer"
-            android:textSize="12sp"
-            tools:context="Talent title" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout4"
-            android:layout_below="@id/tv_profileTalentTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/headerProfile"
+            android:layout_width="411dp"
+            android:layout_height="260dp">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_location" />
+                android:id="@+id/iv_talentProfileCover"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:background="@color/primary"/>
+
+            <LinearLayout
+                android:id="@+id/linearProfileTalentPhoto"
+                android:layout_marginTop="130dp"
+                android:layout_width="wrap_content"
+                android:layout_height="96dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/talentImage"
+                    android:layout_marginStart="28dp"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:src="@drawable/kiryusento"
+                    app:civ_border_color="#FFFFFF"
+                    app:civ_border_width="2dp" />
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_profileTalentLocation"
+                android:id="@+id/tv_profileTalentName"
+                android:layout_below="@id/iv_talentProfileCover"
+                android:layout_toRightOf="@id/linearProfileTalentPhoto"
                 android:layout_width="wrap_content"
-                android:layout_height="22dp"
-                android:layout_marginStart="4dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="Bandung"
-                android:textColor="#BDBCBC"
+                android:text="Kiryuu Sento"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                tools:context="Talent name" />
+
+            <TextView
+                android:id="@+id/tv_profileTalentTitle"
+                android:layout_below="@id/tv_profileTalentName"
+                android:layout_toRightOf="@id/linearProfileTalentPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="Android Developer"
                 android:textSize="12sp"
-                tools:context="Talent location" />
+                tools:context="Talent title" />
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_below="@id/tv_profileTalentTitle"
+                android:layout_toRightOf="@id/linearProfileTalentPhoto"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_marginTop="8dp"
-            android:orientation="vertical"
-            android:layout_below="@+id/linearLayout4"
-            android:layout_marginEnd="24dp"
-            android:layout_marginStart="24dp"
-            android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/iv_talentGithub"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_github"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_companyProfileName"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/tv_companyProfileName"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_companyType" />
+
+                <ImageView
+                    android:id="@+id/iv_talentEmail"
+                    android:layout_width="24dp"
+                    android:layout_height="23.9dp"
+                    android:layout_marginStart="6dp"
+                    android:src="@drawable/ic_gmail"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_companyLinkedIn"
+                    app:layout_constraintStart_toEndOf="@+id/iv_companyLinkedIn"
+                    app:layout_constraintTop_toTopOf="@+id/iv_companyLinkedIn" />
+
+                <ImageView
+                    android:id="@+id/iv_talentPhone"
+                    android:layout_width="24dp"
+                    android:layout_height="23.9dp"
+                    android:layout_marginStart="6dp"
+                    android:src="@drawable/ic_call"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_companyInstagram"
+                    app:layout_constraintStart_toEndOf="@+id/iv_companyInstagram"
+                    app:layout_constraintTop_toTopOf="@+id/iv_companyInstagram"
+                    app:layout_constraintVertical_bias="0.0" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_below="@id/linearProfileTalentPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_location" />
+
+                <TextView
+                    android:id="@+id/tv_profileTalentLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="2dp"
+                    android:gravity="center"
+                    android:text="Bandung"
+                    android:textColor="#BDBCBC"
+                    android:textSize="12sp"
+                    tools:context="Talent location" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="24dp"
+                android:layout_below="@id/iv_talentProfileCover"
+                android:layout_toRightOf="@id/tv_profileTalentName"
+                android:layout_marginEnd="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/bt_doHire"
+                    android:background="@drawable/round_bg"
+                    android:text="Hire"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:textAlignment="center"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/bt_doHire"
-                android:background="@color/primary"
-                android:text="Hire"
-                android:textSize="14sp"
-                android:textColor="@color/white"
-                android:layout_width="120dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"/>
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintTop_toBottomOf="@+id/headerProfile">
-
             <LinearLayout
-                android:id="@+id/linearLayout8"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_titleProfileTalentDesc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Talent Description"
-                    android:textColor="@color/black"
-                    android:textSize="13sp"
-                    tools:context="Talent title" />
-
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="8dp"
-                    android:src="@drawable/ic_helptalentprofile" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/linearLayout9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_profileTalentDesc"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:justificationMode="inter_word"
-                    android:lineSpacingExtra="6dp"
-                    android:textSize="11sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayout10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_titleProfileTalentSocial"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Contact Person"
-                    android:textColor="@color/black"
-                    android:textSize="13sp"
-                    tools:context="Talent title" />
-
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="8dp"
-                    android:src="@drawable/ic_helptalentprofile" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayout11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_talentProfileEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="34dp"
-                    android:drawableStart="@drawable/ic_email"
-                    android:drawablePadding="6dp"
-                    android:gravity="center_vertical"
-                    android:text="kiryuusento@gmail.com"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/tv_talentProfileGithub"
-                    android:layout_width="match_parent"
-                    android:layout_height="34dp"
-                    android:drawableStart="@drawable/ic_github"
-                    android:drawablePadding="6dp"
-                    android:gravity="center_vertical"
-                    android:text="kiryuu_sento"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/tv_talentProfilePhoneNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="34dp"
-                    android:drawableStart="@drawable/ic_phone_number"
-                    android:drawablePadding="6dp"
-                    android:gravity="center_vertical"
-                    android:text="082121123456"
-                    android:textSize="12sp" />
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/linearLayout5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_titleProfileTalentSkill"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Talent Skill"
-                    android:textColor="@color/black"
-                    android:textSize="13sp"
-                    tools:context="Talent title" />
-
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="8dp"
-                    android:src="@drawable/ic_helptalentprofile" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayout7"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginTop="12dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="110dp"
-                    android:layout_height="30dp"
-                    android:background="@color/primary"
-                    android:text="Kotlin"
-                    android:textSize="12sp"
-                    android:textColor="@color/white" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="110dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="@color/primary"
-                    android:text="@string/html_css"
-                    android:textSize="12sp"
-                    android:textColor="@color/white" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="110dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="@color/primary"
-                    android:text="Java"
-                    android:textSize="12sp"
-                    android:textColor="@color/white" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/linearLayout3"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="110dp"
-                    android:layout_height="30dp"
-                    android:background="@color/primary"
-                    android:text="Golang"
-                    android:textSize="12sp"
-                    android:textColor="@color/white" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="110dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="@color/primary"
-                    android:text="Python"
-                    android:textSize="12sp"
-                    android:textColor="@color/white" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_marginTop="18dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
-                android:layout_width="match_parent"
-                android:layout_height="80dp">
+                app:layout_constraintTop_toBottomOf="@+id/headerProfile">
 
+                <LinearLayout
+                    android:id="@+id/linearLayout8"
+                    android:layout_marginTop="18dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_titleProfileTalentDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="About Talent"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        tools:context="Talent title" />
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:src="@drawable/ic_helptalentprofile"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_profileTalentDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:justificationMode="inter_word"
+                        android:lineSpacingExtra="6dp"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_titleProfileTalentSkill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Talent Skill"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        tools:context="Talent title" />
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:src="@drawable/ic_helptalentprofile" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout7"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="110dp"
+                        android:layout_height="30dp"
+                        android:background="@color/primary"
+                        android:text="Kotlin"
+                        android:textSize="12sp"
+                        android:textColor="@color/white" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="110dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/primary"
+                        android:text="@string/html_css"
+                        android:textSize="12sp"
+                        android:textColor="@color/white" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="110dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/primary"
+                        android:text="Java"
+                        android:textSize="12sp"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="110dp"
+                        android:layout_height="30dp"
+                        android:background="@color/primary"
+                        android:text="Golang"
+                        android:textSize="12sp"
+                        android:textColor="@color/white" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="110dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/primary"
+                        android:text="Python"
+                        android:textSize="12sp"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tab_talentProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:tabTextColor="@color/black"
+                        app:tabBackground="@color/white"
+                        app:tabIndicatorColor="@color/primary"/>
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/vp_talentProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="480dp"/>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
-    </ScrollView>
+        </ScrollView>
 
 
-</LinearLayout>
+    </LinearLayout>
+</layout>
