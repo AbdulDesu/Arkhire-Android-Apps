@@ -28,7 +28,6 @@ class IntroFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_intro, container, false)
-        val animation = AnimationUtils.loadAnimation(activity, R.anim.fade_in)
 
 
         view.tv_intro.typeWrite(this@IntroFragment, "Hi", 90L)
@@ -37,14 +36,6 @@ class IntroFragment : Fragment() {
             view.tv_intro.typeWrite(this@IntroFragment, "Let Me Show\nWhat Arkhire Do For You", 90L)
         },2000)
 
-        Handler().postDelayed({
-            view.nextArrow.startAnimation(animation)
-            view.nextArrow.setVisibility(View.VISIBLE)
-        },7000)
-
-        view.nextArrow.setOnClickListener {
-            Toast.makeText(activity, "Just Swipe From Right To The Left XD", Toast.LENGTH_SHORT).show()
-        }
         return view
     }
 

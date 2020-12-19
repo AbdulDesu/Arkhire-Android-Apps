@@ -29,13 +29,16 @@ class TalentProfileActivity : AppCompatActivity() {
         val talentSkill4 = sharedPrefProfileData.getString("talentSkill4", null)
         val talentSkill5 = sharedPrefProfileData.getString("talentSkill5", null)
 
+        val lorem: String = getString(R.string.lorem_ipsum)
+
 
         //Insert Profile Data
         tv_profileTalentName.text = savedName
-        tv_profileTalentEmail.text = talentEmail
-        tv_workTime.text = profileWorkTime
         tv_profileTalentTitle.text = profileTitle
-        tv_profileTalentLocation.text = profileLocation
+        tv_profileTalentDesc.text = lorem
+        /*tv_profileTalentEmail.text = talentEmail
+        tv_workTime.text = profileWorkTime
+
         tv_profileTalentDesc.text = profileDesc
         profile_talentGithub.text = profileGithub
         profile_talentSkill1.text = talentSkill1
@@ -48,12 +51,12 @@ class TalentProfileActivity : AppCompatActivity() {
 
         tabLayout.addTab(tabLayout.newTab().setText("Portofolio"))
         tabLayout.addTab(tabLayout.newTab().setText("Pengalaman Kerja"))
-        tabLayout.tabGravity = TabLayout.GRAVITY_FILL
+        tabLayout.tabGravity = TabLayout.GRAVITY_FILL*/
 
-        iv_editProfile.setOnClickListener {
+        /*iv_editProfile.setOnClickListener {
             val intent = Intent(this, NewTalentProfile::class.java)
             startActivity(intent)
             finish()
-        }
+        }*/
     }
 }

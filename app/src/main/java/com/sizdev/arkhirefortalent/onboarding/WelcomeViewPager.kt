@@ -35,7 +35,6 @@ class WelcomeViewPager : Fragment() {
         )
 
         view.welcomeViewPager.adapter = adapter
-        /*indicator.setViewPager(welcomeViewPager)*/
         return  view
     }
 

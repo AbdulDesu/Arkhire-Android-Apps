@@ -25,13 +25,6 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        val bundle :Bundle ?=intent.extras
-        if (bundle!=null){
-            val message = bundle.getString("fullName") // 1
-
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-
-        }
 
         //Launch Home Fragment At First
         homeNavigationBar.setItemSelected(R.id.home)

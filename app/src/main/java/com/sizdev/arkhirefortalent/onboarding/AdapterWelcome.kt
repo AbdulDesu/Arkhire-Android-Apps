@@ -16,6 +16,4 @@ class AdapterWelcome(list: ArrayList<Fragment>, fm: FragmentManager, lifecycle: 
     override fun createFragment(position: Int): Fragment {
         return fragmentList[position]
     }
-
-
 }
