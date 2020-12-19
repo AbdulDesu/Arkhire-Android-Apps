@@ -1,79 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".homepage.item.SearchFragment">
+    tools:context=".homepage.item.SearchCompanyFragment">
 
-
-    <RelativeLayout
-        android:id="@+id/talent"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_height="80dp"
-        android:visibility="invisible">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/searchTalentImage"
-            android:layout_centerVertical="true"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:src="@drawable/kiryusento"/>
 
-        <TextView
-            android:id="@+id/tv_searchTalentName"
-            android:layout_marginTop="8dp"
-            tools:context="Talent Name"
-            android:textSize="22sp"
-            android:textColor="@color/black"
-            android:layout_marginLeft="22dp"
-            android:layout_toRightOf="@id/searchTalentImage"
+        <RelativeLayout
+            android:id="@+id/talent"
+            android:layout_width="match_parent"
+            android:layout_marginTop="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_height="80dp"
+            android:visibility="invisible">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/searchTalentImage"
+                android:layout_centerVertical="true"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:src="@drawable/kiryusento"/>
+
+            <TextView
+                android:id="@+id/tv_searchTalentName"
+                android:layout_marginTop="8dp"
+                tools:context="Talent Name"
+                android:textSize="22sp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="22dp"
+                android:layout_toRightOf="@id/searchTalentImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_searchTalentTitle"
+                android:layout_below="@id/tv_searchTalentName"
+                android:layout_marginTop="4dp"
+                tools:context="Talent Title"
+                android:textSize="12sp"
+                android:layout_marginLeft="22dp"
+                android:layout_toRightOf="@id/searchTalentImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/missingContent"
+            android:visibility="visible"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="200dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_searchTalentTitle"
-            android:layout_below="@id/tv_searchTalentName"
-            android:layout_marginTop="4dp"
-            tools:context="Talent Title"
-            android:textSize="12sp"
-            android:layout_marginLeft="22dp"
-            android:layout_toRightOf="@id/searchTalentImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/missing"
+                android:src="@drawable/talentmissing"
+                android:layout_width="108dp"
+                android:layout_gravity="center"
+                android:layout_height="108dp"/>
 
-    </RelativeLayout>
+            <TextView
+                android:layout_below="@id/missing"
+                android:gravity="center"
+                android:layout_marginLeft="13dp"
+                android:textSize="14sp"
+                android:text="@string/nothing_here"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-
-    <RelativeLayout
-        android:id="@+id/missingContent"
-        android:visibility="visible"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="200dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/missing"
-            android:src="@drawable/talentmissing"
-            android:layout_width="108dp"
-            android:layout_gravity="center"
-            android:layout_height="108dp"/>
-
-        <TextView
-            android:layout_below="@id/missing"
-            android:gravity="center"
-            android:layout_marginLeft="13dp"
-            android:textSize="14sp"
-            android:text="@string/nothing_here"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    </RelativeLayout>
+        </RelativeLayout>
 
 
-</LinearLayout>
+    </LinearLayout>
+
+</layout>

@@ -3,6 +3,7 @@
     package="com.sizdev.arkhirefortalent">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -11,18 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ArkhireTalent">
-        <activity android:name=".homepage.ResetPasswordActivity"></activity>
-        <activity android:name=".homepage.item.DemoHiringProgress" />
-        <activity android:name=".homepage.profile.NewTalentProfile" />
-        <activity android:name=".homepage.profile.TalentProfileActivity" />
-        <activity android:name=".administration.ForgetPassword" />
-        <activity android:name=".administration.LoginActivity">
+        <activity android:name=".onboarding.OnBoardingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".administration.ResetPasswordActivity" />
+        <activity android:name=".homepage.item.DemoHiringProgress" />
+        <activity android:name=".homepage.profile.NewTalentProfile" />
+        <activity android:name=".homepage.profile.TalentProfileActivity" />
+        <activity android:name=".administration.ForgetPasswordActivity" />
+        <activity android:name=".administration.LoginActivity"/>
         <activity android:name=".administration.RegisterActivity" />
         <activity android:name=".homepage.HomeActivity" />
     </application>

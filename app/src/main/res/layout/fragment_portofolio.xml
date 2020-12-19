@@ -1,56 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".homepage.profile.PortofolioFragment">
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/iv_portofolio1"
-                android:src="@drawable/portofolio1"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="270dp"/>
+                android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/iv_portofolio2"
-                android:src="@drawable/portofolio2"
-                android:layout_marginTop="30dp"
-                android:layout_width="match_parent"
-                android:layout_height="270dp"/>
+                <ImageView
+                    android:id="@+id/iv_portofolio1"
+                    android:src="@drawable/portofolio1"
+                    android:layout_width="match_parent"
+                    android:layout_height="270dp"/>
 
-            <ImageView
-                android:id="@+id/iv_portofolio3"
-                android:src="@drawable/portofolio3"
-                android:layout_marginTop="30dp"
-                android:layout_width="match_parent"
-                android:layout_height="270dp"/>
+                <ImageView
+                    android:id="@+id/iv_portofolio2"
+                    android:src="@drawable/portofolio2"
+                    android:layout_marginTop="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="270dp"/>
 
-            <ImageView
-                android:id="@+id/iv_portofolio4"
-                android:src="@drawable/portofolio4"
-                android:layout_marginTop="30dp"
-                android:layout_width="match_parent"
-                android:layout_height="270dp"/>
+                <ImageView
+                    android:id="@+id/iv_portofolio3"
+                    android:src="@drawable/portofolio3"
+                    android:layout_marginTop="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="270dp"/>
 
-            <ImageView
-                android:id="@+id/iv_portofolio5"
-                android:src="@drawable/portofolio5"
-                android:layout_marginTop="30dp"
-                android:layout_width="match_parent"
-                android:layout_height="270dp"/>
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/iv_portofolio4"
+                    android:src="@drawable/portofolio4"
+                    android:layout_marginTop="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="270dp"/>
 
-    </androidx.core.widget.NestedScrollView>
+                <ImageView
+                    android:id="@+id/iv_portofolio5"
+                    android:src="@drawable/portofolio5"
+                    android:layout_marginTop="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="270dp"/>
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
 
-</LinearLayout>
+    </LinearLayout>
+
+</layout>

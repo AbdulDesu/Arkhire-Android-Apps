@@ -1,11 +1,11 @@
-package com.sizdev.arkhirefortalent.onboarding
+package com.sizdev.arkhirefortalent.onboarding.item
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class AdapterWelcome(list: ArrayList<Fragment>, fm: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fm, lifecycle) {
+class WelcomeAdapter(list: ArrayList<Fragment>, fm: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fm, lifecycle) {
 
     private val fragmentList = list
 

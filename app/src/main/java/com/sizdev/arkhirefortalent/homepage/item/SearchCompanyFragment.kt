@@ -7,19 +7,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
+import com.sizdev.arkhirefortalent.databinding.FragmentSearchCompanyBinding
 import kotlinx.android.synthetic.main.fragment_search_company.*
 import kotlinx.android.synthetic.main.fragment_search_company.view.*
 import kotlinx.android.synthetic.main.hiring_confirmation.view.*
 
-class SearchFragment : Fragment() {
+class SearchCompanyFragment : Fragment() {
+
+    private lateinit var binding: FragmentSearchCompanyBinding
     
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-       val view = inflater.inflate(R.layout.fragment_search_company, container, false)
+       binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_company, container, false)
 
         val sharedPrefData = requireActivity().getSharedPreferences(
             "fullData",
@@ -33,23 +37,22 @@ class SearchFragment : Fragment() {
         val savedName = sharedPrefData.getString("fullName", null)
         val talentTitle = sharedPrefProfileData.getString("talentTitle", null)
 
-        view.tv_searchTalentName.text = savedName
-        view.tv_searchTalentTitle.text =talentTitle
+        binding.tvSearchTalentName.text = savedName
+        binding.tvSearchTalentTitle.text = talentTitle
 
         if(savedName != null && talentTitle != null){
-            view.talent.setVisibility(View.VISIBLE)
-            view.missingContent.setVisibility(View.INVISIBLE)
+            binding.talent.setVisibility(View.VISIBLE)
+            binding.missingContent.setVisibility(View.INVISIBLE)
         }
         else {
-            view.talent.setVisibility(View.INVISIBLE)
+            binding.talent.setVisibility(View.INVISIBLE)
         }
 
-        view.talent.setOnClickListener {
+        binding.talent.setOnClickListener {
             val intent = Intent(activity, DemoHiringProgress::class.java)
             startActivity(intent)
-
         }
-        return view
+        return binding.root
     }
 
 }

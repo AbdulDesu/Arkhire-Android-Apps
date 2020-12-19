@@ -5,21 +5,26 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
+import com.sizdev.arkhirefortalent.databinding.ActivityRegisterBinding
 import com.sizdev.arkhirefortalent.homepage.HomeActivity
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityRegisterBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_register)
 
-        bt_register.setOnClickListener {
-            val registerPassword = et_registPassword.text.toString()
-            val confirmRegisterPassword = et_confirmRegistPassword.text.toString()
-            val fullName = et_fullName.text.toString()
-            val registerEmail = et_registEmail.text.toString()
-            val registerPhoneNumber = et_registPhone.text.toString()
+        binding.btRegister.setOnClickListener {
+            val registerPassword = binding.etRegistPassword.text.toString()
+            val confirmRegisterPassword = binding.etConfirmRegistPassword.text.toString()
+            val fullName = binding.etFullName.text.toString()
+            val registerEmail = binding.etRegistEmail.text.toString()
+            val registerPhoneNumber = binding.etRegistPhone.text.toString()
 
             if (registerPassword != confirmRegisterPassword){
                 Toast.makeText(this, "Password not match", Toast.LENGTH_LONG).show()
@@ -41,7 +46,7 @@ class RegisterActivity : AppCompatActivity() {
 
         }
 
-        tv_backLogin.setOnClickListener {
+        binding.tvBackLogin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
@@ -49,15 +54,17 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun saveData() {
-        val fullName = et_fullName.text.toString()
-        val registerEmail = et_registEmail.text.toString()
-        val registerPassword = et_registPassword.text.toString()
+        val fullName = binding.etFullName.text.toString()
+        val registerEmail = binding.etRegistEmail.text.toString().toLowerCase()
+        val registerPassword = binding.etRegistPassword.text.toString()
+        val talentPhone = binding.etRegistPhone.text.toString()
         val sharedPrefData = getSharedPreferences("fullData", Context.MODE_PRIVATE)
         val editor = sharedPrefData.edit()
         editor.apply {
             putString("fullName", fullName)
             putString("talentEmail", registerEmail)
             putString("talentPassword", registerPassword)
+            putString("talentPhone", talentPhone)
         }.apply()
     }
 

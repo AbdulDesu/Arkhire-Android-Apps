@@ -12,8 +12,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.sizdev.arkhirefortalent.administration.LoginActivity
 import com.sizdev.arkhirefortalent.R
-import com.sizdev.arkhirefortalent.homepage.profile.NewTalentProfile
-import com.sizdev.arkhirefortalent.homepage.ResetPasswordActivity
+import com.sizdev.arkhirefortalent.administration.ResetPasswordActivity
 import com.sizdev.arkhirefortalent.homepage.profile.TalentProfileActivity
 
 import kotlinx.android.synthetic.main.fragment_account.*
@@ -58,14 +57,9 @@ class AccountFragment : Fragment() {
 
         view.tv_myProfile.setOnClickListener {
 
-            if (profileUpdated()){
-                val intent = Intent(activity, TalentProfileActivity::class.java)
-                startActivity(intent)
-            }
-            else {
-                val intent = Intent(activity, NewTalentProfile::class.java)
-                startActivity(intent)
-            }
+            val intent = Intent(activity, TalentProfileActivity::class.java)
+            startActivity(intent)
+
         }
 
         view.profile_image.setOnClickListener {
