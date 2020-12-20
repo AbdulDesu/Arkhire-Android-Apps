@@ -61,23 +61,11 @@ class TalentProfileActivity : AppCompatActivity() {
         binding.tvTitleProfileTalentSkill5.text = talentSkill5
 
         binding.ivTalentPhone.setOnClickListener{
-            val call = Intent(ACTION_CALL, Uri.fromParts("tel", talentPhone, null))
-            startActivity(call)
+            Toast.makeText(this, "Your Phone Number is: $talentPhone", Toast.LENGTH_SHORT).show()
         }
 
         binding.ivTalentEmail.setOnClickListener {
-            val sendEmail = Intent(ACTION_SENDTO)
-            sendEmail.putExtra(EXTRA_EMAIL, talentEmail)
-            sendEmail.putExtra(EXTRA_SUBJECT, "Arkhire Email")
-            sendEmail.data = Uri.parse("mailto: $talentEmail")
-            intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
-            intent.addFlags(FLAG_FROM_BACKGROUND)
-            try {
-                startActivity(sendEmail)
-            } catch (e: ActivityNotFoundException) {
-                e.printStackTrace()
-                Log.d("Email error:", e.toString())
-            }
+            Toast.makeText(this, "Your Email is: $talentEmail", Toast.LENGTH_SHORT).show()
         }
 
         binding.ivTalentGithub.setOnClickListener {
