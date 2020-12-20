@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.FragmentThirdScreenBinding
-import kotlinx.android.synthetic.main.fragment_third_screen.view.*
 
 class ThirdScreen : Fragment() {
 

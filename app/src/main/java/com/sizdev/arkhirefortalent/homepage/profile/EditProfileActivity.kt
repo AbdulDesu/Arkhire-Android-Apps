@@ -8,24 +8,28 @@ import android.os.Bundle
 import android.view.Menu
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
-import kotlinx.android.synthetic.main.activity_new_talent_profile.*
+import com.sizdev.arkhirefortalent.databinding.ActivityProfileEditBinding
 
-class NewTalentProfile : AppCompatActivity() {
+class EditProfileActivity : AppCompatActivity() {
+
+    lateinit var binding: ActivityProfileEditBinding
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_new_talent_profile)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_profile_edit)
 
         //Ge User Input
-        val talentTitle = et_newProfileJobTitle.text.toString()
-        val talentLocation = et_newProfileLocation.text.toString()
-        val talentWorkTime = et_newProfileWorkTime.text.toString()
-        val talentDescription = et_newProfileDesc.text.toString()
-        val talentGithub = et_newProfileGithub.text.toString()
+        val talentTitle = binding.etNewProfileJobTitle.text.toString()
+        val talentLocation = binding.etNewProfileLocation.text.toString()
+        val talentWorkTime = binding.etNewProfileWorkTime.text.toString()
+        val talentDescription = binding.etNewProfileDesc.text.toString()
+        val talentGithub = binding.etNewProfileGithub.text.toString()
 
         //Job Tittle Pop Up Menu
-        val jobTitle = PopupMenu(this, et_newProfileJobTitle)
+        val jobTitle = PopupMenu(this, binding.etNewProfileJobTitle)
 
         jobTitle.menu.add(Menu.NONE, 0 ,0, "Android Developer")
         jobTitle.menu.add(Menu.NONE, 1 ,1, "Fullstack Mobile")
@@ -33,7 +37,7 @@ class NewTalentProfile : AppCompatActivity() {
         jobTitle.menu.add(Menu.NONE, 3 ,3, "DevOps Engineer")
 
         //Talent City Pop Up Menu
-        val city = PopupMenu(this, et_newProfileLocation)
+        val city = PopupMenu(this, binding.etNewProfileLocation)
 
         city.menu.add(Menu.NONE, 0 ,0, "Jakarta")
         city.menu.add(Menu.NONE, 1 ,1, "Bandung")
@@ -45,13 +49,13 @@ class NewTalentProfile : AppCompatActivity() {
         city.menu.add(Menu.NONE, 7 ,7, "Cicalengka")
 
         //Work Time Pop Up Menu
-        val workTime = PopupMenu(this, et_newProfileWorkTime)
+        val workTime = PopupMenu(this, binding.etNewProfileWorkTime)
 
         workTime.menu.add(Menu.NONE, 0 ,0, "Full Time")
         workTime.menu.add(Menu.NONE, 1 ,1, "Freelancer")
 
         //Skill Choose Pop Up Menu
-        val talentSKill1 = PopupMenu(this, et_newProfileSkill1)
+        val talentSKill1 = PopupMenu(this, binding.etNewProfileSkill1)
 
         talentSKill1.menu.add(Menu.NONE, 0 ,0, "JavaScript")
         talentSKill1.menu.add(Menu.NONE, 1 ,1, "HTML & CSS")
@@ -61,7 +65,7 @@ class NewTalentProfile : AppCompatActivity() {
         talentSKill1.menu.add(Menu.NONE, 5 ,5, "Python")
         talentSKill1.menu.add(Menu.NONE, 6 ,6, "Golang")
 
-        val talentSKill2 = PopupMenu(this, et_newProfileSkill2)
+        val talentSKill2 = PopupMenu(this, binding.etNewProfileSkill2)
 
         talentSKill2.menu.add(Menu.NONE, 0 ,0, "JavaScript")
         talentSKill2.menu.add(Menu.NONE, 1 ,1, "HTML & CSS")
@@ -71,7 +75,7 @@ class NewTalentProfile : AppCompatActivity() {
         talentSKill2.menu.add(Menu.NONE, 5 ,5, "Python")
         talentSKill2.menu.add(Menu.NONE, 6 ,6, "Golang")
 
-        val talentSKill3 = PopupMenu(this, et_newProfileSkill3)
+        val talentSKill3 = PopupMenu(this, binding.etNewProfileSkill3)
 
         talentSKill3.menu.add(Menu.NONE, 0 ,0, "JavaScript")
         talentSKill3.menu.add(Menu.NONE, 1 ,1, "HTML & CSS")
@@ -81,7 +85,7 @@ class NewTalentProfile : AppCompatActivity() {
         talentSKill3.menu.add(Menu.NONE, 5 ,5, "Python")
         talentSKill3.menu.add(Menu.NONE, 6 ,6, "Golang")
 
-        val talentSKill4 = PopupMenu(this, et_newProfileSkill4)
+        val talentSKill4 = PopupMenu(this, binding.etNewProfileSkill4)
 
         talentSKill4.menu.add(Menu.NONE, 0 ,0, "JavaScript")
         talentSKill4.menu.add(Menu.NONE, 1 ,1, "HTML & CSS")
@@ -91,7 +95,7 @@ class NewTalentProfile : AppCompatActivity() {
         talentSKill4.menu.add(Menu.NONE, 5 ,5, "Python")
         talentSKill4.menu.add(Menu.NONE, 6 ,6, "Golang")
 
-        val talentSKill5 = PopupMenu(this, et_newProfileSkill5)
+        val talentSKill5 = PopupMenu(this, binding.etNewProfileSkill5)
 
         talentSKill5.menu.add(Menu.NONE, 0 ,0, "JavaScript")
         talentSKill5.menu.add(Menu.NONE, 1 ,1, "HTML & CSS")
@@ -106,10 +110,10 @@ class NewTalentProfile : AppCompatActivity() {
             val id = menuItem.itemId
 
             when (id) {
-                0 -> {et_newProfileJobTitle.text = "Android Developer"}
-                1 -> {et_newProfileJobTitle.text = "Fullstack Mobile"}
-                2 -> {et_newProfileJobTitle.text = "Fullstack Web"}
-                3 -> {et_newProfileJobTitle.text = "DevOps Engineer"}
+                0 -> {binding.etNewProfileJobTitle.text = "Android Developer"}
+                1 -> {binding.etNewProfileJobTitle.text = "Fullstack Mobile"}
+                2 -> {binding.etNewProfileJobTitle.text = "Fullstack Web"}
+                3 -> {binding.etNewProfileJobTitle.text = "DevOps Engineer"}
             }
 
             false
@@ -120,14 +124,14 @@ class NewTalentProfile : AppCompatActivity() {
             val id = menuItem.itemId
 
             when (id) {
-                0 -> {et_newProfileLocation.text = "Jakarta"}
-                1 -> {et_newProfileLocation.text = "Bandung"}
-                2 -> {et_newProfileLocation.text = "Lampung"}
-                3 -> {et_newProfileLocation.text = "Bali"}
-                4 -> {et_newProfileLocation.text = "Aceh"}
-                5 -> {et_newProfileLocation.text = "Cimahi"}
-                6 -> {et_newProfileLocation.text = "Nagreg"}
-                7 -> {et_newProfileLocation.text = "Cicalengka"}
+                0 -> {binding.etNewProfileLocation.text = "Jakarta"}
+                1 -> {binding.etNewProfileLocation.text = "Bandung"}
+                2 -> {binding.etNewProfileLocation.text = "Lampung"}
+                3 -> {binding.etNewProfileLocation.text = "Bali"}
+                4 -> {binding.etNewProfileLocation.text = "Aceh"}
+                5 -> {binding.etNewProfileLocation.text = "Cimahi"}
+                6 -> {binding.etNewProfileLocation.text = "Nagreg"}
+                7 -> {binding.etNewProfileLocation.text = "Cicalengka"}
             }
 
             false
@@ -138,8 +142,8 @@ class NewTalentProfile : AppCompatActivity() {
             val id = menuItem.itemId
 
             when (id) {
-                0 -> {et_newProfileWorkTime.text = "Full Time"}
-                1 -> {et_newProfileWorkTime.text = "Freelancer"}
+                0 -> {binding.etNewProfileWorkTime.text = "Full Time"}
+                1 -> {binding.etNewProfileWorkTime.text = "Freelancer"}
 
             }
 
@@ -151,13 +155,13 @@ class NewTalentProfile : AppCompatActivity() {
             val id = menuItem.itemId
 
             when (id) {
-                0 -> {et_newProfileSkill1.text = "JavaScript"}
-                1 -> {et_newProfileSkill1.text = "HTML & CSS"}
-                2 -> {et_newProfileSkill1.text = "Java"}
-                3 -> {et_newProfileSkill1.text = "Kotlin"}
-                4 -> {et_newProfileSkill1.text = "React Native"}
-                5 -> {et_newProfileSkill1.text = "Python"}
-                6 -> {et_newProfileSkill1.text = "Golang"}
+                0 -> {binding.etNewProfileSkill1.text = "JavaScript"}
+                1 -> {binding.etNewProfileSkill1.text = "HTML & CSS"}
+                2 -> {binding.etNewProfileSkill1.text = "Java"}
+                3 -> {binding.etNewProfileSkill1.text = "Kotlin"}
+                4 -> {binding.etNewProfileSkill1.text = "React Native"}
+                5 -> {binding.etNewProfileSkill1.text = "Python"}
+                6 -> {binding.etNewProfileSkill1.text = "Golang"}
             }
 
             false
@@ -168,13 +172,13 @@ class NewTalentProfile : AppCompatActivity() {
             val id = menuItem.itemId
 
             when (id) {
-                0 -> {et_newProfileSkill2.text = "JavaScript"}
-                1 -> {et_newProfileSkill2.text = "HTML & CSS"}
-                2 -> {et_newProfileSkill2.text = "Java"}
-                3 -> {et_newProfileSkill2.text = "Kotlin"}
-                4 -> {et_newProfileSkill2.text = "React Native"}
-                5 -> {et_newProfileSkill2.text = "Python"}
-                6 -> {et_newProfileSkill2.text = "Golang"}
+                0 -> {binding.etNewProfileSkill2.text = "JavaScript"}
+                1 -> {binding.etNewProfileSkill2.text = "HTML & CSS"}
+                2 -> {binding.etNewProfileSkill2.text = "Java"}
+                3 -> {binding.etNewProfileSkill2.text = "Kotlin"}
+                4 -> {binding.etNewProfileSkill2.text = "React Native"}
+                5 -> {binding.etNewProfileSkill2.text = "Python"}
+                6 -> {binding.etNewProfileSkill2.text = "Golang"}
             }
 
             false
@@ -185,13 +189,13 @@ class NewTalentProfile : AppCompatActivity() {
             val id = menuItem.itemId
 
             when (id) {
-                0 -> {et_newProfileSkill3.text = "JavaScript"}
-                1 -> {et_newProfileSkill3.text = "HTML & CSS"}
-                2 -> {et_newProfileSkill3.text = "Java"}
-                3 -> {et_newProfileSkill3.text = "Kotlin"}
-                4 -> {et_newProfileSkill3.text = "React Native"}
-                5 -> {et_newProfileSkill3.text = "Python"}
-                6 -> {et_newProfileSkill3.text = "Golang"}
+                0 -> {binding.etNewProfileSkill3.text = "JavaScript"}
+                1 -> {binding.etNewProfileSkill3.text = "HTML & CSS"}
+                2 -> {binding.etNewProfileSkill3.text = "Java"}
+                3 -> {binding.etNewProfileSkill3.text = "Kotlin"}
+                4 -> {binding.etNewProfileSkill3.text = "React Native"}
+                5 -> {binding.etNewProfileSkill3.text = "Python"}
+                6 -> {binding.etNewProfileSkill3.text = "Golang"}
             }
 
             false
@@ -202,13 +206,13 @@ class NewTalentProfile : AppCompatActivity() {
             val id = menuItem.itemId
 
             when (id) {
-                0 -> {et_newProfileSkill4.text = "JavaScript"}
-                1 -> {et_newProfileSkill4.text = "HTML & CSS"}
-                2 -> {et_newProfileSkill4.text = "Java"}
-                3 -> {et_newProfileSkill4.text = "Kotlin"}
-                4 -> {et_newProfileSkill4.text = "React Native"}
-                5 -> {et_newProfileSkill4.text = "Python"}
-                6 -> {et_newProfileSkill4.text = "Golang"}
+                0 -> {binding.etNewProfileSkill4.text = "JavaScript"}
+                1 -> {binding.etNewProfileSkill4.text = "HTML & CSS"}
+                2 -> {binding.etNewProfileSkill4.text = "Java"}
+                3 -> {binding.etNewProfileSkill4.text = "Kotlin"}
+                4 -> {binding.etNewProfileSkill4.text = "React Native"}
+                5 -> {binding.etNewProfileSkill4.text = "Python"}
+                6 -> {binding.etNewProfileSkill4.text = "Golang"}
             }
 
             false
@@ -219,52 +223,52 @@ class NewTalentProfile : AppCompatActivity() {
             val id = menuItem.itemId
 
             when (id) {
-                0 -> {et_newProfileSkill5.text = "JavaScript"}
-                1 -> {et_newProfileSkill5.text = "HTML & CSS"}
-                2 -> {et_newProfileSkill5.text = "Java"}
-                3 -> {et_newProfileSkill5.text = "Kotlin"}
-                4 -> {et_newProfileSkill5.text = "React Native"}
-                5 -> {et_newProfileSkill5.text = "Python"}
-                6 -> {et_newProfileSkill5.text = "Golang"}
+                0 -> {binding.etNewProfileSkill5.text = "JavaScript"}
+                1 -> {binding.etNewProfileSkill5.text = "HTML & CSS"}
+                2 -> {binding.etNewProfileSkill5.text = "Java"}
+                3 -> {binding.etNewProfileSkill5.text = "Kotlin"}
+                4 -> {binding.etNewProfileSkill5.text = "React Native"}
+                5 -> {binding.etNewProfileSkill5.text = "Python"}
+                6 -> {binding.etNewProfileSkill5.text = "Golang"}
             }
 
             false
         }
 
         //Show Pop Up when clicked
-        et_newProfileJobTitle.setOnClickListener {
+        binding.etNewProfileJobTitle.setOnClickListener {
             jobTitle.show()
         }
 
-        et_newProfileLocation.setOnClickListener {
+        binding.etNewProfileLocation.setOnClickListener {
             city.show()
         }
 
-        et_newProfileWorkTime.setOnClickListener {
+        binding.etNewProfileWorkTime.setOnClickListener {
            workTime.show()
         }
 
-        et_newProfileSkill1.setOnClickListener {
+        binding.etNewProfileSkill1.setOnClickListener {
             talentSKill1.show()
         }
 
-        et_newProfileSkill2.setOnClickListener {
+        binding.etNewProfileSkill2.setOnClickListener {
             talentSKill2.show()
         }
 
-        et_newProfileSkill3.setOnClickListener {
+        binding.etNewProfileSkill3.setOnClickListener {
             talentSKill3.show()
         }
 
-        et_newProfileSkill4.setOnClickListener {
+        binding.etNewProfileSkill4.setOnClickListener {
             talentSKill4.show()
         }
 
-        et_newProfileSkill5.setOnClickListener {
+        binding.etNewProfileSkill5.setOnClickListener {
             talentSKill5.show()
         }
 
-        bt_newProfileDone.setOnClickListener {
+        binding.btNewProfileDone.setOnClickListener {
                 val intent = Intent(this, TalentProfileActivity::class.java)
                 saveProfile()
                 newTalentStatus()
@@ -276,17 +280,22 @@ class NewTalentProfile : AppCompatActivity() {
 
     }
 
+    @SuppressLint("WrongConstant")
     private fun saveProfile() {
-        val talentTitle = et_newProfileJobTitle.text.toString()
-        val talentLocation = et_newProfileLocation.text.toString()
-        val talentWorkTime = et_newProfileWorkTime.text.toString()
-        val talentDescription = et_newProfileDesc.text.toString()
-        val talentSkill1 = et_newProfileSkill1.text.toString()
-        val talentSkill2 = et_newProfileSkill2.text.toString()
-        val talentSkill3 = et_newProfileSkill3.text.toString()
-        val talentSkill4 = et_newProfileSkill4.text.toString()
-        val talentSkill5 = et_newProfileSkill5.text.toString()
-        val talentGithub = et_newProfileGithub.text.toString()
+        val talentTitle = binding.etNewProfileJobTitle.text.toString()
+        val talentLocation = binding.etNewProfileLocation.text.toString()
+        val talentWorkTime = binding.etNewProfileWorkTime.text.toString()
+        val talentDescription = binding.etNewProfileDesc.text.toString()
+        val talentSkill1 = binding.etNewProfileSkill1.text.toString()
+        val talentSkill2 = binding.etNewProfileSkill2.text.toString()
+        val talentSkill3 = binding.etNewProfileSkill3.text.toString()
+        val talentSkill4 = binding.etNewProfileSkill4.text.toString()
+        val talentSkill5 = binding.etNewProfileSkill5.text.toString()
+        val talentGithub = binding.etNewProfileGithub.text.toString()
+        val context = createPackageContext(
+            "com.sizdev.arkhire",
+            Context.MODE_PRIVATE)
+
         val sharedPrefData = getSharedPreferences("profileData", Context.MODE_PRIVATE)
         val editor = sharedPrefData.edit()
         editor.apply {

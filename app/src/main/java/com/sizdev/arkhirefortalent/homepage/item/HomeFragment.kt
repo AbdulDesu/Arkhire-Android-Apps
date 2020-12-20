@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.FragmentHomeBinding
 import com.sizdev.arkhirefortalent.homepage.HighLightProjectAdapter
-import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
-import kotlinx.android.synthetic.main.fragment_home.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 

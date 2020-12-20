@@ -9,18 +9,17 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.sizdev.arkhirefortalent.administration.LoginActivity
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.administration.ResetPasswordActivity
+import com.sizdev.arkhirefortalent.databinding.FragmentAccountBinding
 import com.sizdev.arkhirefortalent.homepage.profile.TalentProfileActivity
 
-import kotlinx.android.synthetic.main.fragment_account.*
-import kotlinx.android.synthetic.main.fragment_account.view.*
-
-
-
 class AccountFragment : Fragment() {
+
+    private lateinit var binding: FragmentAccountBinding
 
     companion object {
         private  val REQUEST_CODE = 0
@@ -31,7 +30,7 @@ class AccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_account, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_account, container, false)
 
         // Get Saved Name
         val sharedPrefData = requireActivity().getSharedPreferences(
@@ -45,33 +44,32 @@ class AccountFragment : Fragment() {
         val savedName = sharedPrefData.getString("fullName", null)
         val talentTitle = sharedPrefProfileData.getString("talentTitle", null)
 
-        view.tv_fullNameAccount.text = savedName
-        view.tv_titleAccount.text = talentTitle
+        binding.tvFullNameAccount.text = savedName
+        binding.tvTitleAccount.text = talentTitle
 
-        view.tv_logout.setOnClickListener {
+        binding.tvLogout.setOnClickListener {
             val intent = Intent(activity, LoginActivity::class.java)
             startActivity(intent)
             logedOutSuccesfully()
             activity?.finish()
         }
 
-        view.tv_myProfile.setOnClickListener {
-
+        binding.tvMyProfile.setOnClickListener {
             val intent = Intent(activity, TalentProfileActivity::class.java)
             startActivity(intent)
 
         }
 
-        view.profile_image.setOnClickListener {
+        binding.profileImage.setOnClickListener {
             pickImageFromGallery()
         }
 
-        view.tv_myPassword.setOnClickListener {
+        binding.tvLogout.setOnClickListener {
             val intent = Intent(activity, ResetPasswordActivity::class.java)
             startActivity(intent)
         }
 
-        return  view
+        return  binding.root
     }
 
     private fun logedOutSuccesfully(){
@@ -103,9 +101,9 @@ class AccountFragment : Fragment() {
 
             val bitmap = MediaStore.Images.Media.getBitmap(resolver, selectedPhotoUri)
 
-            profile_image.setImageBitmap(bitmap)
+            binding.profileImage.setImageBitmap(bitmap)
 
-            profile_image.alpha = 0f
+            binding.profileImage.alpha = 0f
         }
     }
 }

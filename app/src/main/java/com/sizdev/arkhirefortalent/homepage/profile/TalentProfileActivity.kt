@@ -26,29 +26,18 @@ class TalentProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_talent_profile)
-        pagerAdapter = TalentProfileTabAdapter(supportFragmentManager)
-        binding.vpTalentProfile.adapter = pagerAdapter
-        binding.tabTalentProfile.setupWithViewPager(binding.vpTalentProfile)
-
 
         //Get Saved Profile
         val sharedPrefData = this.getSharedPreferences("fullData", Context.MODE_PRIVATE)
-        val sharedPrefProfileData = this.getSharedPreferences("profileData", Context.MODE_PRIVATE)
         val savedName = sharedPrefData.getString("fullName", null)
         val talentEmail = sharedPrefData.getString("talentEmail", null)
         val talentPhone = sharedPrefData.getString("talentPhone", null)
-        val profileTitle = sharedPrefProfileData.getString("talentTitle", null)
-        val profileLocation = sharedPrefProfileData.getString("talentLocation", null)
-        val profileWorkTime = sharedPrefProfileData.getString("talentWorkTime", null)
-        val profileDesc = sharedPrefProfileData.getString("talentDescription", null)
-        val profileGithub = sharedPrefProfileData.getString("talentGithub", null)
-        val talentSkill1 = sharedPrefProfileData.getString("talentSkill1", null)
-        val talentSkill2 = sharedPrefProfileData.getString("talentSkill2", null)
-        val talentSkill3 = sharedPrefProfileData.getString("talentSkill3", null)
-        val talentSkill4 = sharedPrefProfileData.getString("talentSkill4", null)
-        val talentSkill5 = sharedPrefProfileData.getString("talentSkill5", null)
 
         val lorem: String = getString(R.string.lorem_ipsum)
+
+        pagerAdapter = TalentProfileTabAdapter(supportFragmentManager)
+        binding.vpTalentProfile.adapter = pagerAdapter
+        binding.tabTalentProfile.setupWithViewPager(binding.vpTalentProfile)
 
 
         //Insert Profile Data

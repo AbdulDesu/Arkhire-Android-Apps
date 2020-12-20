@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.FragmentSecondScreenBinding
-import kotlinx.android.synthetic.main.fragment_welcome_view_pager.*
 
 class SecondScreen : Fragment() {
 

@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.ActivityRegisterBinding
 import com.sizdev.arkhirefortalent.homepage.HomeActivity
-import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
 

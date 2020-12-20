@@ -10,9 +10,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.FragmentSearchCompanyBinding
-import kotlinx.android.synthetic.main.fragment_search_company.*
-import kotlinx.android.synthetic.main.fragment_search_company.view.*
-import kotlinx.android.synthetic.main.hiring_confirmation.view.*
 
 class SearchCompanyFragment : Fragment() {
 
@@ -48,10 +45,6 @@ class SearchCompanyFragment : Fragment() {
             binding.talent.setVisibility(View.INVISIBLE)
         }
 
-        binding.talent.setOnClickListener {
-            val intent = Intent(activity, DemoHiringProgress::class.java)
-            startActivity(intent)
-        }
         return binding.root
     }
 
