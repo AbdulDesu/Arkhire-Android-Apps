@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.ActivityTalentProfileBinding
+import com.sizdev.arkhirefortalent.homepage.webviewer.ArkhireWebViewerActivity
 
 class TalentProfileActivity : AppCompatActivity() {
 
@@ -74,16 +75,21 @@ class TalentProfileActivity : AppCompatActivity() {
             }
         }
 
+        binding.ivTalentGithub.setOnClickListener {
+            val intent = Intent(this, ArkhireWebViewerActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onBackPressed() {
+
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed()
             return
         }
 
         this.doubleBackToExitPressedOnce = true
-        Toast.makeText(this, "Please tap back again to exit", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Tap back again to exit", Toast.LENGTH_SHORT).show()
 
         Handler().postDelayed(Runnable {
             doubleBackToExitPressedOnce = false
