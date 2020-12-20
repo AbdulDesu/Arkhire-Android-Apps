@@ -34,6 +34,7 @@ class TalentProfileActivity : AppCompatActivity() {
         val talentEmail = sharedPrefData.getString("talentEmail", null)
         val talentPhone = sharedPrefData.getString("talentPhone", null)
         val talentTitle = sharedPrefData2.getString("talentTitle", null)
+        val talentGithub = sharedPrefData2.getString("talentGithub", null)
         val talentLocation = sharedPrefData2.getString("talentLocation", null)
         val talentSkill1 = sharedPrefData2.getString("talentSkill1", null)
         val talentSkill2 = sharedPrefData2.getString("talentSkill2", null)
@@ -69,8 +70,7 @@ class TalentProfileActivity : AppCompatActivity() {
         }
 
         binding.ivTalentGithub.setOnClickListener {
-            val intent = Intent(this, ArkhireWebViewerActivity::class.java)
-            startActivity(intent)
+            Toast.makeText(this, "Your Github is: https://github.com/$talentGithub", Toast.LENGTH_SHORT).show()
         }
 
         binding.btEditProfile.setOnClickListener {
