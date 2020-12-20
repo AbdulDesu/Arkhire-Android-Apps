@@ -276,11 +276,8 @@ class EditProfileActivity : AppCompatActivity() {
                 Toast.makeText(this, "Profile Updated", Toast.LENGTH_LONG).show()
                 finish()
         }
-
-
     }
 
-    @SuppressLint("WrongConstant")
     private fun saveProfile() {
         val talentTitle = binding.etNewProfileJobTitle.text.toString()
         val talentLocation = binding.etNewProfileLocation.text.toString()
@@ -292,9 +289,6 @@ class EditProfileActivity : AppCompatActivity() {
         val talentSkill4 = binding.etNewProfileSkill4.text.toString()
         val talentSkill5 = binding.etNewProfileSkill5.text.toString()
         val talentGithub = binding.etNewProfileGithub.text.toString()
-        val context = createPackageContext(
-            "com.sizdev.arkhire",
-            Context.MODE_PRIVATE)
 
         val sharedPrefData = getSharedPreferences("profileData", Context.MODE_PRIVATE)
         val editor = sharedPrefData.edit()

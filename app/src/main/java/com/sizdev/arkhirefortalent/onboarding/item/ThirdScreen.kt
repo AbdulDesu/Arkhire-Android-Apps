@@ -22,7 +22,7 @@ class ThirdScreen : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_third_screen, container, false)
         binding.tvStart.setOnClickListener {
-            findNavController().navigate(R.id.action_splashScreenFragment2_to_loginActivity)
+            findNavController().navigate(R.id.action_welcomeViewPager2_to_loginActivity)
             onBoardingFinish()
         }
         return binding.root

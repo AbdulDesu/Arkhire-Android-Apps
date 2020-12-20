@@ -1,6 +1,7 @@
 package com.sizdev.arkhirefortalent.homepage.webviewer
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,6 +25,9 @@ class ArkhireWebViewerActivity : AppCompatActivity(), WebListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_arkhire_web_viewer)
+
+        val sharedPrefData2 = this.getSharedPreferences("profileData", Context.MODE_PRIVATE)
+        val talentGithub = sharedPrefData2.getString("talentGithub", null)
 
 
         binding.wvArkhireWebViewer.loadUrl("https://github.com/")

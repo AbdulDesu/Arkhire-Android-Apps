@@ -29,9 +29,18 @@ class TalentProfileActivity : AppCompatActivity() {
 
         //Get Saved Profile
         val sharedPrefData = this.getSharedPreferences("fullData", Context.MODE_PRIVATE)
+        val sharedPrefData2 = this.getSharedPreferences("profileData", Context.MODE_PRIVATE)
         val savedName = sharedPrefData.getString("fullName", null)
         val talentEmail = sharedPrefData.getString("talentEmail", null)
         val talentPhone = sharedPrefData.getString("talentPhone", null)
+        val talentTitle = sharedPrefData2.getString("talentTitle", null)
+        val talentLocation = sharedPrefData2.getString("talentLocation", null)
+        val talentSkill1 = sharedPrefData2.getString("talentSkill1", null)
+        val talentSkill2 = sharedPrefData2.getString("talentSkill2", null)
+        val talentSkill3 = sharedPrefData2.getString("talentSkill3", null)
+        val talentSkill4 = sharedPrefData2.getString("talentSkill4", null)
+        val talentSkill5 = sharedPrefData2.getString("talentSkill5", null)
+
 
         val lorem: String = getString(R.string.lorem_ipsum)
 
@@ -43,6 +52,13 @@ class TalentProfileActivity : AppCompatActivity() {
         //Insert Profile Data
         binding.tvProfileTalentName.text = savedName
         binding.tvProfileTalentDesc.text = lorem
+        binding.tvProfileTalentTitle.text = talentTitle
+        binding.tvProfileTalentLocation.text = talentLocation
+        binding.tvTitleProfileTalentSkill.text = talentSkill1
+        binding.tvTitleProfileTalentSkil2.text = talentSkill2
+        binding.tvTitleProfileTalentSkil3.text = talentSkill3
+        binding.tvTitleProfileTalentSkill4.text = talentSkill4
+        binding.tvTitleProfileTalentSkill5.text = talentSkill5
 
         binding.ivTalentPhone.setOnClickListener{
             val call = Intent(ACTION_CALL, Uri.fromParts("tel", talentPhone, null))
@@ -66,6 +82,11 @@ class TalentProfileActivity : AppCompatActivity() {
 
         binding.ivTalentGithub.setOnClickListener {
             val intent = Intent(this, ArkhireWebViewerActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btEditProfile.setOnClickListener {
+            val intent = Intent(this, EditProfileActivity::class.java)
             startActivity(intent)
         }
     }

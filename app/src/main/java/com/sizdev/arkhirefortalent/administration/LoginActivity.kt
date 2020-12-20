@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
         val registeredPassword = sharedPrefData.getString("talentPassword", null)
 
         binding.btLogin.setOnClickListener {
-            val email = binding.etLoginEmail.text.toString()
+            val email = binding.etLoginEmail.text.toString().toLowerCase()
             val password = binding.etLoginPassword.text.toString()
 
             if(email == registeredEmail && password == registeredPassword){

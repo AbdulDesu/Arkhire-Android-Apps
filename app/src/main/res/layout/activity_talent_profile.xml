@@ -111,9 +111,8 @@
 
                 <TextView
                     android:id="@+id/tv_profileTalentLocation"
-                    android:layout_width="wrap_content"
+                    android:layout_width="55dp"
                     android:layout_height="22dp"
-                    android:layout_marginStart="2dp"
                     android:gravity="center"
                     android:text="Bandung"
                     android:textColor="#BDBCBC"
@@ -131,9 +130,9 @@
                 android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/bt_doHire"
+                    android:id="@+id/bt_editProfile"
                     android:background="@drawable/round_bg"
-                    android:text="Hire"
+                    android:text="Edit"
                     android:textSize="14sp"
                     android:textColor="@color/white"
                     android:layout_width="70dp"
@@ -164,7 +163,7 @@
                         android:id="@+id/tv_titleProfileTalentDesc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="About Talent"
+                        android:text="About You"
                         android:textColor="@color/black"
                         android:textSize="13sp"
                         tools:context="Talent title" />
@@ -202,10 +201,9 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tv_titleProfileTalentSkill"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Talent Skill"
+                        android:text="Your Skill"
                         android:textColor="@color/black"
                         android:textSize="13sp"
                         tools:context="Talent title" />
@@ -226,6 +224,7 @@
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/tv_titleProfileTalentSkill"
                         android:layout_width="110dp"
                         android:layout_height="30dp"
                         android:background="@color/primary"
@@ -234,6 +233,7 @@
                         android:textColor="@color/white" />
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/tv_titleProfileTalentSkil2"
                         android:layout_width="110dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
@@ -243,6 +243,7 @@
                         android:textColor="@color/white" />
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/tv_titleProfileTalentSkil3"
                         android:layout_width="110dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
@@ -262,6 +263,7 @@
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/tv_titleProfileTalentSkill4"
                         android:layout_width="110dp"
                         android:layout_height="30dp"
                         android:background="@color/primary"
@@ -270,6 +272,7 @@
                         android:textColor="@color/white" />
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/tv_titleProfileTalentSkill5"
                         android:layout_width="110dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"

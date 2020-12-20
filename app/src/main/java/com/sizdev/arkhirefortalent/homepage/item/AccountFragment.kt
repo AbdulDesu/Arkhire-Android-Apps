@@ -64,7 +64,7 @@ class AccountFragment : Fragment() {
             pickImageFromGallery()
         }
 
-        binding.tvLogout.setOnClickListener {
+        binding.tvMyPassword.setOnClickListener {
             val intent = Intent(activity, ResetPasswordActivity::class.java)
             startActivity(intent)
         }

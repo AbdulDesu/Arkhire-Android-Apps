@@ -64,9 +64,9 @@ class HomeFragment : Fragment() {
             } else if (timeOfDay in 12..15) {
                 binding.tvUserGreeting.text = "Good Afternoon, $lastName"
             } else if (timeOfDay in 16..20) {
-                binding.tvUserGreeting.text = "Good Evening, $$lastName"
+                binding.tvUserGreeting.text = "Good Evening, $lastName"
             } else if (timeOfDay in 21..23) {
-                binding.tvUserGreeting.text = "Good Night, $$lastName"
+                binding.tvUserGreeting.text = "Good Night, $lastName"
             }
         }
 
