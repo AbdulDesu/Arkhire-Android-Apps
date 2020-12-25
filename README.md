@@ -1,4 +1,3 @@
-# Android2-Layouting
  <h1 align="center">Android - #Arkhire Apps</h1>
 
 <br> Arkhire is apps who help any fresh graduate student to more easly get a job, But Not only for fresh graduate
