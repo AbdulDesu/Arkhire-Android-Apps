@@ -9,11 +9,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.Menu
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.ActivityTalentProfileBinding
+import com.sizdev.arkhirefortalent.homepage.HomeActivity
+import com.sizdev.arkhirefortalent.homepage.item.AccountFragment
 import com.sizdev.arkhirefortalent.homepage.webviewer.ArkhireWebViewerActivity
 
 class TalentProfileActivity : AppCompatActivity() {
@@ -61,6 +65,7 @@ class TalentProfileActivity : AppCompatActivity() {
         binding.tvTitleProfileTalentSkill4.text = talentSkill4
         binding.tvTitleProfileTalentSkill5.text = talentSkill5
 
+
         binding.ivTalentPhone.setOnClickListener{
             Toast.makeText(this, "Your Phone Number is: $talentPhone", Toast.LENGTH_SHORT).show()
         }
@@ -73,10 +78,28 @@ class TalentProfileActivity : AppCompatActivity() {
             Toast.makeText(this, "Your Github is: https://github.com/$talentGithub", Toast.LENGTH_SHORT).show()
         }
 
-        binding.btEditProfile.setOnClickListener {
-            val intent = Intent(this, EditProfileActivity::class.java)
+        binding.backButton.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }
+
+        binding.menuButton.setOnClickListener {
+            val showMenu = PopupMenu(this, binding.menuButton)
+            showMenu.menu.add(Menu.NONE, 0 ,0, "Edit Profile")
+            showMenu.menu.add(Menu.NONE, 1 ,1, "Preview Profile")
+            showMenu.show()
+
+            showMenu.setOnMenuItemClickListener { menuItem ->
+                val id = menuItem.itemId
+
+                when (id) {
+                    0 -> {startActivity(Intent(this, EditProfileActivity::class.java))}
+                    1 -> {startActivity(Intent(this, HomeActivity::class.java))}
+                }
+                false
+            }
+        }
+
     }
 
     override fun onBackPressed() {
