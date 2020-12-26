@@ -2,6 +2,7 @@ package com.sizdev.arkhirefortalent.homepage.item
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.FragmentHomeBinding
 import com.sizdev.arkhirefortalent.homepage.HighLightProjectAdapter
+import com.sizdev.arkhirefortalent.homepage.project.allproject.ShowAllProjectActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -72,6 +74,11 @@ class HomeFragment : Fragment() {
 
         binding.rvProject.adapter = HighLightProjectAdapter()
         binding.rvProject.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+
+        binding.ivNotifBell.setOnClickListener {
+            val intent = Intent(activity, ShowAllProjectActivity::class.java)
+            startActivity(intent)
+        }
 
 
 

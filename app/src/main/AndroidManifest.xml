@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.sizdev.arkhirefortalent">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -16,8 +17,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.ArkhireTalent">
-        <activity android:name=".homepage.webviewer.ArkhireWebViewerActivity"/>
+        <activity android:name=".homepage.project.waitingproject.ShowWaitingProjectActivity"></activity>
+        <activity android:name=".homepage.project.declinedproject.ShowDeclinedProjectActivity" />
+        <activity android:name=".homepage.project.approvedproject.ShowApprovedProjectActivity" />
+        <activity android:name=".homepage.project.allproject.ShowAllProjectActivity" />
+        <activity android:name=".homepage.webviewer.ArkhireWebViewerActivity" />
         <activity android:name=".onboarding.OnBoardingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
