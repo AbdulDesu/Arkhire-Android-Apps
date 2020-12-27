@@ -1,4 +1,4 @@
-package com.sizdev.arkhirefortalent.homepage.project.allproject
+package com.sizdev.arkhirefortalent.homepage.project.approvedproject
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,23 +10,23 @@ import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.ItemShowingProjectBinding
 import com.sizdev.arkhirefortalent.homepage.project.detailedproject.DetailOfProjectActivity
 
-class ShowAllProjectAdapter : RecyclerView.Adapter<ShowAllProjectAdapter.ShowAllProjectHolder>() {
-    private var items = mutableListOf<ShowAllProjectModel>()
+class ShowApprovedProjectAdapter : RecyclerView.Adapter<ShowApprovedProjectAdapter.ShowApprovedProjectHolder>() {
+    private var items = mutableListOf<ShowApprovedProjectModel>()
 
-    fun addList(list: List<ShowAllProjectModel>){
+    fun addList(list: List<ShowApprovedProjectModel>){
         items.clear()
         items.addAll(list)
         notifyDataSetChanged()
     }
 
-    class ShowAllProjectHolder(val binding: ItemShowingProjectBinding) : RecyclerView.ViewHolder(binding.root)
+    class ShowApprovedProjectHolder(val binding: ItemShowingProjectBinding) : RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShowAllProjectHolder {
-        return ShowAllProjectHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_showing_project, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShowApprovedProjectHolder {
+        return ShowApprovedProjectHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_showing_project, parent, false))
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: ShowAllProjectHolder, position: Int) {
+    override fun onBindViewHolder(holder: ShowApprovedProjectHolder, position: Int) {
         val item = items[position]
         holder.binding.offeringID.text = item.offeringID
         holder.binding.tvProjectTitle.text = item.projectTitle

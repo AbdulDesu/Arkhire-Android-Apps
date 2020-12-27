@@ -1,5 +1,6 @@
 package com.sizdev.arkhirefortalent.homepage.project.allproject
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.ActivityShowAllProjectBinding
+import com.sizdev.arkhirefortalent.homepage.HomeActivity
 import com.sizdev.arkhirefortalent.networking.ApiClient
 import kotlinx.coroutines.*
 
@@ -23,9 +25,18 @@ class ShowAllProjectActivity : AppCompatActivity() {
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         service = ApiClient.getApiClient()!!.create(ShowAllProjectApiService::class.java)
 
+        setSupportActionBar(binding.tbShowAllProject)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
         binding.rvShowAllProject.adapter = ShowAllProjectAdapter()
         binding.rvShowAllProject.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-
+        binding.tbShowAllProject.setNavigationOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
         showAllProject()
     }
 

@@ -15,6 +15,9 @@ import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.FragmentHomeBinding
 import com.sizdev.arkhirefortalent.homepage.HighLightProjectAdapter
 import com.sizdev.arkhirefortalent.homepage.project.allproject.ShowAllProjectActivity
+import com.sizdev.arkhirefortalent.homepage.project.approvedproject.ShowApprovedProjectActivity
+import com.sizdev.arkhirefortalent.homepage.project.declinedproject.ShowDeclinedProjectActivity
+import com.sizdev.arkhirefortalent.homepage.project.waitingproject.ShowWaitingProjectActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -80,7 +83,20 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
+        binding.ivApproved.setOnClickListener {
+            val intent = Intent(activity, ShowApprovedProjectActivity::class.java)
+            startActivity(intent)
+        }
 
+        binding.ivRejected.setOnClickListener {
+            val intent = Intent(activity, ShowDeclinedProjectActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.ivWaiting.setOnClickListener {
+            val intent = Intent(activity, ShowWaitingProjectActivity::class.java)
+            startActivity(intent)
+        }
 
         return binding.root
     }
