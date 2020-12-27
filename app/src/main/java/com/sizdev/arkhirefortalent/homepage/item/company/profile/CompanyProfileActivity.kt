@@ -56,21 +56,37 @@ class CompanyProfileActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMa
         binding.tvCompanyDescription.text = companyDesc
 
         binding.ivCompanyLinkedIn.setOnClickListener {
-            val intent = Intent(this, ArkhireWebViewerActivity::class.java)
-            intent.putExtra("url", companyLinkedin)
-            startActivity(intent)
+            if(companyLinkedin == "null"){
+                Toast.makeText(this, "This company not publish that info", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                val intent = Intent(this, ArkhireWebViewerActivity::class.java)
+                intent.putExtra("url", companyLinkedin)
+                startActivity(intent)
+            }
+
         }
 
         binding.ivCompanyInstagram.setOnClickListener {
-            val intent = Intent(this, ArkhireWebViewerActivity::class.java)
-            intent.putExtra("url", companyInstagram)
-            startActivity(intent)
+            if (companyInstagram == "null"){
+                Toast.makeText(this, "This company not publish that info", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                val intent = Intent(this, ArkhireWebViewerActivity::class.java)
+                intent.putExtra("url", companyInstagram)
+                startActivity(intent)
+            }
         }
 
         binding.ivCompanyFacebook.setOnClickListener {
-            val intent = Intent(this, ArkhireWebViewerActivity::class.java)
-            intent.putExtra("url", companyFacebook)
-            startActivity(intent)
+            if (companyFacebook == "null"){
+                Toast.makeText(this, "This company not publish that info", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                val intent = Intent(this, ArkhireWebViewerActivity::class.java)
+                intent.putExtra("url", companyFacebook)
+                startActivity(intent)
+            }
         }
 
         val mapFragment = supportFragmentManager

@@ -78,7 +78,7 @@ class HomeFragment : Fragment() {
         binding.rvProject.adapter = HighLightProjectAdapter()
         binding.rvProject.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
 
-        binding.ivNotifBell.setOnClickListener {
+        binding.lnProjectList.setOnClickListener {
             val intent = Intent(activity, ShowAllProjectActivity::class.java)
             startActivity(intent)
         }
