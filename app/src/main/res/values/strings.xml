@@ -57,5 +57,8 @@
     <string name="lite_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas elit ligula, aliquam sed eros in, pretium malesuada elit. Cras euismod dictum placerat. Aliquam et mauris non metus venenatis malesuada. Nullam venenatis porta ipsum id tristique.</string>
     <string name="welcome">Welcome</string>
     <string name="back">Back</string>
+    <string name="looking_for">Looking For</string>
+    <string name="company_description">Company Description</string>
+    <string name="company_location">Company Location</string>
 
 </resources>

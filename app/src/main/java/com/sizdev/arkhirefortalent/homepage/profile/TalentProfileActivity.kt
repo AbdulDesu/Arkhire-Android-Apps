@@ -1,14 +1,10 @@
 package com.sizdev.arkhirefortalent.homepage.profile
 
 import android.annotation.SuppressLint
-import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.*
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.Menu
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -17,8 +13,6 @@ import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.ActivityTalentProfileBinding
 import com.sizdev.arkhirefortalent.homepage.HomeActivity
-import com.sizdev.arkhirefortalent.homepage.item.AccountFragment
-import com.sizdev.arkhirefortalent.homepage.webviewer.ArkhireWebViewerActivity
 
 class TalentProfileActivity : AppCompatActivity() {
 
@@ -79,8 +73,7 @@ class TalentProfileActivity : AppCompatActivity() {
         }
 
         binding.backButton.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
         binding.menuButton.setOnClickListener {

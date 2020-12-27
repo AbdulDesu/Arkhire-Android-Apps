@@ -4,81 +4,33 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".homepage.item.SearchCompanyFragment">
+    tools:context=".homepage.item.company.SearchCompanyFragment">
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
+        android:background="#E5E5E5">
 
         <RelativeLayout
-            android:id="@+id/talent"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_marginTop="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
-            android:layout_height="80dp"
-            android:visibility="invisible">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/searchTalentImage"
-                android:layout_centerVertical="true"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:src="@drawable/kiryusento"/>
-
-            <TextView
-                android:id="@+id/tv_searchTalentName"
-                android:layout_marginTop="8dp"
-                tools:context="Talent Name"
-                android:textSize="22sp"
-                android:textColor="@color/black"
-                android:layout_marginLeft="22dp"
-                android:layout_toRightOf="@id/searchTalentImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:id="@+id/tv_searchTalentTitle"
-                android:layout_below="@id/tv_searchTalentName"
-                android:layout_marginTop="4dp"
-                tools:context="Talent Title"
-                android:textSize="12sp"
-                android:layout_marginLeft="22dp"
-                android:layout_toRightOf="@id/searchTalentImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="14dp"
+            android:layout_height="50dp">
+            <SearchView
+                android:id="@+id/sv_searchCompany"
+                android:background="@color/white"
+                android:queryHint="Company Name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
         </RelativeLayout>
 
-
-        <RelativeLayout
-            android:id="@+id/missingContent"
-            android:visibility="visible"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="200dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/missing"
-                android:src="@drawable/talentmissing"
-                android:layout_width="108dp"
-                android:layout_gravity="center"
-                android:layout_height="108dp"/>
-
-            <TextView
-                android:layout_below="@id/missing"
-                android:gravity="center"
-                android:layout_marginLeft="13dp"
-                android:textSize="14sp"
-                android:text="@string/nothing_here"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-        </RelativeLayout>
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_Company"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 

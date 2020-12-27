@@ -19,11 +19,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ArkhireTalent"
         android:usesCleartextTraffic="true">
-        <activity android:name=".homepage.project.detailedproject.DetailOfProjectActivity"/>
-        <activity android:name=".homepage.project.waitingproject.ShowWaitingProjectActivity" />
-        <activity android:name=".homepage.project.declinedproject.ShowDeclinedProjectActivity" />
-        <activity android:name=".homepage.project.approvedproject.ShowApprovedProjectActivity" />
-        <activity android:name=".homepage.project.allproject.ShowAllProjectActivity" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${mapsApiKey}" />
+
+        <activity android:name="com.sizdev.arkhirefortalent.homepage.item.company.profile.CompanyProfileActivity"></activity>
+        <activity android:name="com.sizdev.arkhirefortalent.homepage.item.home.project.detailedproject.DetailOfProjectActivity" />
+        <activity android:name="com.sizdev.arkhirefortalent.homepage.item.home.project.waitingproject.ShowWaitingProjectActivity" />
+        <activity android:name="com.sizdev.arkhirefortalent.homepage.item.home.project.declinedproject.ShowDeclinedProjectActivity" />
+        <activity android:name="com.sizdev.arkhirefortalent.homepage.item.home.project.approvedproject.ShowApprovedProjectActivity" />
+        <activity android:name="com.sizdev.arkhirefortalent.homepage.item.home.project.allproject.ShowAllProjectActivity" />
         <activity android:name=".homepage.webviewer.ArkhireWebViewerActivity" />
         <activity android:name=".onboarding.OnBoardingActivity">
             <intent-filter>

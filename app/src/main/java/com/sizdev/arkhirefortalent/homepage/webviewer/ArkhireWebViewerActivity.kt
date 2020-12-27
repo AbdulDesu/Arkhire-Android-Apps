@@ -2,10 +2,12 @@ package com.sizdev.arkhirefortalent.homepage.webviewer
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
@@ -15,6 +17,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.ActivityArkhireWebViewerBinding
+import com.sizdev.arkhirefortalent.homepage.HomeActivity
 
 class ArkhireWebViewerActivity : AppCompatActivity(), WebListener {
 
@@ -26,11 +29,18 @@ class ArkhireWebViewerActivity : AppCompatActivity(), WebListener {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_arkhire_web_viewer)
 
-        val sharedPrefData2 = this.getSharedPreferences("profileData", Context.MODE_PRIVATE)
-        val talentGithub = sharedPrefData2.getString("talentGithub", null)
+        val url = intent.getStringExtra("url")
 
+        setSupportActionBar(binding.tbArkhireBrowser)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        binding.wvArkhireWebViewer.loadUrl("https://github.com/")
+        binding.tbArkhireBrowser.setNavigationOnClickListener {
+            finish()
+        }
+
+        binding.wvArkhireWebViewer.loadUrl("$url")
         binding.wvArkhireWebViewer.webChromeClient = ArkhireChromeClient(this)
         binding.wvArkhireWebViewer.webViewClient = ArkhireWebClient(this)
         binding.wvArkhireWebViewer.settings.javaScriptEnabled = true

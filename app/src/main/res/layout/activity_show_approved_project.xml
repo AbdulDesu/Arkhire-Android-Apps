@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".homepage.project.approvedproject.ShowApprovedProjectActivity">
+    tools:context=".homepage.item.home.project.approvedproject.ShowApprovedProjectActivity">
 
     <LinearLayout
         android:orientation="vertical"

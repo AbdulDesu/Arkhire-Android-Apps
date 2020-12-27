@@ -7,10 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.ActivityHomeBinding
-import com.sizdev.arkhirefortalent.homepage.item.AccountFragment
-import com.sizdev.arkhirefortalent.homepage.item.ChatFragment
-import com.sizdev.arkhirefortalent.homepage.item.HomeFragment
-import com.sizdev.arkhirefortalent.homepage.item.SearchCompanyFragment
+import com.sizdev.arkhirefortalent.homepage.item.account.AccountFragment
+import com.sizdev.arkhirefortalent.homepage.item.chat.ChatFragment
+import com.sizdev.arkhirefortalent.homepage.item.home.HomeFragment
+import com.sizdev.arkhirefortalent.homepage.item.company.SearchCompanyFragment
 
 class HomeActivity : AppCompatActivity() {
 
