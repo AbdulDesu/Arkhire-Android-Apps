@@ -205,7 +205,7 @@
             app:layout_constraintTop_toBottomOf="@id/rl_highlight"
             android:layout_width="match_parent"
             android:background="@drawable/bg_menuoffering"
-            android:layout_height="30dp">
+            android:layout_height="40dp">
 
             <TextView
                 android:text="Project List"

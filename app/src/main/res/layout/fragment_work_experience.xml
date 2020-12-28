@@ -9,9 +9,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bt_addPortfolio"
+            android:text="Add Work Experience"
+            android:layout_marginTop="18dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="@color/primary"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_talentWorkExperience"
             android:nestedScrollingEnabled="true"
+            android:layout_marginTop="18dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>

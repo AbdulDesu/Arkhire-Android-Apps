@@ -33,8 +33,6 @@ class ShowApprovedProjectActivity : AppCompatActivity() {
         binding.rvShowApprovedProject.adapter = ShowApprovedProjectAdapter()
         binding.rvShowApprovedProject.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         binding.tbShowApprovedProject.setNavigationOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
             finish()
         }
 

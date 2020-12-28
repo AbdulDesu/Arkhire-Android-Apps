@@ -33,8 +33,6 @@ class ShowDeclinedProjectActivity : AppCompatActivity() {
         binding.rvShowDeclinedProject.adapter = ShowDeclinedProjectAdapter()
         binding.rvShowDeclinedProject.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         binding.tbShowDeclinedProject.setNavigationOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
             finish()
         }
 

@@ -33,8 +33,6 @@ class ShowWaitingProjectActivity : AppCompatActivity() {
         binding.rvShowWaitingProject.adapter = ShowWaitingProjectAdapter()
         binding.rvShowWaitingProject.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         binding.tbShowWaitingProject.setNavigationOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
             finish()
         }
 

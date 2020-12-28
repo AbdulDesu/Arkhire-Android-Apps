@@ -6,226 +6,282 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".homepage.item.home.project.detailedproject.DetailOfProjectActivity">
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_projectCompanyPhoto"
+            android:src="@drawable/ic_traveloka"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/backButton"
+            app:backgroundTint="#5E000000"
+            app:tint="@color/white"
+            android:src="@drawable/ic_back"
+            app:fabCustomSize="38dp"
+            app:maxImageSize="24dp"
+            app:elevation="0.01dp"
+            app:pressedTranslationZ="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/back" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/shareButton"
+            app:backgroundTint="#5E000000"
+            android:layout_alignParentEnd="true"
+            app:tint="@color/white"
+            android:src="@drawable/ic_share"
+            app:fabCustomSize="38dp"
+            app:maxImageSize="24dp"
+            app:elevation="0.01dp"
+            app:pressedTranslationZ="0dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/back"
+            tools:ignore="RelativeOverlap" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bt_declineProject"
+            android:textSize="12sp"
+            android:text="Decline"
+            android:visibility="invisible"
+            android:textColor="@color/white"
+            android:layout_marginTop="130dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="32dp"
+            android:background="#C9FF0000"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bt_approveProject"
+            android:textSize="12sp"
+            android:visibility="invisible"
+            android:text="Approve"
+            android:textColor="@color/white"
+            android:layout_marginTop="130dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="32dp"
+            android:background="#A487FB00"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"/>
 
         <RelativeLayout
-            android:orientation="vertical"
+            android:layout_marginTop="215dp"
+            android:background="@drawable/bg_detailed_project"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/iv_projectCompanyPhoto"
-                android:src="@drawable/ic_traveloka"
-                android:scaleType="centerCrop"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"/>
+            android:layout_height="wrap_content">
 
             <RelativeLayout
-                android:layout_marginTop="215dp"
-                android:background="@drawable/bg_detailed_project"
+                android:layout_marginTop="36dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <RelativeLayout
-                    android:layout_marginTop="36dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginEnd="32dp"
+                <TextView
+                    android:id="@+id/tv_projectTitle"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Hololive Android Apps"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_titleDuration"
+                    android:text="DURATION"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/opensans"
+                    android:layout_marginTop="20dp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_projectTitle"/>
+
+                <LinearLayout
+                    android:id="@+id/ln_duration"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_below="@id/tv_titleDuration">
+
+                    <ImageView
+                        android:id="@+id/iv_iconDuration"
+                        android:src="@drawable/ic_duration"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="8dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_duration"
+                        android:text="1 MONTH"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ln_projectSalary"
+                    android:orientation="vertical"
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/round_border_sallary"
+                    android:layout_below="@id/ln_duration"
+                    android:layout_centerInParent="true"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/tv_projectTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat"
-                        android:text="Hololive Android Apps"
-                        android:textColor="@color/black"
+                        android:id="@+id/tv_detailProjectSalary"
+                        android:text="RP. 8.000.000"
+                        android:textAlignment="center"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
                         android:textSize="24sp"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_titleDescription"
+                    android:text="Description"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/opensans"
+                    android:layout_marginTop="16dp"
+                    android:textColor="#BF000000"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ln_projectSalary"/>
+
+                <TextView
+                    android:id="@+id/tv_projectDesc"
+                    android:layout_marginTop="6dp"
+                    android:justificationMode="inter_word"
+                    android:lineSpacingExtra="6dp"
+                    android:textSize="14sp"
+                    android:text="@string/lorem_ipsum"
+                    android:layout_below="@id/tv_titleDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_titleMsgForTalent"
+                    android:text="Messages From Company"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/opensans"
+                    android:layout_marginTop="16dp"
+                    android:textColor="#BF000000"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_projectDesc"/>
+
+                <TextView
+                    android:id="@+id/tv_msgForTalent"
+                    android:layout_marginTop="6dp"
+                    android:justificationMode="inter_word"
+                    android:lineSpacingExtra="6dp"
+                    android:textSize="14sp"
+                    android:text="@string/lite_lorem_ipsum"
+                    android:layout_below="@id/tv_titleMsgForTalent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <RelativeLayout
+                    android:id="@+id/ln_hiringStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_below="@id/tv_msgForTalent">
 
                     <TextView
-                        android:id="@+id/tv_titleDuration"
-                        android:text="DURATION"
-                        android:textSize="14sp"
+                        android:id="@+id/tv_titleHiringStatus"
+                        android:text="Project Status "
+                        android:textSize="18sp"
+                        android:gravity="center_vertical"
                         android:fontFamily="@font/opensans"
-                        android:layout_marginTop="20dp"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tv_projectTitle"/>
-
-                    <LinearLayout
-                        android:id="@+id/ln_duration"
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:layout_below="@id/tv_titleDuration">
-
-                        <ImageView
-                            android:id="@+id/iv_iconDuration"
-                            android:src="@drawable/ic_duration"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginTop="8dp"
-                            />
-
-                        <TextView
-                            android:id="@+id/tv_duration"
-                            android:text="1 MONTH"
-                            android:textSize="15sp"
-                            android:fontFamily="@font/montserrat"
-                            android:textColor="@color/black"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ln_projectSalary"
-                        android:orientation="vertical"
-                        android:layout_marginTop="18dp"
-                        android:background="@drawable/round_border_sallary"
-                        android:layout_below="@id/ln_duration"
-                        android:layout_centerInParent="true"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/tv_detailProjectSalary"
-                            android:text="RP. 8.000.000"
-                            android:textAlignment="center"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:textSize="24sp"
-                            android:textColor="@color/black"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/tv_titleDescription"
-                        android:text="Description"
-                        android:textSize="17sp"
-                        android:fontFamily="@font/opensans"
-                        android:layout_marginTop="16dp"
                         android:textColor="#BF000000"
                         android:textStyle="bold"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/ln_projectSalary"/>
+                        android:layout_height="wrap_content" />
 
-                    <TextView
-                        android:id="@+id/tv_projectDesc"
-                        android:layout_marginTop="6dp"
-                        android:justificationMode="inter_word"
-                        android:lineSpacingExtra="6dp"
-                        android:textSize="14sp"
-                        android:text="@string/lorem_ipsum"
-                        android:layout_below="@id/tv_titleDescription"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"/>
+                    <ImageView
+                        android:id="@+id/iv_hiringStatus"
+                        android:layout_below="@id/tv_titleHiringStatus"
+                        android:src="@drawable/ic_waiting"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="72dp"
+                        android:layout_height="28dp"/>
 
-                    <TextView
-                        android:id="@+id/tv_titleMsgForTalent"
-                        android:text="Messages From Company"
-                        android:textSize="17sp"
-                        android:fontFamily="@font/opensans"
-                        android:layout_marginTop="16dp"
-                        android:textColor="#BF000000"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tv_projectDesc"/>
-
-                    <TextView
-                        android:id="@+id/tv_msgForTalent"
-                        android:layout_marginTop="6dp"
-                        android:justificationMode="inter_word"
-                        android:lineSpacingExtra="6dp"
-                        android:textSize="14sp"
-                        android:text="@string/lite_lorem_ipsum"
-                        android:layout_below="@id/tv_titleMsgForTalent"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"/>
-
-                    <RelativeLayout
-                        android:id="@+id/ln_hiringStatus"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_below="@id/tv_msgForTalent">
-
-                        <TextView
-                            android:id="@+id/tv_titleHiringStatus"
-                            android:text="Project Status "
-                            android:textSize="18sp"
-                            android:gravity="center_vertical"
-                            android:fontFamily="@font/opensans"
-                            android:textColor="#BF000000"
-                            android:textStyle="bold"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                        <ImageView
-                            android:id="@+id/iv_hiringStatus"
-                            android:layout_below="@id/tv_titleHiringStatus"
-                            android:src="@drawable/ic_waiting"
-                            android:layout_width="72dp"
-                            android:layout_height="28dp"/>
-
-
-                    </RelativeLayout>
-
-
-                    <TextView
-                        android:id="@+id/tv_titleReplyMsg"
-                        android:text="Reply Messages"
-                        android:textSize="17sp"
-                        android:fontFamily="@font/opensans"
-                        android:layout_marginTop="16dp"
-                        android:textColor="#BF000000"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/ln_hiringStatus"/>
-
-                    <TextView
-                        android:id="@+id/tv_ReplyMsg"
-                        android:layout_marginTop="6dp"
-                        android:justificationMode="inter_word"
-                        android:lineSpacingExtra="6dp"
-                        android:textSize="14sp"
-                        android:text="@string/lite_lorem_ipsum"
-                        android:layout_below="@id/tv_titleReplyMsg"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"/>
-
-                    <TextView
-                        android:id="@+id/tv_repliedAt"
-                        android:text="Date"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/opensans"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:textStyle="bold"
-                        android:layout_centerInParent="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tv_ReplyMsg"/>
 
                 </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_titleReplyMsg"
+                    android:text="Reply Messages"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/opensans"
+                    android:layout_marginTop="16dp"
+                    android:textColor="#BF000000"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ln_hiringStatus"/>
+
+                <TextView
+                    android:id="@+id/tv_ReplyMsg"
+                    android:layout_marginTop="6dp"
+                    android:justificationMode="inter_word"
+                    android:lineSpacingExtra="6dp"
+                    android:textSize="14sp"
+                    android:text="@string/lite_lorem_ipsum"
+                    android:layout_below="@id/tv_titleReplyMsg"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"/>
+
+                <TextView
+                    android:id="@+id/tv_repliedAt"
+                    android:text="Date"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/opensans"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:textStyle="bold"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_ReplyMsg"/>
 
             </RelativeLayout>
 
         </RelativeLayout>
 
-    </ScrollView>
 
+    </RelativeLayout>
+    </ScrollView>
 
 </layout>
