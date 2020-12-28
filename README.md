@@ -17,3 +17,11 @@ student. Company can Hire the best prospective workers based on their criteria, 
 - Added Account Screen</br>
 - Added Talent Profile Screen</br>
 - And many more..</br>
+
+# Beta version
+- Added Project List By Data From API
+- Added Profile Management
+- Added Project Management
+- Added Hiring Status Management
+- Added Some Improvement on Layout and Performance
+- And many more..</br>
