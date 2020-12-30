@@ -34,6 +34,6 @@
     </fragment>
     <activity
         android:id="@+id/loginActivity"
-        android:name="com.sizdev.arkhirefortalent.administration.LoginActivity"
+        android:name="com.sizdev.arkhirefortalent.administration.login.LoginActivity"
         android:label="LoginActivity" />
 </navigation>

@@ -23,7 +23,7 @@ class ShowApprovedProjectActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_show_approved_project)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = ApiClient.getApiClient()!!.create(ShowApprovedProjectApiService::class.java)
+        service = ApiClient.getApiClient(this)!!.create(ShowApprovedProjectApiService::class.java)
 
         setSupportActionBar(binding.tbShowApprovedProject)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

@@ -1,15 +1,23 @@
 package com.sizdev.arkhirefortalent.networking
 
+import android.content.Context
+import android.content.SharedPreferences
+import android.util.Log
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class HeaderInterceptor() : Interceptor {
-    override fun intercept(chain: Interceptor.Chain): Response = chain.run{
-        val tokenAuth = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SUQiOjgsImFjY291bnRfbmFtZSI6Ik1vb25hIEhvc2hpbm92YSIsImFjY291bnRfZW1haWwiOiJNb29uYWZpa0Bob2xvbGl2ZS5pZCIsInByaXZpbGVnZSI6MCwiaWF0IjoxNjA5MTE2MjMxLCJleHAiOjE2MDkxNTk0MzF9.0-cyi1GJLQUewfBYnJUb0hiNNiYfC7-RYcx1xPAGF6c"
+class HeaderInterceptor(context: Context) : Interceptor {
+
+    private val sharedPref: SharedPreferences =  context.getSharedPreferences("Token", Context.MODE_PRIVATE)
+
+    override fun intercept(chain: Interceptor.Chain): Response = chain.run {
+        val token = sharedPref.getString("accToken", null)
+        Log.d("token", "$token")
+
         proceed(
-            request().newBuilder()
-                .addHeader("Authorization", "Bearer $tokenAuth")
-                .build()
+                request().newBuilder()
+                        .addHeader("Authorization", "Bearer $token")
+                        .build()
         )
     }
 }

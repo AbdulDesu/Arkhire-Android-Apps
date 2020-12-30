@@ -23,7 +23,7 @@ class ShowDeclinedProjectActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_show_declined_project)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = ApiClient.getApiClient()!!.create(ShowDeclinedProjectApiService::class.java)
+        service = ApiClient.getApiClient(this)!!.create(ShowDeclinedProjectApiService::class.java)
 
         setSupportActionBar(binding.tbShowDeclinedProject)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

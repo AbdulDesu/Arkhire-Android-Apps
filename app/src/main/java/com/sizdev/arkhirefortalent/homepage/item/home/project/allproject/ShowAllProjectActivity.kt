@@ -23,7 +23,7 @@ class ShowAllProjectActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_show_all_project)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = ApiClient.getApiClient()!!.create(ShowAllProjectApiService::class.java)
+        service = ApiClient.getApiClient(this)!!.create(ShowAllProjectApiService::class.java)
 
         setSupportActionBar(binding.tbShowAllProject)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

@@ -9,17 +9,20 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.sizdev.arkhirefortalent.administration.LoginActivity
+import com.sizdev.arkhirefortalent.administration.login.LoginActivity
 import com.sizdev.arkhirefortalent.R
-import com.sizdev.arkhirefortalent.administration.ResetPasswordActivity
+import com.sizdev.arkhirefortalent.administration.password.ResetPasswordActivity
 import com.sizdev.arkhirefortalent.databinding.FragmentAccountBinding
 import com.sizdev.arkhirefortalent.homepage.profile.TalentProfileActivity
+import kotlinx.android.synthetic.main.alert_logout_confirmation.view.*
 
 class AccountFragment : Fragment() {
 
     private lateinit var binding: FragmentAccountBinding
+    private lateinit var dialog: AlertDialog
 
     companion object {
         private  val REQUEST_CODE = 0
@@ -48,10 +51,8 @@ class AccountFragment : Fragment() {
         binding.tvTitleAccount.text = talentTitle
 
         binding.tvLogout.setOnClickListener {
-            val intent = Intent(activity, LoginActivity::class.java)
-            startActivity(intent)
-            logedOutSuccesfully()
-            activity?.finish()
+            startAlertLogoutConfirmation()
+            dialog.show()
         }
 
         binding.tvMyProfile.setOnClickListener {
@@ -104,6 +105,28 @@ class AccountFragment : Fragment() {
             binding.profileImage.setImageBitmap(bitmap)
 
             binding.profileImage.alpha = 0f
+        }
+    }
+
+    private fun startAlertLogoutConfirmation() {
+        val view: View = layoutInflater.inflate(R.layout.alert_logout_confirmation, null)
+
+        dialog = activity?.let {
+            AlertDialog.Builder(it)
+                    .setView(view)
+                    .setCancelable(false)
+                    .create()
+        }!!
+
+        view.bt_yesLogout.setOnClickListener {
+            dialog.dismiss()
+            val intent = Intent(activity, LoginActivity::class.java)
+            logedOutSuccesfully()
+            startActivity(intent)
+        }
+
+        view.bt_noLogout.setOnClickListener {
+            dialog.cancel()
         }
     }
 }

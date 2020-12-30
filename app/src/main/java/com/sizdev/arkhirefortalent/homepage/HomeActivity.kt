@@ -1,7 +1,9 @@
 package com.sizdev.arkhirefortalent.homepage
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -26,6 +28,10 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
+
+        val sharedPrefData = this.getSharedPreferences("Token", Context.MODE_PRIVATE)
+        val token = sharedPrefData.getString("accToken", null)
+        Log.d("Token activity", "$token")
 
 
         //Launch Home Fragment At First

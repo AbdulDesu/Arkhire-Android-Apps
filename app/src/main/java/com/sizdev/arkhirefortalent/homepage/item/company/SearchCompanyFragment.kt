@@ -32,7 +32,7 @@ class SearchCompanyFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_company, container, false)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = ApiClient.getApiClient()!!.create(SearchCompanyApiService::class.java)
+        service = activity?.let { ApiClient.getApiClient(it) }!!.create(SearchCompanyApiService::class.java)
 
         binding.rvCompany.adapter = SearchCompanyAdapter()
         binding.rvCompany.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)

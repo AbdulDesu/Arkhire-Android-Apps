@@ -1,5 +1,6 @@
 package com.sizdev.arkhirefortalent.networking
 
+import android.content.Context
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -19,12 +20,12 @@ class ApiClient {
         }
 
 
-        fun getApiClient(): Retrofit? {
+        fun getApiClient(context: Context): Retrofit? {
 
             if (retrofit == null) {
                 val okHttpClient = OkHttpClient.Builder()
                         .addInterceptor(provideHttpLoggingInterceptor())
-                        .addInterceptor(HeaderInterceptor())
+                        .addInterceptor(HeaderInterceptor(context))
                         .connectTimeout(1, TimeUnit.MINUTES)
                         .readTimeout(1, TimeUnit.MINUTES)
                         .writeTimeout(1, TimeUnit.MINUTES)

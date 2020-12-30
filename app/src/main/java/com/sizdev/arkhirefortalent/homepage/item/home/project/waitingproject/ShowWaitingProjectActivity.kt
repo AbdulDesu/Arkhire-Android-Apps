@@ -23,7 +23,7 @@ class ShowWaitingProjectActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_show_waiting_project)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = ApiClient.getApiClient()!!.create(ShowWaitingProjectApiService::class.java)
+        service = ApiClient.getApiClient(this)!!.create(ShowWaitingProjectApiService::class.java)
 
         setSupportActionBar(binding.tbShowWaitingProject)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

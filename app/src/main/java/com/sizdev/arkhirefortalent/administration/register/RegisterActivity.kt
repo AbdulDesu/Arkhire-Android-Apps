@@ -1,4 +1,4 @@
-package com.sizdev.arkhirefortalent.administration
+package com.sizdev.arkhirefortalent.administration.register
 
 import android.content.Context
 import android.content.Intent
@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
+import com.sizdev.arkhirefortalent.administration.login.LoginActivity
 import com.sizdev.arkhirefortalent.databinding.ActivityRegisterBinding
 import com.sizdev.arkhirefortalent.homepage.HomeActivity
 

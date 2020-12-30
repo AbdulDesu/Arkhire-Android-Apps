@@ -22,6 +22,8 @@ class SplashScreenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         Handler().postDelayed({
             if(onBoardingFinish()){
                     if (logedInSuccesfully()){

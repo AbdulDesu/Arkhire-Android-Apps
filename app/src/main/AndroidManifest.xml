@@ -41,12 +41,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".administration.ResetPasswordActivity" />
+        <activity android:name=".administration.password.ResetPasswordActivity" />
         <activity android:name=".homepage.profile.EditProfileActivity" />
         <activity android:name=".homepage.profile.TalentProfileActivity" />
-        <activity android:name=".administration.ForgetPasswordActivity" />
-        <activity android:name=".administration.LoginActivity" />
-        <activity android:name=".administration.RegisterActivity" />
+        <activity android:name=".administration.password.ForgetPasswordActivity" />
+        <activity android:name=".administration.login.LoginActivity" />
+        <activity android:name=".administration.register.RegisterActivity" />
         <activity android:name=".homepage.HomeActivity" />
     </application>
 
