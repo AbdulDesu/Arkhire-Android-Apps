@@ -74,6 +74,8 @@ class LoginActivity : AppCompatActivity() {
                         val sharedPref = this@LoginActivity.getSharedPreferences("Token", Context.MODE_PRIVATE)
                         val editor = sharedPref.edit()
                         editor.putString("accToken", result.data.token)
+                        editor.putString("accID", result.data.userId)
+                        editor.putString("accName", result.data.userName)
                         editor.apply()
 
                         val intent = Intent(this@LoginActivity, HomeActivity::class.java)

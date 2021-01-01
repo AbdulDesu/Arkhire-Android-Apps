@@ -37,6 +37,7 @@ class ShowWaitingProjectAdapter : RecyclerView.Adapter<ShowWaitingProjectAdapter
             val item = items[position]
             val context = holder.binding.showAllProjectItem.context
             val intent = Intent(context, DetailOfProjectActivity::class.java)
+            val offeringID = item.offeringID.toString()
             val projectTitle = item.projectTitle.toString()
             val projectSalary = item.projectSallary.toString()
             val projectDesc = item.projectDesc.toString()
@@ -46,6 +47,7 @@ class ShowWaitingProjectAdapter : RecyclerView.Adapter<ShowWaitingProjectAdapter
             val msgReply = item.replyMsg.toString()
             val repliedAt = item.repliedAt.toString()
 
+            intent.putExtra("offeringID", offeringID)
             intent.putExtra("projectTitle", projectTitle)
             intent.putExtra("projectSalary", projectSalary)
             intent.putExtra("projectDesc", projectDesc)

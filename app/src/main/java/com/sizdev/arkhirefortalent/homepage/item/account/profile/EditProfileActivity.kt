@@ -1,4 +1,4 @@
-package com.sizdev.arkhirefortalent.homepage.profile
+package com.sizdev.arkhirefortalent.homepage.item.account.profile
 
 import android.annotation.SuppressLint
 import android.content.Context

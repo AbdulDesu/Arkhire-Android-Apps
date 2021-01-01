@@ -19,8 +19,6 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.ActivityCompanyProfileBinding
-import com.sizdev.arkhirefortalent.homepage.HomeActivity
-import com.sizdev.arkhirefortalent.homepage.profile.EditProfileActivity
 import com.sizdev.arkhirefortalent.homepage.webviewer.ArkhireWebViewerActivity
 
 class CompanyProfileActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {

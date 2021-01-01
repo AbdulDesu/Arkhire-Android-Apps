@@ -1,4 +1,4 @@
-package com.sizdev.arkhirefortalent.homepage.profile
+package com.sizdev.arkhirefortalent.homepage.item.account.profile.workexperience
 
 import android.view.LayoutInflater
 import android.view.View

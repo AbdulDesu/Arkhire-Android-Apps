@@ -16,7 +16,7 @@ import com.sizdev.arkhirefortalent.administration.login.LoginActivity
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.administration.password.ResetPasswordActivity
 import com.sizdev.arkhirefortalent.databinding.FragmentAccountBinding
-import com.sizdev.arkhirefortalent.homepage.profile.TalentProfileActivity
+import com.sizdev.arkhirefortalent.homepage.item.account.profile.TalentProfileActivity
 import kotlinx.android.synthetic.main.alert_logout_confirmation.view.*
 
 class AccountFragment : Fragment() {
@@ -36,19 +36,10 @@ class AccountFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_account, container, false)
 
         // Get Saved Name
-        val sharedPrefData = requireActivity().getSharedPreferences(
-            "fullData",
-            Context.MODE_PRIVATE
-        )
-        val sharedPrefProfileData = requireActivity().getSharedPreferences(
-            "profileData",
-            Context.MODE_PRIVATE
-        )
-        val savedName = sharedPrefData.getString("fullName", null)
-        val talentTitle = sharedPrefProfileData.getString("talentTitle", null)
+        val sharedPrefData = requireActivity().getSharedPreferences("Token", Context.MODE_PRIVATE)
+        val savedName = sharedPrefData.getString("accName", null)
 
         binding.tvFullNameAccount.text = savedName
-        binding.tvTitleAccount.text = talentTitle
 
         binding.tvLogout.setOnClickListener {
             startAlertLogoutConfirmation()
@@ -121,6 +112,10 @@ class AccountFragment : Fragment() {
         view.bt_yesLogout.setOnClickListener {
             dialog.dismiss()
             val intent = Intent(activity, LoginActivity::class.java)
+            val sharedPref = requireActivity().getSharedPreferences("Token", Context.MODE_PRIVATE)
+            val editor = sharedPref.edit()
+            editor.putString("accID", null)
+            editor.apply()
             logedOutSuccesfully()
             startActivity(intent)
         }

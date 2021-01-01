@@ -18,6 +18,7 @@ import com.sizdev.arkhirefortalent.homepage.item.home.project.allproject.ShowAll
 import com.sizdev.arkhirefortalent.homepage.item.home.project.approvedproject.ShowApprovedProjectActivity
 import com.sizdev.arkhirefortalent.homepage.item.home.project.declinedproject.ShowDeclinedProjectActivity
 import com.sizdev.arkhirefortalent.homepage.item.home.project.waitingproject.ShowWaitingProjectActivity
+import retrofit2.http.GET
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -39,8 +40,8 @@ class HomeFragment : Fragment() {
         val currentDate = dateFormat.format(Date())
 
         // Get Saved name
-        val sharedPrefData = requireActivity().getSharedPreferences("fullData", Context.MODE_PRIVATE)
-        val savedData = sharedPrefData.getString("fullName", null)
+        val sharedPrefData = requireActivity().getSharedPreferences("Token", Context.MODE_PRIVATE)
+        val savedData = sharedPrefData.getString("accName", null)
         val nameSplitter = savedData?.split(" ")
 
         // Get Hour

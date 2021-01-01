@@ -8,42 +8,44 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.administration.login.LoginActivity
+import com.sizdev.arkhirefortalent.administration.login.LoginResponse
 import com.sizdev.arkhirefortalent.databinding.ActivityRegisterBinding
 import com.sizdev.arkhirefortalent.homepage.HomeActivity
+import com.sizdev.arkhirefortalent.networking.ApiClient
+import kotlinx.coroutines.*
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
+    private lateinit var coroutineScope: CoroutineScope
+    private lateinit var service: RegisterAuthService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_register)
+        coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
+        service = ApiClient.getApiClient(this)!!.create(RegisterAuthService::class.java)
 
         binding.btRegister.setOnClickListener {
-            val registerPassword = binding.etRegistPassword.text.toString()
-            val confirmRegisterPassword = binding.etConfirmRegistPassword.text.toString()
             val fullName = binding.etFullName.text.toString()
             val registerEmail = binding.etRegistEmail.text.toString()
             val registerPhoneNumber = binding.etRegistPhone.text.toString()
+            val registerPassword = binding.etRegistPassword.text.toString()
+            val confirmRegisterPassword = binding.etConfirmRegistPassword.text.toString()
 
-            if (registerPassword != confirmRegisterPassword){
-                Toast.makeText(this, "Password not match", Toast.LENGTH_LONG).show()
-            }
-            else if (registerPassword.isEmpty() || confirmRegisterPassword.isEmpty() || fullName.isEmpty() || registerEmail.isEmpty() || registerPhoneNumber.isEmpty()){
+             if (registerPassword.isEmpty() || confirmRegisterPassword.isEmpty() || fullName.isEmpty() || registerEmail.isEmpty() || registerPhoneNumber.isEmpty()){
                 Toast.makeText(this, "Please Fill All Field", Toast.LENGTH_LONG).show()
             }
-
             else {
-                Toast.makeText(this, "Registered Succesfully", Toast.LENGTH_LONG).show()
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-                logedInSuccesfully()
-                saveData()
-                clearProfile()
-                resetProfile()
-                finish()
-            }
 
+                 if (registerPassword != confirmRegisterPassword){
+                     Toast.makeText(this, "Password not match", Toast.LENGTH_LONG).show()
+                 }
+
+                 else {
+                     startRegister(fullName, registerEmail, registerPhoneNumber, registerPassword, 0)
+                 }
+            }
         }
 
         binding.tvBackLogin.setOnClickListener {
@@ -53,51 +55,27 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveData() {
-        val fullName = binding.etFullName.text.toString()
-        val registerEmail = binding.etRegistEmail.text.toString().toLowerCase()
-        val registerPassword = binding.etRegistPassword.text.toString()
-        val talentPhone = binding.etRegistPhone.text.toString()
-        val sharedPrefData = getSharedPreferences("fullData", Context.MODE_PRIVATE)
-        val editor = sharedPrefData.edit()
-        editor.apply {
-            putString("fullName", fullName)
-            putString("talentEmail", registerEmail)
-            putString("talentPassword", registerPassword)
-            putString("talentPhone", talentPhone)
-        }.apply()
+    private fun startRegister(acName:String, acEmail:String, acPhone:String, password:String, privilege:Int) {
+        coroutineScope.launch {
+
+            val result = withContext(Dispatchers.IO) {
+                try {
+                    service.registerRequest(acName,acEmail,acPhone,password,privilege)
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            }
+            if (result is RegisterResponse) {
+                Toast.makeText(this@RegisterActivity, "Registered Succesfully, Please Login To Continue", Toast.LENGTH_LONG).show()
+                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
+
+        }
     }
 
-    private fun logedInSuccesfully(){
-        val sharedPref = getSharedPreferences("User", Context.MODE_PRIVATE)
-        val editor = sharedPref.edit()
-        editor.putBoolean("Login", true)
-        editor.apply()
-    }
-
-    private fun clearProfile(){
-        val sharedPref = getSharedPreferences("newTalent", Context.MODE_PRIVATE)
-        val editor = sharedPref.edit()
-        editor.putBoolean("updatedProfile", false)
-        editor.apply()
-    }
-
-    private fun resetProfile(){
-        val sharedPref = getSharedPreferences("profileData", Context.MODE_PRIVATE)
-        val editor = sharedPref.edit()
-        editor.apply {
-            putString("talentTitle", null)
-            putString("talentLocation", null)
-            putString("talentWorkTime", null)
-            putString("talentDescription", null)
-            putString("talentSkill1", null)
-            putString("talentSkill2", null)
-            putString("talentSkill3", null)
-            putString("talentSkill4", null)
-            putString("talentSkill5", null)
-            putString("talentGithub", null)
-        }.apply()
-    }
 
 }
 

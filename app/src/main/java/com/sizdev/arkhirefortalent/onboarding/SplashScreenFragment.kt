@@ -23,10 +23,12 @@ class SplashScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        val sharedPref = requireActivity().getSharedPreferences("Token", Context.MODE_PRIVATE)
+        val logedUser = sharedPref.getString("accID", null)
 
         Handler().postDelayed({
             if(onBoardingFinish()){
-                    if (logedInSuccesfully()){
+                    if (logedUser != null){
                         val intent = Intent(activity, HomeActivity::class.java)
                         startActivity(intent)
                         activity?.finish()
@@ -49,11 +51,6 @@ class SplashScreenFragment : Fragment() {
     private fun onBoardingFinish(): Boolean{
         val sharedPref = requireActivity().getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
         return sharedPref.getBoolean("Complete", false)
-    }
-
-    private fun logedInSuccesfully(): Boolean{
-        val sharedPref = requireActivity().getSharedPreferences("User", Context.MODE_PRIVATE)
-        return sharedPref.getBoolean("Login", false)
     }
 
 }
