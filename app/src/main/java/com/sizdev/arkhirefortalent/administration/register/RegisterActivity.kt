@@ -49,8 +49,6 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         binding.tvBackLogin.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
             finish()
         }
     }
@@ -75,7 +73,6 @@ class RegisterActivity : AppCompatActivity() {
 
         }
     }
-
 
 }
 

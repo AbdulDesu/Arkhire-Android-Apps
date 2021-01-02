@@ -64,18 +64,6 @@ class AccountFragment : Fragment() {
         return  binding.root
     }
 
-    private fun logedOutSuccesfully(){
-        val sharedPref = requireActivity().getSharedPreferences("User", Context.MODE_PRIVATE)
-        val editor = sharedPref.edit()
-        editor.putBoolean("Login", false)
-        editor.apply()
-    }
-
-    private fun profileUpdated(): Boolean{
-        val sharedPref = requireActivity().getSharedPreferences("newTalent", Context.MODE_PRIVATE)
-        return sharedPref.getBoolean("updatedProfile", false)
-    }
-
     private fun pickImageFromGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
@@ -116,8 +104,8 @@ class AccountFragment : Fragment() {
             val editor = sharedPref.edit()
             editor.putString("accID", null)
             editor.apply()
-            logedOutSuccesfully()
             startActivity(intent)
+            activity?.finish()
         }
 
         view.bt_noLogout.setOnClickListener {

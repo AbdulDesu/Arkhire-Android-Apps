@@ -9,10 +9,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
-import android.webkit.WebChromeClient
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
@@ -20,7 +17,6 @@ import com.sizdev.arkhirefortalent.databinding.ActivityArkhireWebViewerBinding
 import com.sizdev.arkhirefortalent.homepage.HomeActivity
 
 class ArkhireWebViewerActivity : AppCompatActivity(), WebListener {
-
     private lateinit var binding: ActivityArkhireWebViewerBinding
     private var doubleBackToExitPressedOnce = false
 
@@ -30,6 +26,7 @@ class ArkhireWebViewerActivity : AppCompatActivity(), WebListener {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_arkhire_web_viewer)
 
         val url = intent.getStringExtra("url")
+        val scale = intent.getStringExtra("webScale")
 
         setSupportActionBar(binding.tbArkhireBrowser)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -39,7 +36,9 @@ class ArkhireWebViewerActivity : AppCompatActivity(), WebListener {
         binding.tbArkhireBrowser.setNavigationOnClickListener {
             finish()
         }
-
+        if ( scale!= null ){
+            binding.wvArkhireWebViewer.setInitialScale(scale.toInt())
+        }
         binding.wvArkhireWebViewer.loadUrl("$url")
         binding.wvArkhireWebViewer.webChromeClient = ArkhireChromeClient(this)
         binding.wvArkhireWebViewer.webViewClient = ArkhireWebClient(this)
@@ -65,12 +64,22 @@ class ArkhireWebViewerActivity : AppCompatActivity(), WebListener {
         }
 
         override fun shouldOverrideUrlLoading(
-            view: WebView?,
-            request: WebResourceRequest?
+                view: WebView?,
+                request: WebResourceRequest?
         ): Boolean {
             listener.onShouldOverrideUrl(request?.url?.toString().orEmpty())
             return super.shouldOverrideUrlLoading(view, request)
         }
+
+        override fun onReceivedError(
+                view: WebView?,
+                request: WebResourceRequest?,
+                error: WebResourceError?
+        ) {
+            super.onReceivedError(view, request, error)
+            listener.onReceivedError()
+        }
+
     }
 
     override fun onPageStarted() {
@@ -87,6 +96,10 @@ class ArkhireWebViewerActivity : AppCompatActivity(), WebListener {
 
     override fun onProgressChage(progress: Int) {
         binding.arkhireWebProgressBar.progress = progress
+    }
+
+    override fun onReceivedError() {
+        binding.notFound.visibility = View.VISIBLE
     }
 
     override fun onBackPressed() {

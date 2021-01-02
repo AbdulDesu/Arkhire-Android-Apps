@@ -48,9 +48,6 @@ class HomeFragment : Fragment() {
         val c = Calendar.getInstance()
         val timeOfDay = c[Calendar.HOUR_OF_DAY]
 
-
-        binding.tvHomeDate.text = currentDate
-
         binding.tvHomeDate.text = currentDate
         if (nameSplitter?.size == 1){
             if (timeOfDay in 0..11) {

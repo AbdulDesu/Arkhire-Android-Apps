@@ -34,7 +34,6 @@ class ShowApprovedProjectAdapter : RecyclerView.Adapter<ShowApprovedProjectAdapt
         holder.binding.tvProjectHiringStatus.text = "(${item.hiringStatus})"
 
         holder.itemView.setOnClickListener {
-            val item = items[position]
             val context = holder.binding.showAllProjectItem.context
             val intent = Intent(context, DetailOfProjectActivity::class.java)
             val offeringID = item.offeringID.toString()
