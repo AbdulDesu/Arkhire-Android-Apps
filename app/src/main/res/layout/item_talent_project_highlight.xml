@@ -1,115 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_project_highlight_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/projectItem"
-            android:layout_width="match_parent"
-            android:layout_height="173dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:background="@drawable/bg_card"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/projectItem"
                 android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="match_parent">
+                android:layout_height="173dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
                 <LinearLayout
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/bg_card"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tv_highLightProjectName"
-                            android:textColor="@color/white"
-                            android:text="PROJECT NAME"
-                            android:fontFamily="@font/opensans"
-                            android:textStyle="bold"
-                            android:textSize="24sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <TextView
-                            android:id="@+id/tv_highlightCompanyName"
-                            android:textColor="#B4FFFFFF"
-                            android:text="Company Name"
-                            android:textSize="14sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <TextView
-                            android:id="@+id/tv_highlightProjectSallary"
-                            android:text="Rp. X. XXX, XXX, XX"
-                            android:textColor="#B4FFFFFF"
-                            android:textSize="10sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                    android:orientation="vertical"
                     android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/tv_highlightProjectID"
-                        android:text="Project ID"
-                        android:textSize="10sp"
-                        android:textColor="@color/white"
-                        android:layout_marginLeft="32dp"
-                        android:layout_marginBottom="20dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/iv_highLightProjectImage"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
+                    <LinearLayout
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginRight="30dp"
-                        android:layout_marginBottom="30dp"
-                        app:civ_border_color="#FFFFFF"
-                        app:civ_border_width="1dp"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"/>
+                        android:layout_marginBottom="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_highLightProjectName"
+                                android:textColor="@color/white"
+                                android:text="PROJECT NAME"
+                                android:fontFamily="@font/opensans"
+                                android:textStyle="bold"
+                                android:textSize="19sp"
+                                android:layout_width="match_parent"
+                                android:layout_height="24sp"/>
+
+                            <TextView
+                                android:id="@+id/tv_highlightProjectDeadline"
+                                android:textColor="#B4FFFFFF"
+                                android:text="(Project Deadline)"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/tv_highlightProjectSallary"
+                                android:text="Rp. X. XXX, XXX, XX"
+                                android:textColor="#B4FFFFFF"
+                                android:textSize="10sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
 
                     <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true">
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tv_highlightHiringStatus"
+                            android:text="Hiring status"
+                            android:textSize="12sp"
+                            android:textColor="@color/white"
+                            android:layout_marginLeft="32dp"
+                            android:layout_marginBottom="20dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/iv_highLightProjectImage"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="30dp"
+                            android:layout_marginBottom="30dp"
+                            app:civ_border_color="#FFFFFF"
+                            app:civ_border_width="1dp"
+                            android:layout_width="50dp"
+                            android:src="@drawable/arkhireicon"
+                            android:scaleType="centerCrop"
+                            android:layout_height="50dp"/>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true">
+
+                        </RelativeLayout>
 
                     </RelativeLayout>
 
-                </RelativeLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-    </RelativeLayout>
+        </RelativeLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

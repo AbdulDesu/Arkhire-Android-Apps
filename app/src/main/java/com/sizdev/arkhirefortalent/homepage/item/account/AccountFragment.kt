@@ -1,11 +1,9 @@
 package com.sizdev.arkhirefortalent.homepage.item.account
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,16 +15,17 @@ import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.administration.password.ResetPasswordActivity
 import com.sizdev.arkhirefortalent.databinding.FragmentAccountBinding
 import com.sizdev.arkhirefortalent.homepage.item.account.profile.TalentProfileActivity
+import com.sizdev.arkhirefortalent.networking.ApiClient
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.alert_logout_confirmation.view.*
+import kotlinx.coroutines.*
 
 class AccountFragment : Fragment() {
 
     private lateinit var binding: FragmentAccountBinding
     private lateinit var dialog: AlertDialog
-
-    companion object {
-        private  val REQUEST_CODE = 0
-    }
+    private lateinit var coroutineScope: CoroutineScope
+    private lateinit var service: AccountApiService
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,12 +33,17 @@ class AccountFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_account, container, false)
+        coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
+        service = activity?.let { ApiClient.getApiClient(it) }!!.create(AccountApiService::class.java)
 
         // Get Saved Name
         val sharedPrefData = requireActivity().getSharedPreferences("Token", Context.MODE_PRIVATE)
         val savedName = sharedPrefData.getString("accName", null)
 
-        binding.tvFullNameAccount.text = savedName
+        // Get Saved Data
+        if (savedName != null) {
+            showAccountData(savedName)
+        }
 
         binding.tvLogout.setOnClickListener {
             startAlertLogoutConfirmation()
@@ -52,10 +56,6 @@ class AccountFragment : Fragment() {
 
         }
 
-        binding.profileImage.setOnClickListener {
-            pickImageFromGallery()
-        }
-
         binding.tvMyPassword.setOnClickListener {
             val intent = Intent(activity, ResetPasswordActivity::class.java)
             startActivity(intent)
@@ -64,28 +64,33 @@ class AccountFragment : Fragment() {
         return  binding.root
     }
 
-    private fun pickImageFromGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, REQUEST_CODE)
-    }
+    private fun showAccountData(talentName: String) {
+        coroutineScope.launch {
+            Log.d("Arkhire Talent", "Start: ${Thread.currentThread().name}")
 
-    var selectedPhotoUri : Uri?=null
-    var resolver = activity?.contentResolver
+            val result = withContext(Dispatchers.IO) {
+                Log.d("Arkhire Talent", "CallApi: ${Thread.currentThread().name}")
+                try {
+                    service?.getAccountDataByNameResponse(talentName)
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
+            if (result is AccountResponse) {
+                binding.tvFullNameAccount.text = result.data[0].accountName
+                binding.tvTitleAccount.text = result.data[0].talentTitle
 
-            selectedPhotoUri = data.data
-
-            val bitmap = MediaStore.Images.Media.getBitmap(resolver, selectedPhotoUri)
-
-            binding.profileImage.setImageBitmap(bitmap)
-
-            binding.profileImage.alpha = 0f
+                //Set Profile Images
+                Picasso.get()
+                        .load("http://54.82.81.23:911/image/${result.data[0].talentImage}")
+                        .resize(512, 512)
+                        .centerCrop()
+                        .into(binding.ivProfileImage)
+            }
         }
     }
+
 
     private fun startAlertLogoutConfirmation() {
         val view: View = layoutInflater.inflate(R.layout.alert_logout_confirmation, null)
@@ -111,5 +116,10 @@ class AccountFragment : Fragment() {
         view.bt_noLogout.setOnClickListener {
             dialog.cancel()
         }
+    }
+
+    override fun onDestroy() {
+        coroutineScope.cancel()
+        super.onDestroy()
     }
 }

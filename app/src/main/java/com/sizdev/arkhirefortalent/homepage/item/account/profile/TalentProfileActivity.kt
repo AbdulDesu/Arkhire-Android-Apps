@@ -162,4 +162,9 @@ class TalentProfileActivity : AppCompatActivity() {
             doubleBackToExitPressedOnce = false
         }, 2000)
     }
+
+    override fun onDestroy() {
+        coroutineScope.cancel()
+        super.onDestroy()
+    }
 }

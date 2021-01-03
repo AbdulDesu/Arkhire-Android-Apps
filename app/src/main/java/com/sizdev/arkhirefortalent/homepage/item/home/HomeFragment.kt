@@ -21,6 +21,9 @@ import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.H
 import com.sizdev.arkhirefortalent.homepage.item.home.project.allproject.ShowAllProjectActivity
 import com.sizdev.arkhirefortalent.homepage.item.home.project.approvedproject.ShowApprovedProjectActivity
 import com.sizdev.arkhirefortalent.homepage.item.home.project.declinedproject.ShowDeclinedProjectActivity
+import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.HighLightProjectApiService
+import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.HighLightProjectModel
+import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.HighLightProjectResponse
 import com.sizdev.arkhirefortalent.homepage.item.home.project.waitingproject.ShowWaitingProjectActivity
 import com.sizdev.arkhirefortalent.networking.ApiClient
 import kotlinx.coroutines.*
@@ -34,6 +37,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: HomeApiService
+    private lateinit var updatedProjectService: HighLightProjectApiService
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     override fun onCreateView(
@@ -44,6 +48,7 @@ class HomeFragment : Fragment() {
         binding =  DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         service = activity?.let { ApiClient.getApiClient(it) }!!.create(HomeApiService::class.java)
+        updatedProjectService = activity?.let { ApiClient.getApiClient(it) }!!.create(HighLightProjectApiService::class.java)
 
         // Get Date
         val dateFormat = SimpleDateFormat("EEEE, dd MMMM YYYY")
@@ -54,13 +59,13 @@ class HomeFragment : Fragment() {
         val accountID = sharedPrefData.getString("accID", null)
         if (accountID != null) {
             showAccountName(accountID)
+            showNewerProject()
         }
 
         binding.tvHomeDate.text = currentDate
 
-
-        binding.rvProject.adapter = HighLightProjectAdapter()
-        binding.rvProject.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+        binding.rvProjectHighlight.adapter = HighLightProjectAdapter()
+        binding.rvProjectHighlight.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
 
         binding.lnProjectList.setOnClickListener {
             val intent = Intent(activity, ShowAllProjectActivity::class.java)
@@ -128,8 +133,36 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
-
         }
+    }
+
+    private fun showNewerProject() {
+        coroutineScope.launch {
+            Log.d("Arkhire Talent", "Start: ${Thread.currentThread().name}")
+
+            val result = withContext(Dispatchers.IO) {
+                Log.d("Arkhire Talent", "CallApi: ${Thread.currentThread().name}")
+                try {
+                    updatedProjectService?.getNewerProjectResponse()
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            }
+
+            if (result is HighLightProjectResponse) {
+                Log.d("Arkhire Talent", result.toString())
+                val list = result.data?.map{
+                    HighLightProjectModel(it.offeringID, it.projectID, it.projectTitle, it.projectDuration, it.projectDesc, it.projectSallary, it.hiringStatus, it.replyMsg, it.repliedAt)
+                }
+
+                (binding.rvProjectHighlight.adapter as HighLightProjectAdapter).addList(list)
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        coroutineScope.cancel()
+        super.onDestroy()
     }
 
 }

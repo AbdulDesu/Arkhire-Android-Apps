@@ -52,7 +52,7 @@
                 android:id="@+id/iv_talentProfileCover"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
-                android:background="@drawable/demo_bgprofile"/>
+                android:background="@color/primary"/>
 
             <LinearLayout
                 android:id="@+id/linearProfileTalentPhoto"
@@ -65,7 +65,6 @@
                     android:layout_marginStart="28dp"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
-                    android:src="@drawable/kiryusento"
                     app:civ_border_color="#FFFFFF"
                     app:civ_border_width="2dp" />
 
@@ -81,7 +80,6 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginTop="8dp"
                 android:gravity="center_vertical"
-                android:text="Kiryuu Sento"
                 android:textSize="18sp"
                 android:textColor="@color/black"
                 tools:context="Talent name" />
@@ -93,7 +91,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:text="Android Developer"
                 android:textSize="12sp"
                 tools:context="Talent title" />
 
@@ -147,7 +144,6 @@
                     android:layout_width="55dp"
                     android:layout_height="22dp"
                     android:gravity="center"
-                    android:text="Bandung"
                     android:textColor="#BDBCBC"
                     android:textSize="12sp"
                     tools:context="Talent location" />
@@ -244,7 +240,6 @@
                         android:layout_width="110dp"
                         android:layout_height="30dp"
                         android:background="@color/primary"
-                        android:text="Kotlin"
                         android:textSize="12sp"
                         android:textColor="@color/white" />
 
@@ -254,7 +249,6 @@
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
                         android:background="@color/primary"
-                        android:text="@string/html_css"
                         android:textSize="12sp"
                         android:textColor="@color/white" />
 
@@ -264,7 +258,6 @@
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
                         android:background="@color/primary"
-                        android:text="Java"
                         android:textSize="12sp"
                         android:textColor="@color/white" />
                 </LinearLayout>
@@ -283,7 +276,6 @@
                         android:layout_width="110dp"
                         android:layout_height="30dp"
                         android:background="@color/primary"
-                        android:text="Golang"
                         android:textSize="12sp"
                         android:textColor="@color/white" />
 
@@ -293,7 +285,6 @@
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
                         android:background="@color/primary"
-                        android:text="Python"
                         android:textSize="12sp"
                         android:textColor="@color/white" />
                 </LinearLayout>

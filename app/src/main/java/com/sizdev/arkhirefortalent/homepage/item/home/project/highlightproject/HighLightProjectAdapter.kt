@@ -1,43 +1,68 @@
 package com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sizdev.arkhirefortalent.R
+import com.sizdev.arkhirefortalent.databinding.ItemTalentProjectHighlightBinding
+import com.sizdev.arkhirefortalent.homepage.item.home.project.allproject.ShowAllProjectModel
+import com.sizdev.arkhirefortalent.homepage.item.home.project.detailedproject.DetailOfProjectActivity
 import de.hdodenhof.circleimageview.CircleImageView
+import java.util.*
 
 
 class HighLightProjectAdapter : RecyclerView.Adapter<HighLightProjectAdapter.ProjectHolder>() {
+    private var items = mutableListOf<HighLightProjectModel>()
 
-    val listProjectName = listOf("Hololive Apps", "Traveloka Apps", "Bukalapak Apps", "Tokopedia Apps", "Shopee Apps", "Cooking Apps")
-    val listCompanyName = listOf("Hololive ID", "Traveloka.inc", "BukalapakID", "Tokopedia.com", "Shopee.com", "JapanFood.com")
-    val listSallaryProject = listOf("Rp.12.000.000", "Rp.8.000.000", "Rp.5.000.000", "Rp.4.000.000", "Rp.3.000.000", "Rp.2.000.000")
-    val listProjectID = listOf("000001", "000002", "000003", "000004", "000005", "000006")
-    val listCompanyImage = listOf(R.drawable.ic_hololive, R.drawable.ic_traveloka, R.drawable.ic_bukalapak, R.drawable.ic_tokopedia, R.drawable.ic_shopee, R.drawable.ic_cooking)
-
-    class ProjectHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        var highlightProjectName: TextView = itemView.findViewById(R.id.tv_highLightProjectName)
-        var highlightCompanyName: TextView = itemView.findViewById(R.id.tv_highlightCompanyName)
-        var highlightProjectSallary: TextView = itemView.findViewById(R.id.tv_highlightProjectSallary)
-        var highlightProjectId: TextView = itemView.findViewById(R.id.tv_highlightProjectID)
-        var highlightCompanyPhoto: CircleImageView = itemView.findViewById(R.id.iv_highLightProjectImage)
+    fun addList(list: List<HighLightProjectModel>){
+        items.clear()
+        items.addAll(list)
+        notifyDataSetChanged()
     }
+
+    class ProjectHolder(val binding: ItemTalentProjectHighlightBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectHolder {
-        return ProjectHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_talent_project_highlight, parent, false))
+        return ProjectHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_talent_project_highlight, parent, false))
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ProjectHolder, position: Int) {
-        holder.highlightProjectName.text = listProjectName[position]
-        holder.highlightCompanyName.text = listCompanyName[position]
-        holder.highlightProjectSallary.text = listSallaryProject[position]
-        holder.highlightProjectId.text = listProjectID[position]
-        holder.highlightCompanyPhoto.setImageResource(listCompanyImage[position])
+        val item = items[position]
+        holder.binding.tvHighLightProjectName.text = item.projectTitle
+        holder.binding.tvHighlightProjectDeadline.text = "${item.projectDuration?.capitalize(Locale.ROOT)} DEADLINE"
+        holder.binding.tvHighlightProjectSallary.text = item.projectSallary
+        holder.binding.tvHighlightHiringStatus.text = "(${item.hiringStatus})"
+
+        holder.itemView.setOnClickListener {
+            val context = holder.binding.itemProjectHighlightHolder.context
+            val intent = Intent(context, DetailOfProjectActivity::class.java)
+            val offeringID = item.offeringID.toString()
+            val projectTitle = item.projectTitle.toString()
+            val projectSalary = item.projectSallary.toString()
+            val projectDesc = item.projectDesc.toString()
+            val projectDuration = item.projectDuration.toString()
+            val projectStatus = item.hiringStatus.toString()
+            val msgReply = item.replyMsg.toString()
+            val repliedAt = item.repliedAt.toString()
+
+            intent.putExtra("offeringID", offeringID)
+            intent.putExtra("projectTitle", projectTitle)
+            intent.putExtra("projectSalary", projectSalary)
+            intent.putExtra("projectDesc", projectDesc)
+            intent.putExtra("projectDuration", projectDuration)
+            intent.putExtra("projectStatus", projectStatus)
+            intent.putExtra("msgReply", msgReply)
+            intent.putExtra("repliedAt", repliedAt)
+            context.startActivity(intent)
+        }
     }
 
-    override fun getItemCount(): Int = listProjectName.size
-
+    override fun getItemCount(): Int = items.size
 
 }

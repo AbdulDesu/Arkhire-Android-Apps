@@ -42,7 +42,6 @@ class ShowAllProjectAdapter : RecyclerView.Adapter<ShowAllProjectAdapter.ShowAll
             val projectDesc = item.projectDesc.toString()
             val projectDuration = item.projectDuration.toString()
             val projectStatus = item.hiringStatus.toString()
-            val msgForTalent = item.msgForTalent.toString()
             val msgReply = item.replyMsg.toString()
             val repliedAt = item.repliedAt.toString()
 
@@ -52,7 +51,6 @@ class ShowAllProjectAdapter : RecyclerView.Adapter<ShowAllProjectAdapter.ShowAll
             intent.putExtra("projectDesc", projectDesc)
             intent.putExtra("projectDuration", projectDuration)
             intent.putExtra("projectStatus", projectStatus)
-            intent.putExtra("msgForTalent", msgForTalent)
             intent.putExtra("msgReply", msgReply)
             intent.putExtra("repliedAt", repliedAt)
             context.startActivity(intent)

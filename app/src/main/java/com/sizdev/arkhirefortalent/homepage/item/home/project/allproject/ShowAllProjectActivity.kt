@@ -54,7 +54,7 @@ class ShowAllProjectActivity : AppCompatActivity() {
             if (result is ShowAllProjectResponse) {
                 Log.d("Arkhire Talent", result.toString())
                 val list = result.data?.map{
-                    ShowAllProjectModel(it.offeringID, it.projectID, it.projectTitle, it.projectDuration, it.projectDesc, it.msgForTalent, it.projectSallary, it.hiringStatus, it.replyMsg, it.repliedAt)
+                    ShowAllProjectModel(it.offeringID, it.projectID, it.projectTitle, it.projectDuration, it.projectDesc, it.projectSallary, it.hiringStatus, it.replyMsg, it.repliedAt)
                 }
 
                 (binding.rvShowAllProject.adapter as ShowAllProjectAdapter).addList(list)

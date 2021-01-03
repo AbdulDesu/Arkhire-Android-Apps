@@ -188,7 +188,7 @@
                 android:layout_marginBottom="7dp">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_project"
+                    android:id="@+id/rv_project_highlight"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentTop="true"/>
