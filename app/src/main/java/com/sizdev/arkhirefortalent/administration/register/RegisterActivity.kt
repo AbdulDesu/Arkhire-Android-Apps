@@ -69,8 +69,6 @@ class RegisterActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-
-
         }
     }
 

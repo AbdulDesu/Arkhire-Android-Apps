@@ -33,7 +33,7 @@
         <activity android:name="com.sizdev.arkhirefortalent.homepage.item.home.project.declinedproject.ShowDeclinedProjectActivity" />
         <activity android:name="com.sizdev.arkhirefortalent.homepage.item.home.project.approvedproject.ShowApprovedProjectActivity" />
         <activity android:name="com.sizdev.arkhirefortalent.homepage.item.home.project.allproject.ShowAllProjectActivity" />
-        <activity android:name=".homepage.webviewer.ArkhireWebViewerActivity" />
+        <activity android:name="com.sizdev.arkhirefortalent.webviewer.ArkhireWebViewerActivity" />
         <activity android:name=".onboarding.OnBoardingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,7 +42,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".administration.password.ResetPasswordActivity" />
-        <activity android:name="com.sizdev.arkhirefortalent.homepage.item.account.profile.EditProfileActivity" />
+        <activity android:name="com.sizdev.arkhirefortalent.homepage.item.account.profile.editingprofile.EditProfileActivity" />
         <activity android:name="com.sizdev.arkhirefortalent.homepage.item.account.profile.TalentProfileActivity" />
         <activity android:name=".administration.password.ForgetPasswordActivity" />
         <activity android:name=".administration.login.LoginActivity" />

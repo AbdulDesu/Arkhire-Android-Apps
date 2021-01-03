@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.ItemCompanyListBinding
 import com.sizdev.arkhirefortalent.homepage.item.company.profile.CompanyProfileActivity
+import com.squareup.picasso.Picasso
 
 class SearchCompanyAdapter : RecyclerView.Adapter<SearchCompanyAdapter.SearchCompanyHolder>() {
     private var items = mutableListOf<SearchCompanyModel>()
@@ -31,6 +32,11 @@ class SearchCompanyAdapter : RecyclerView.Adapter<SearchCompanyAdapter.SearchCom
         holder.binding.tvCompanyName.text = item.companyName
         holder.binding.tvCompanyType.text = item.companyType
         holder.binding.tvCompanyLocation.text = "${item.companyLatitude}, ${item.companyLongitude}"
+        Picasso.get()
+                .load("http://54.82.81.23:911/image/${item.companyImage}")
+                .resize(86, 86)
+                .centerCrop()
+                .into(holder.binding.ivCompanyImage)
 
         holder.itemView.setOnClickListener {
             val item = items[position]

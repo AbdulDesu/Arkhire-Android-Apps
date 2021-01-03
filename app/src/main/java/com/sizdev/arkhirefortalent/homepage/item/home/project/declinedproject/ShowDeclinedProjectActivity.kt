@@ -55,7 +55,7 @@ class ShowDeclinedProjectActivity : AppCompatActivity() {
             if (result is ShowDeclinedProjectResponse) {
                 Log.d("Arkhire Talent", result.toString())
                 val list = result.data?.map{
-                    ShowDeclinedProjectModel(it.offeringID, it.projectID, it.projectTitle, it.projectDuration, it.projectDesc, it.msgForTalent, it.projectSallary, it.hiringStatus, it.replyMsg, it.repliedAt)
+                    ShowDeclinedProjectModel(it.offeringID, it.projectID, it.projectTitle, it.projectDuration, it.projectDesc, it.projectSallary, it.hiringStatus, it.replyMsg, it.repliedAt)
                 }
 
                 (binding.rvShowDeclinedProject.adapter as ShowDeclinedProjectAdapter).addList(list)

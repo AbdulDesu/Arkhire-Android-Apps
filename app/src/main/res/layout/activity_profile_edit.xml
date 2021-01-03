@@ -4,211 +4,241 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".homepage.item.account.profile.EditProfileActivity">
+    tools:context=".homepage.item.account.profile.editingprofile.EditProfileActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#E5E5E5">
 
-        <View
-            android:id="@+id/topView"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:background="@color/primary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-
-        <TextView
-            android:id="@+id/tv_arkhire"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:text="Profile Settings"
-            android:textColor="@color/white"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="To Continue Pelase complete this form"
-            android:textColor="@color/white"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="@+id/topView"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/tv_arkhire"
-            app:layout_constraintTop_toBottomOf="@+id/tv_arkhire" />
-
-        <LinearLayout
-            android:layout_width="410dp"
-            android:layout_height="591dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:background="@drawable/bg_myprofile"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/topView">
-
-            <TextView
-                android:id="@+id/et_newProfileJobTitle"
-                android:layout_width="349dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="32dp"
-                android:background="@drawable/round_border"
-                android:drawablePadding="16dp"
-                android:ems="10"
-                android:hint="@string/your_title"
-                android:padding="16dp" />
-
-            <TextView
-                android:id="@+id/et_newProfileLocation"
-                android:layout_width="349dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
-                android:background="@drawable/round_border"
-                android:drawablePadding="16dp"
-                android:ems="10"
-                android:hint="@string/city"
-                android:padding="16dp" />
-
-            <TextView
-                android:id="@+id/et_newProfileWorkTime"
-                android:layout_width="349dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
-                android:background="@drawable/round_border"
-                android:drawablePadding="16dp"
-                android:ems="10"
-                android:hint="@string/working_time"
-                android:padding="16dp" />
-
-            <EditText
-                android:id="@+id/et_newProfileDesc"
-                android:layout_width="349dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
-                android:background="@drawable/round_border"
-                android:drawablePadding="16dp"
-                android:ems="10"
-                android:hint="@string/tell_me_about_you"
-                android:padding="16dp"
-                android:textSize="14sp" />
-
-            <RelativeLayout
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
+            <View
+                android:id="@+id/topView"
                 android:layout_width="match_parent"
-                android:layout_height="120dp">
+                android:layout_height="150dp"
+                android:background="@color/primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/et_newProfileSkill1"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16sp"
-                    android:layout_width="80dp"
-                    android:textAlignment="center"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/round_border"
-                    android:hint="@string/skill"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/et_newProfileSkill2"
-                    android:layout_toRightOf="@id/et_newProfileSkill1"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16sp"
-                    android:layout_width="80dp"
-                    android:textAlignment="center"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/round_border"
-                    android:hint="@string/skill"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/et_newProfileSkill3"
-                    android:layout_toRightOf="@id/et_newProfileSkill2"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16sp"
-                    android:layout_width="80dp"
-                    android:textAlignment="center"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/round_border"
-                    android:hint="@string/skill"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/et_newProfileSkill4"
-                    android:layout_below="@id/et_newProfileSkill1"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16sp"
-                    android:layout_width="80dp"
-                    android:textAlignment="center"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/round_border"
-                    android:hint="@string/skill"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/et_newProfileSkill5"
-                    android:layout_below="@id/et_newProfileSkill2"
-                    android:layout_toRightOf="@id/et_newProfileSkill4"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16sp"
-                    android:layout_width="80dp"
-                    android:textAlignment="center"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/round_border"
-                    android:hint="@string/skill"
-                    android:textSize="14sp" />
-            </RelativeLayout>
-
-            <EditText
-                android:id="@+id/et_newProfileGithub"
-                android:layout_width="349dp"
+            <TextView
+                android:id="@+id/tv_arkhire"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
-                android:background="@drawable/round_border"
-                android:drawablePadding="16dp"
-                android:ems="10"
-                android:hint="@string/github_nickname"
-                android:padding="16dp"
-                android:textSize="14sp" />
+                android:layout_marginTop="32dp"
+                android:text="Edit Profile"
+                android:textColor="@color/white"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_myprofile"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/topView">
+
+                <TextView
+                    android:id="@+id/et_newProfileJobTitle"
+                    android:layout_width="349dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginEnd="32dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:drawablePadding="16dp"
+                    android:ems="10"
+                    android:hint="@string/your_title"
+                    android:padding="16dp" />
+
+                <TextView
+                    android:id="@+id/et_newProfileLocation"
+                    android:layout_width="349dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:drawablePadding="16dp"
+                    android:ems="10"
+                    android:hint="@string/city"
+                    android:padding="16dp" />
+
+                <TextView
+                    android:id="@+id/et_newProfileWorkTime"
+                    android:layout_width="349dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:drawablePadding="16dp"
+                    android:ems="10"
+                    android:hint="@string/working_time"
+                    android:padding="16dp" />
+
+                <EditText
+                    android:id="@+id/et_newProfileDesc"
+                    android:layout_width="349dp"
+                    android:layout_height="130dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:padding="2dp"
+                    android:drawablePadding="16dp"
+                    android:gravity="start"
+                    android:ems="10"
+                    android:maxLength="480"
+                    android:hint="@string/tell_me_about_you"
+                    android:textSize="14sp" />
+
+                <RelativeLayout
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp">
+
+                    <TextView
+                        android:id="@+id/et_newProfileSkill1"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16sp"
+                        android:layout_width="80dp"
+                        android:textAlignment="center"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/round_border"
+                        android:hint="@string/skill"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/et_newProfileSkill2"
+                        android:layout_toRightOf="@id/et_newProfileSkill1"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16sp"
+                        android:layout_width="80dp"
+                        android:textAlignment="center"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/round_border"
+                        android:hint="@string/skill"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/et_newProfileSkill3"
+                        android:layout_toRightOf="@id/et_newProfileSkill2"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16sp"
+                        android:layout_width="80dp"
+                        android:textAlignment="center"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/round_border"
+                        android:hint="@string/skill"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/et_newProfileSkill4"
+                        android:layout_below="@id/et_newProfileSkill1"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16sp"
+                        android:layout_width="80dp"
+                        android:textAlignment="center"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/round_border"
+                        android:hint="@string/skill"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/et_newProfileSkill5"
+                        android:layout_below="@id/et_newProfileSkill2"
+                        android:layout_toRightOf="@id/et_newProfileSkill4"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16sp"
+                        android:layout_width="80dp"
+                        android:textAlignment="center"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/round_border"
+                        android:hint="@string/skill"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/et_newProfileGithub"
+                    android:layout_width="349dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:drawablePadding="16dp"
+                    android:ems="10"
+                    android:hint="@string/github_nickname"
+                    android:padding="16dp"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:background="#DAD7D7"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_editProfileImage"
+                        android:src="@drawable/ic_account"
+                        android:scaleType="centerCrop"
+                        android:layout_marginTop="18dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="92dp"
+                        android:layout_height="92dp"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/bt_editProfileImage"
+                        android:text="PICK IMAGE"
+                        android:textColor="@color/white"
+                        android:background="@color/primary"
+                        android:layout_marginTop="12dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"/>
+                </LinearLayout>
 
 
-            <android.widget.Button
-                android:id="@+id/bt_newProfileDone"
-                android:layout_width="349dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
-                android:background="@drawable/round_bg"
-                android:text="@string/done"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                <android.widget.Button
+                    android:id="@+id/bt_newProfileDone"
+                    android:layout_width="349dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/round_bg"
+                    android:text="@string/done"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </ScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
 </layout>

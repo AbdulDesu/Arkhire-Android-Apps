@@ -55,7 +55,7 @@ class ShowApprovedProjectActivity : AppCompatActivity() {
             if (result is ShowApprovedProjectResponse) {
                 Log.d("Arkhire Talent", result.toString())
                 val list = result.data?.map{
-                    ShowApprovedProjectModel(it.offeringID, it.projectID, it.projectTitle, it.projectDuration, it.projectDesc, it.msgForTalent, it.projectSallary, it.hiringStatus, it.replyMsg, it.repliedAt)
+                    ShowApprovedProjectModel(it.offeringID, it.projectID, it.projectTitle, it.projectDuration, it.projectDesc, it.projectSallary, it.hiringStatus, it.replyMsg, it.repliedAt)
                 }
 
                 (binding.rvShowApprovedProject.adapter as ShowApprovedProjectAdapter).addList(list)

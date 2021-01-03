@@ -1,4 +1,4 @@
-package com.sizdev.arkhirefortalent.homepage.webviewer
+package com.sizdev.arkhirefortalent.webviewer
 
 interface WebListener {
     fun onPageStarted()

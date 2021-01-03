@@ -1,20 +1,15 @@
-package com.sizdev.arkhirefortalent.homepage.webviewer
+package com.sizdev.arkhirefortalent.webviewer
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.View
 import android.webkit.*
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.ActivityArkhireWebViewerBinding
-import com.sizdev.arkhirefortalent.homepage.HomeActivity
 
 class ArkhireWebViewerActivity : AppCompatActivity(), WebListener {
     private lateinit var binding: ActivityArkhireWebViewerBinding

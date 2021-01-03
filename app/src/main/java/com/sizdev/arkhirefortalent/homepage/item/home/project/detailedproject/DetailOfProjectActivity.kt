@@ -6,12 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.administration.login.LoginActivity
 import com.sizdev.arkhirefortalent.administration.register.RegisterResponse
 import com.sizdev.arkhirefortalent.databinding.ActivityDetailOfProjectBinding
 import com.sizdev.arkhirefortalent.networking.ApiClient
+import kotlinx.android.synthetic.main.alert_reply_confirmation.view.*
 import kotlinx.coroutines.*
 
 class DetailOfProjectActivity : AppCompatActivity() {
@@ -19,6 +21,7 @@ class DetailOfProjectActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailOfProjectBinding
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: ProjectReplyAuthService
+    private lateinit var dialog: AlertDialog
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,13 +30,11 @@ class DetailOfProjectActivity : AppCompatActivity() {
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         service = ApiClient.getApiClient(this)!!.create(ProjectReplyAuthService::class.java)
 
-        val offeringID = intent.getStringExtra("offeringID")
         val projectTitle = intent.getStringExtra("projectTitle")
         val projectSalary = intent.getStringExtra("projectSalary")
         val projectDesc = intent.getStringExtra("projectDesc")
         val projectDuration = intent.getStringExtra("projectDuration")
         val projectStatus = intent.getStringExtra("projectStatus")
-        val msgForTalent = intent.getStringExtra("msgForTalent")
         val msgReply = intent.getStringExtra("msgReply")
         val repliedAt = intent.getStringExtra("repliedAt")
 
@@ -41,7 +42,6 @@ class DetailOfProjectActivity : AppCompatActivity() {
         binding.tvDetailProjectSalary.text = projectSalary
         binding.tvProjectDesc.text = projectDesc
         binding.tvDuration.text = projectDuration
-        binding.tvMsgForTalent.text = msgForTalent
         binding.tvReplyMsg.text = msgReply
         binding.tvRepliedAt.text = repliedAt
 
@@ -71,16 +71,36 @@ class DetailOfProjectActivity : AppCompatActivity() {
         }
 
         binding.btApproveProject.setOnClickListener {
-            Toast.makeText(this, "$offeringID", Toast.LENGTH_SHORT).show()
-            if (offeringID != null) {
-                replyProject(offeringID, "Approved", "Project Approved")
-            }
+            showReplyConfirmation("Approved")
+            dialog.show()
         }
 
         binding.btDeclineProject.setOnClickListener{
+            showReplyConfirmation("Declined")
+            dialog.show()
+        }
+    }
+
+    private fun showReplyConfirmation(projectStatus: String) {
+        val view: View = layoutInflater.inflate(R.layout.alert_reply_confirmation, null)
+
+        dialog = AlertDialog.Builder(this)
+                .setView(view)
+                .setCancelable(false)
+                .create()
+
+        view.bt_sendReply.setOnClickListener {
+            dialog.dismiss()
+            val offeringID = intent.getStringExtra("offeringID")
+            val replyMsg = view.et_replyMsg.text.toString()
             if (offeringID != null) {
-                replyProject(offeringID, "Declined", "Project Declined")
+                replyProject(offeringID, projectStatus, replyMsg)
+                Toast.makeText(this, "Project $projectStatus", Toast.LENGTH_LONG).show()
+                finish()
             }
+        }
+        view.bt_cancelReply.setOnClickListener {
+            dialog.cancel()
         }
     }
 

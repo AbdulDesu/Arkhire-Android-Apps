@@ -1,32 +1,58 @@
-package com.sizdev.arkhirefortalent.homepage.item.account.profile
+package com.sizdev.arkhirefortalent.homepage.item.account.profile.editingprofile
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.Menu
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
+import com.sizdev.arkhirefortalent.administration.login.LoginActivity
+import com.sizdev.arkhirefortalent.administration.register.RegisterResponse
 import com.sizdev.arkhirefortalent.databinding.ActivityProfileEditBinding
+import com.sizdev.arkhirefortalent.homepage.item.account.profile.TalentProfileActivity
+import com.sizdev.arkhirefortalent.networking.ApiClient
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.*
 
 class EditProfileActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityProfileEditBinding
+    private lateinit var binding: ActivityProfileEditBinding
+    private lateinit var coroutineScope: CoroutineScope
+    private lateinit var service: EditProfileAuthService
+    private var selectedPhotoUri : Uri?=null
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profile_edit)
+        coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
+        service = ApiClient.getApiClient(this)!!.create(EditProfileAuthService::class.java)
 
-        //Ge User Input
-        val talentTitle = binding.etNewProfileJobTitle.text.toString()
-        val talentLocation = binding.etNewProfileLocation.text.toString()
-        val talentWorkTime = binding.etNewProfileWorkTime.text.toString()
-        val talentDescription = binding.etNewProfileDesc.text.toString()
-        val talentGithub = binding.etNewProfileGithub.text.toString()
+        //Get Data From Profile Activity User Input
+        val talentID = intent.getStringExtra("talentID")
+        val talentImage = intent.getStringExtra("talentImage")
+
+        //Set Image Default
+        if(talentImage != null){
+            Picasso.get()
+                    .load("http://54.82.81.23:911/image/$talentImage")
+                    .resize(512, 512)
+                    .centerCrop()
+                    .into(binding.ivEditProfileImage)
+        }
+        else{
+            binding.ivEditProfileImage.setImageResource(R.drawable.ic_empty_image)
+        }
+
+
 
         //Job Tittle Pop Up Menu
         val jobTitle = PopupMenu(this, binding.etNewProfileJobTitle)
@@ -51,57 +77,57 @@ class EditProfileActivity : AppCompatActivity() {
         //Work Time Pop Up Menu
         val workTime = PopupMenu(this, binding.etNewProfileWorkTime)
 
-        workTime.menu.add(Menu.NONE, 0 ,0, "Full Time")
+        workTime.menu.add(Menu.NONE, 0 ,0, "FullTime")
         workTime.menu.add(Menu.NONE, 1 ,1, "Freelancer")
 
         //Skill Choose Pop Up Menu
         val talentSKill1 = PopupMenu(this, binding.etNewProfileSkill1)
 
         talentSKill1.menu.add(Menu.NONE, 0 ,0, "JavaScript")
-        talentSKill1.menu.add(Menu.NONE, 1 ,1, "HTML & CSS")
+        talentSKill1.menu.add(Menu.NONE, 1 ,1, "HTML&CSS")
         talentSKill1.menu.add(Menu.NONE, 2 ,2, "Java")
         talentSKill1.menu.add(Menu.NONE, 3 ,3, "Kotlin")
-        talentSKill1.menu.add(Menu.NONE, 4 ,4, "React Native")
+        talentSKill1.menu.add(Menu.NONE, 4 ,4, "React")
         talentSKill1.menu.add(Menu.NONE, 5 ,5, "Python")
         talentSKill1.menu.add(Menu.NONE, 6 ,6, "Golang")
 
         val talentSKill2 = PopupMenu(this, binding.etNewProfileSkill2)
 
         talentSKill2.menu.add(Menu.NONE, 0 ,0, "JavaScript")
-        talentSKill2.menu.add(Menu.NONE, 1 ,1, "HTML & CSS")
+        talentSKill2.menu.add(Menu.NONE, 1 ,1, "HTML&CSS")
         talentSKill2.menu.add(Menu.NONE, 2 ,2, "Java")
         talentSKill2.menu.add(Menu.NONE, 3 ,3, "Kotlin")
-        talentSKill2.menu.add(Menu.NONE, 4 ,4, "React Native")
+        talentSKill2.menu.add(Menu.NONE, 4 ,4, "React")
         talentSKill2.menu.add(Menu.NONE, 5 ,5, "Python")
         talentSKill2.menu.add(Menu.NONE, 6 ,6, "Golang")
 
         val talentSKill3 = PopupMenu(this, binding.etNewProfileSkill3)
 
         talentSKill3.menu.add(Menu.NONE, 0 ,0, "JavaScript")
-        talentSKill3.menu.add(Menu.NONE, 1 ,1, "HTML & CSS")
+        talentSKill3.menu.add(Menu.NONE, 1 ,1, "HTML&CSS")
         talentSKill3.menu.add(Menu.NONE, 2 ,2, "Java")
         talentSKill3.menu.add(Menu.NONE, 3 ,3, "Kotlin")
-        talentSKill3.menu.add(Menu.NONE, 4 ,4, "React Native")
+        talentSKill3.menu.add(Menu.NONE, 4 ,4, "React")
         talentSKill3.menu.add(Menu.NONE, 5 ,5, "Python")
         talentSKill3.menu.add(Menu.NONE, 6 ,6, "Golang")
 
         val talentSKill4 = PopupMenu(this, binding.etNewProfileSkill4)
 
         talentSKill4.menu.add(Menu.NONE, 0 ,0, "JavaScript")
-        talentSKill4.menu.add(Menu.NONE, 1 ,1, "HTML & CSS")
+        talentSKill4.menu.add(Menu.NONE, 1 ,1, "HTML&CSS")
         talentSKill4.menu.add(Menu.NONE, 2 ,2, "Java")
         talentSKill4.menu.add(Menu.NONE, 3 ,3, "Kotlin")
-        talentSKill4.menu.add(Menu.NONE, 4 ,4, "React Native")
+        talentSKill4.menu.add(Menu.NONE, 4 ,4, "React")
         talentSKill4.menu.add(Menu.NONE, 5 ,5, "Python")
         talentSKill4.menu.add(Menu.NONE, 6 ,6, "Golang")
 
         val talentSKill5 = PopupMenu(this, binding.etNewProfileSkill5)
 
         talentSKill5.menu.add(Menu.NONE, 0 ,0, "JavaScript")
-        talentSKill5.menu.add(Menu.NONE, 1 ,1, "HTML & CSS")
+        talentSKill5.menu.add(Menu.NONE, 1 ,1, "HTML&CSS")
         talentSKill5.menu.add(Menu.NONE, 2 ,2, "Java")
         talentSKill5.menu.add(Menu.NONE, 3 ,3, "Kotlin")
-        talentSKill5.menu.add(Menu.NONE, 4 ,4, "React Native")
+        talentSKill5.menu.add(Menu.NONE, 4 ,4, "React")
         talentSKill5.menu.add(Menu.NONE, 5 ,5, "Python")
         talentSKill5.menu.add(Menu.NONE, 6 ,6, "Golang")
 
@@ -156,10 +182,10 @@ class EditProfileActivity : AppCompatActivity() {
 
             when (id) {
                 0 -> {binding.etNewProfileSkill1.text = "JavaScript"}
-                1 -> {binding.etNewProfileSkill1.text = "HTML & CSS"}
+                1 -> {binding.etNewProfileSkill1.text = "HTML&CSS"}
                 2 -> {binding.etNewProfileSkill1.text = "Java"}
                 3 -> {binding.etNewProfileSkill1.text = "Kotlin"}
-                4 -> {binding.etNewProfileSkill1.text = "React Native"}
+                4 -> {binding.etNewProfileSkill1.text = "React"}
                 5 -> {binding.etNewProfileSkill1.text = "Python"}
                 6 -> {binding.etNewProfileSkill1.text = "Golang"}
             }
@@ -173,10 +199,10 @@ class EditProfileActivity : AppCompatActivity() {
 
             when (id) {
                 0 -> {binding.etNewProfileSkill2.text = "JavaScript"}
-                1 -> {binding.etNewProfileSkill2.text = "HTML & CSS"}
+                1 -> {binding.etNewProfileSkill2.text = "HTML&CSS"}
                 2 -> {binding.etNewProfileSkill2.text = "Java"}
                 3 -> {binding.etNewProfileSkill2.text = "Kotlin"}
-                4 -> {binding.etNewProfileSkill2.text = "React Native"}
+                4 -> {binding.etNewProfileSkill2.text = "React "}
                 5 -> {binding.etNewProfileSkill2.text = "Python"}
                 6 -> {binding.etNewProfileSkill2.text = "Golang"}
             }
@@ -190,10 +216,10 @@ class EditProfileActivity : AppCompatActivity() {
 
             when (id) {
                 0 -> {binding.etNewProfileSkill3.text = "JavaScript"}
-                1 -> {binding.etNewProfileSkill3.text = "HTML & CSS"}
+                1 -> {binding.etNewProfileSkill3.text = "HTML&CSS"}
                 2 -> {binding.etNewProfileSkill3.text = "Java"}
                 3 -> {binding.etNewProfileSkill3.text = "Kotlin"}
-                4 -> {binding.etNewProfileSkill3.text = "React Native"}
+                4 -> {binding.etNewProfileSkill3.text = "React"}
                 5 -> {binding.etNewProfileSkill3.text = "Python"}
                 6 -> {binding.etNewProfileSkill3.text = "Golang"}
             }
@@ -207,10 +233,10 @@ class EditProfileActivity : AppCompatActivity() {
 
             when (id) {
                 0 -> {binding.etNewProfileSkill4.text = "JavaScript"}
-                1 -> {binding.etNewProfileSkill4.text = "HTML & CSS"}
+                1 -> {binding.etNewProfileSkill4.text = "HTML&CSS"}
                 2 -> {binding.etNewProfileSkill4.text = "Java"}
                 3 -> {binding.etNewProfileSkill4.text = "Kotlin"}
-                4 -> {binding.etNewProfileSkill4.text = "React Native"}
+                4 -> {binding.etNewProfileSkill4.text = "React"}
                 5 -> {binding.etNewProfileSkill4.text = "Python"}
                 6 -> {binding.etNewProfileSkill4.text = "Golang"}
             }
@@ -224,10 +250,10 @@ class EditProfileActivity : AppCompatActivity() {
 
             when (id) {
                 0 -> {binding.etNewProfileSkill5.text = "JavaScript"}
-                1 -> {binding.etNewProfileSkill5.text = "HTML & CSS"}
+                1 -> {binding.etNewProfileSkill5.text = "HTML&CSS"}
                 2 -> {binding.etNewProfileSkill5.text = "Java"}
                 3 -> {binding.etNewProfileSkill5.text = "Kotlin"}
-                4 -> {binding.etNewProfileSkill5.text = "React Native"}
+                4 -> {binding.etNewProfileSkill5.text = "React"}
                 5 -> {binding.etNewProfileSkill5.text = "Python"}
                 6 -> {binding.etNewProfileSkill5.text = "Golang"}
             }
@@ -268,48 +294,65 @@ class EditProfileActivity : AppCompatActivity() {
             talentSKill5.show()
         }
 
+        binding.btEditProfileImage.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(intent, 0)
+        }
+
         binding.btNewProfileDone.setOnClickListener {
-                val intent = Intent(this, TalentProfileActivity::class.java)
-                saveProfile()
-                newTalentStatus()
-                startActivity(intent)
-                Toast.makeText(this, "Profile Updated", Toast.LENGTH_LONG).show()
-                finish()
+            val talentTitle = binding.etNewProfileJobTitle.text.toString()
+            val talentWorkTime = binding.etNewProfileWorkTime.text.toString()
+            val talentLocation = binding.etNewProfileLocation.text.toString()
+            val talentDesc = binding.etNewProfileDesc.text.toString()
+
+            if(talentTitle.isEmpty() || talentWorkTime.isEmpty() || talentLocation.isEmpty() || talentDesc.isEmpty()){
+                Toast.makeText(this, "Please Fill All Field", Toast.LENGTH_LONG).show()
+            }
+            else {
+                if (talentID != null) {
+                    if (talentImage != null) {
+                        startUpdateProfile(talentID, talentTitle, talentWorkTime, talentLocation, talentDesc, talentImage)
+                    }
+                    else {
+                        startUpdateProfile(talentID, talentTitle, talentWorkTime, talentLocation, talentDesc, "null")
+                    }
+                }
+            }
+
         }
     }
 
-    private fun saveProfile() {
-        val talentTitle = binding.etNewProfileJobTitle.text.toString()
-        val talentLocation = binding.etNewProfileLocation.text.toString()
-        val talentWorkTime = binding.etNewProfileWorkTime.text.toString()
-        val talentDescription = binding.etNewProfileDesc.text.toString()
-        val talentSkill1 = binding.etNewProfileSkill1.text.toString()
-        val talentSkill2 = binding.etNewProfileSkill2.text.toString()
-        val talentSkill3 = binding.etNewProfileSkill3.text.toString()
-        val talentSkill4 = binding.etNewProfileSkill4.text.toString()
-        val talentSkill5 = binding.etNewProfileSkill5.text.toString()
-        val talentGithub = binding.etNewProfileGithub.text.toString()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-        val sharedPrefData = getSharedPreferences("profileData", Context.MODE_PRIVATE)
-        val editor = sharedPrefData.edit()
-        editor.apply {
-            putString("talentTitle", talentTitle)
-            putString("talentLocation", talentLocation)
-            putString("talentWorkTime", talentWorkTime)
-            putString("talentDescription", talentDescription)
-            putString("talentSkill1", talentSkill1)
-            putString("talentSkill2", talentSkill2)
-            putString("talentSkill3", talentSkill3)
-            putString("talentSkill4", talentSkill4)
-            putString("talentSkill5", talentSkill5)
-            putString("talentGithub", talentGithub)
-        }.apply()
+        if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null){
+            selectedPhotoUri = data.data
+
+            val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, selectedPhotoUri)
+
+            binding.ivEditProfileImage.setImageBitmap(bitmap)
+
+        }
     }
 
-    private fun newTalentStatus() {
-        val sharedPref = this.getSharedPreferences("newTalent", Context.MODE_PRIVATE)
-        val editor = sharedPref.edit()
-        editor.putBoolean("updatedProfile", true)
-        editor.apply()
+    private fun startUpdateProfile(talentID : String, talentTitle: String, talentWorkTime: String, talentLocation: String, talentDesc: String, talentImage: String) {
+        coroutineScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                try {
+                    service.updateTalent(talentID, talentTitle, talentWorkTime, talentLocation, talentDesc, talentImage)
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            }
+            if (result is RegisterResponse) {
+                Toast.makeText(this@EditProfileActivity, "Your Profile Updated Succesfully", Toast.LENGTH_LONG).show()
+                finish()
+            }
+
+
+        }
     }
+
+
 }

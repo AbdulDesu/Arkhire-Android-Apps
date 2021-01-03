@@ -6,4 +6,5 @@ interface SearchCompanyApiService {
 
     @GET("company")
     suspend fun getAllCompany(): SearchCompanyResponse
+
 }

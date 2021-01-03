@@ -61,7 +61,7 @@
                 android:layout_height="96dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/talentImage"
+                    android:id="@+id/iv_talentProfileImage"
                     android:layout_marginStart="28dp"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
@@ -203,6 +203,7 @@
                         android:id="@+id/tv_profileTalentDesc"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
+                        android:maxLength="480"
                         android:justificationMode="inter_word"
                         android:lineSpacingExtra="6dp"
                         android:textSize="11sp" />
@@ -239,7 +240,7 @@
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/tv_titleProfileTalentSkill"
+                        android:id="@+id/tv_titleProfileTalentSkill1"
                         android:layout_width="110dp"
                         android:layout_height="30dp"
                         android:background="@color/primary"
@@ -248,7 +249,7 @@
                         android:textColor="@color/white" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/tv_titleProfileTalentSkil2"
+                        android:id="@+id/tv_titleProfileTalentSkill2"
                         android:layout_width="110dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"

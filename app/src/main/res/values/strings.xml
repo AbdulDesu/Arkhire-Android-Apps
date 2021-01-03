@@ -39,7 +39,7 @@
     <string name="join_us">Register</string>
     <string name="download_cv">Download CV</string>
     <string name="city">City</string>
-    <string name="tell_me_about_you">Tell Me about You</string>
+    <string name="tell_me_about_you">Tell Me about You (Max: 480)</string>
     <string name="working_time">Working Time</string>
     <string name="done">Done</string>
     <string name="your_title">Your Title</string>

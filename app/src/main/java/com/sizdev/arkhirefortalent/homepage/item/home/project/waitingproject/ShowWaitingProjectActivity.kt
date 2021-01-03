@@ -55,7 +55,7 @@ class ShowWaitingProjectActivity : AppCompatActivity() {
             if (result is ShowWaitingProjectResponse) {
                 Log.d("Arkhire Talent", result.toString())
                 val list = result.data?.map{
-                    ShowWaitingProjectModel(it.offeringID, it.projectID, it.projectTitle, it.projectDuration, it.projectDesc, it.msgForTalent, it.projectSallary, it.hiringStatus, it.replyMsg, it.repliedAt)
+                    ShowWaitingProjectModel(it.offeringID, it.projectID, it.projectTitle, it.projectDuration, it.projectDesc, it.projectSallary, it.hiringStatus, it.replyMsg, it.repliedAt)
                 }
 
                 (binding.rvShowWaitingProject.adapter as ShowWaitingProjectAdapter).addList(list)

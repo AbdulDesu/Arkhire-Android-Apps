@@ -6,6 +6,6 @@ import retrofit2.http.Path
 
 interface HomeApiService {
     
-    @GET("/talent/filter/name?search={account_name}")
-    suspend fun getTalentResponse(@Path ("account_name") accountName: String): HomeResponse
+    @GET("/account/{accountID}")
+    suspend fun getAccountResponse(@Path ("accountID") accountID: String): HomeResponse
 }
