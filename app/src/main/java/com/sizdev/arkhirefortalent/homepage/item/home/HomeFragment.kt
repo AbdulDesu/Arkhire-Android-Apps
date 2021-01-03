@@ -8,11 +8,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sizdev.arkhirefortalent.R
+import com.sizdev.arkhirefortalent.administration.login.LoginActivity
 import com.sizdev.arkhirefortalent.databinding.FragmentHomeBinding
 import com.sizdev.arkhirefortalent.homepage.item.company.SearchCompanyAdapter
 import com.sizdev.arkhirefortalent.homepage.item.company.SearchCompanyModel
@@ -26,6 +28,7 @@ import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.H
 import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.HighLightProjectResponse
 import com.sizdev.arkhirefortalent.homepage.item.home.project.waitingproject.ShowWaitingProjectActivity
 import com.sizdev.arkhirefortalent.networking.ApiClient
+import kotlinx.android.synthetic.main.alert_session_expired.view.*
 import kotlinx.coroutines.*
 import retrofit2.http.GET
 import java.text.SimpleDateFormat
@@ -35,6 +38,7 @@ import java.util.*
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var dialog: AlertDialog
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: HomeApiService
     private lateinit var updatedProjectService: HighLightProjectApiService
@@ -133,6 +137,32 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
+            else {
+                sessionExpiredAlert()
+                dialog.show()
+            }
+        }
+    }
+
+    private fun sessionExpiredAlert() {
+        val view: View = layoutInflater.inflate(R.layout.alert_session_expired, null)
+
+        dialog = activity?.let {
+            AlertDialog.Builder(it)
+                    .setView(view)
+                    .setCancelable(false)
+                    .create()
+        }!!
+
+        view.bt_okRelog.setOnClickListener {
+            dialog.dismiss()
+            val intent = Intent(activity, LoginActivity::class.java)
+            val sharedPref = requireActivity().getSharedPreferences("Token", Context.MODE_PRIVATE)
+            val editor = sharedPref.edit()
+            editor.putString("accID", null)
+            editor.apply()
+            startActivity(intent)
+            activity?.finish()
         }
     }
 
