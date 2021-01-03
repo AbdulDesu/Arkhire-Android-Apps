@@ -44,6 +44,7 @@ class SearchCompanyAdapter : RecyclerView.Adapter<SearchCompanyAdapter.SearchCom
             val intent = Intent(context, CompanyProfileActivity::class.java)
             val companyName = item.companyName.toString()
             val companyType = item.companyType.toString()
+            val companyImage = item.companyImage.toString()
             val companyLinkedin = item.companyLinkedin.toString()
             val companyInstagram = item.companyInstagram.toString()
             val companyFacebook = item.companyFacebook.toString()
@@ -53,6 +54,7 @@ class SearchCompanyAdapter : RecyclerView.Adapter<SearchCompanyAdapter.SearchCom
 
             intent.putExtra("companyName", companyName)
             intent.putExtra("companyType", companyType)
+            intent.putExtra("companyImage", companyImage)
             intent.putExtra("companyLinkedin", companyLinkedin)
             intent.putExtra("companyInstagram", companyInstagram)
             intent.putExtra("companyFacebook", companyFacebook)

@@ -6,9 +6,9 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
+        android:layout_width="190dp"
         android:id="@+id/showAllCompanyItem"
-        android:layout_height="100dp">
+        android:layout_height="200dp">
 
         <RelativeLayout
             android:background="@drawable/bg_shadow"
@@ -20,18 +20,19 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_companyImage"
                 android:src="@drawable/ic_company"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="6dp"
-                app:civ_border_color="#A1A0A0"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                app:civ_border_color="@color/primary"
                 app:civ_border_width="1dp"
                 android:layout_width="70dp"
                 android:layout_height="70dp"/>
 
             <TextView
                 android:id="@+id/tv_companyName"
+                android:layout_below="@id/iv_companyImage"
                 android:text="PT. BUKALAPAK INDONESIA"
-                android:layout_toEndOf="@id/iv_companyImage"
-                android:textSize="16sp"
+                android:layout_centerHorizontal="true"
+                android:textSize="12sp"
                 android:textColor="@color/black"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="14dp"
@@ -41,10 +42,10 @@
             <TextView
                 android:id="@+id/tv_companyType"
                 android:text="Enterprise Company"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:layout_marginTop="2dp"
                 android:layout_marginStart="12dp"
-                android:layout_toEndOf="@id/iv_companyImage"
+                android:layout_centerHorizontal="true"
                 android:layout_below="@id/tv_companyName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -52,10 +53,10 @@
             <TextView
                 android:id="@+id/tv_companyLocation"
                 android:text="-6.2088, 106.8456"
-                android:textSize="12sp"
-                android:layout_marginStart="12sp"
+                android:textSize="11sp"
+                android:layout_marginStart="11sp"
                 android:layout_marginTop="4dp"
-                android:layout_toEndOf="@id/iv_companyImage"
+                android:layout_centerHorizontal="true"
                 android:layout_below="@id/tv_companyType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

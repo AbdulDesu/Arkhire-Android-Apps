@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sizdev.arkhirefortalent.R
@@ -35,7 +36,7 @@ class SearchCompanyFragment : Fragment() {
         service = activity?.let { ApiClient.getApiClient(it) }!!.create(SearchCompanyApiService::class.java)
 
         binding.rvCompany.adapter = SearchCompanyAdapter()
-        binding.rvCompany.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        binding.rvCompany.layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
         showAllCompany()
 
 

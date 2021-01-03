@@ -20,6 +20,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.ActivityCompanyProfileBinding
 import com.sizdev.arkhirefortalent.webviewer.ArkhireWebViewerActivity
+import com.squareup.picasso.Picasso
 
 class CompanyProfileActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
@@ -33,6 +34,7 @@ class CompanyProfileActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMa
 
         val companyName = intent.getStringExtra("companyName")
         val companyType = intent.getStringExtra("companyType")
+        val companyImage = intent.getStringExtra("companyImage")
         val companyLinkedin = intent.getStringExtra("companyLinkedin")
         val companyInstagram = intent.getStringExtra("companyInstagram")
         val companyFacebook = intent.getStringExtra("companyFacebook")
@@ -40,10 +42,10 @@ class CompanyProfileActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMa
         val companyLatitude = intent.getStringExtra("companyLatitude")
         val companyLongitude = intent.getStringExtra("companyLongitude")
 
-        Log.d("test", "$companyLinkedin")
-
-        if (companyLatitude != null && companyLongitude != null) {
-            defaultLocation = LatLng(companyLatitude.toDouble(), companyLongitude.toDouble())
+        if (companyLatitude != "null" && companyLongitude != "null") {
+            if (companyLatitude != null && companyLongitude != null) {
+                defaultLocation = LatLng(companyLatitude.toDouble(), companyLongitude.toDouble())
+            }
         }
 
         binding.rvCompanyLookingFor.adapter = CompanyLookingForAdapter()
@@ -52,6 +54,20 @@ class CompanyProfileActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMa
         binding.tvCompanyProfileName.text = companyName
         binding.tvCompanyType.text = companyType
         binding.tvCompanyDescription.text = companyDesc
+
+        //Set Profile Images
+        Log.d("test", "$companyImage")
+        if (companyImage == "null"){
+            binding.ivCompanyProfileImage.setImageResource(R.drawable.ic_empty_image)
+        }
+        else {
+            Picasso.get()
+                    .load("http://54.82.81.23:911/image/$companyImage")
+                    .resize(512, 512)
+                    .centerCrop()
+                    .into(binding.ivCompanyProfileImage)
+        }
+
 
         binding.ivCompanyLinkedIn.setOnClickListener {
             if(companyLinkedin == "null"){

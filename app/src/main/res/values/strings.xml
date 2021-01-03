@@ -28,7 +28,7 @@
     <string name="registered_email_address">Registered Email Address</string>
     <string name="send_recovery_email">SEND RECOVERY EMAIL</string>
     <string name="no_messages">No Messages</string>
-    <string name="project_offered">Project offered</string>
+    <string name="project_offered">Project Offered</string>
     <string name="approved">Approved</string>
     <string name="rejected">Rejected</string>
     <string name="highlight">Project Highlight</string>
@@ -61,5 +61,6 @@
     <string name="company_description">Company Description</string>
     <string name="company_location">Company Location</string>
     <string name="_404_not_found">404 NOT FOUND</string>
+    <string name="project_list">All Project</string>
 
 </resources>
