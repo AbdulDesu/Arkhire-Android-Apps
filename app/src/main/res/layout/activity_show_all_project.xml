@@ -34,7 +34,6 @@
                     android:layout_height="wrap_content"/>
             </RelativeLayout>
 
-
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView

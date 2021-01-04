@@ -51,12 +51,18 @@ class CompanyProfileActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMa
         binding.rvCompanyLookingFor.adapter = CompanyLookingForAdapter()
         binding.rvCompanyLookingFor.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
 
+        //Set Data
         binding.tvCompanyProfileName.text = companyName
         binding.tvCompanyType.text = companyType
         binding.tvCompanyDescription.text = companyDesc
 
+        when (companyType){
+            "Enterprise" -> binding.ivCompanyProfileCover.setImageResource(R.drawable.ic_enterprise)
+            "Startup" -> binding.ivCompanyProfileCover.setImageResource(R.drawable.ic_startup)
+            else -> binding.ivCompanyProfileCover.setImageResource(R.drawable.ic_software_house)
+        }
+
         //Set Profile Images
-        Log.d("test", "$companyImage")
         if (companyImage == "null"){
             binding.ivCompanyProfileImage.setImageResource(R.drawable.ic_empty_image)
         }

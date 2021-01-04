@@ -14,4 +14,12 @@ interface EditProfileAuthService {
             @Part("talent_city") talentCity: String,
             @Part("talent_profile") talentDesc: String,
             @Part("talent_image") talentImage: String) : EditProfileResponse
+
+    @Multipart
+    @PUT("/achivement/{achivementID}")
+    suspend fun updateTalentAchivementResponse(
+            @Path("achivementID") achivementID: RequestBody,
+            @Field("talent_cv") talentCv: MultipartBody
+    )
+
 }

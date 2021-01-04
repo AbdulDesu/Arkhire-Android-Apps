@@ -16,21 +16,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.administration.login.LoginActivity
 import com.sizdev.arkhirefortalent.databinding.FragmentHomeBinding
-import com.sizdev.arkhirefortalent.homepage.item.company.SearchCompanyAdapter
-import com.sizdev.arkhirefortalent.homepage.item.company.SearchCompanyModel
-import com.sizdev.arkhirefortalent.homepage.item.company.SearchCompanyResponse
 import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.HighLightProjectAdapter
 import com.sizdev.arkhirefortalent.homepage.item.home.project.allproject.ShowAllProjectActivity
 import com.sizdev.arkhirefortalent.homepage.item.home.project.approvedproject.ShowApprovedProjectActivity
 import com.sizdev.arkhirefortalent.homepage.item.home.project.declinedproject.ShowDeclinedProjectActivity
-import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.HighLightProjectApiService
 import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.HighLightProjectModel
 import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.HighLightProjectResponse
 import com.sizdev.arkhirefortalent.homepage.item.home.project.waitingproject.ShowWaitingProjectActivity
 import com.sizdev.arkhirefortalent.networking.ApiClient
 import kotlinx.android.synthetic.main.alert_session_expired.view.*
 import kotlinx.coroutines.*
-import retrofit2.http.GET
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -41,7 +36,6 @@ class HomeFragment : Fragment() {
     private lateinit var dialog: AlertDialog
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: HomeApiService
-    private lateinit var updatedProjectService: HighLightProjectApiService
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     override fun onCreateView(
@@ -52,7 +46,6 @@ class HomeFragment : Fragment() {
         binding =  DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         service = activity?.let { ApiClient.getApiClient(it) }!!.create(HomeApiService::class.java)
-        updatedProjectService = activity?.let { ApiClient.getApiClient(it) }!!.create(HighLightProjectApiService::class.java)
 
         // Get Date
         val dateFormat = SimpleDateFormat("EEEE, dd MMMM YYYY")
@@ -173,7 +166,7 @@ class HomeFragment : Fragment() {
             val result = withContext(Dispatchers.IO) {
                 Log.d("Arkhire Talent", "CallApi: ${Thread.currentThread().name}")
                 try {
-                    updatedProjectService?.getNewerProjectResponse()
+                    service?.getNewerProjectResponse()
                 } catch (e: Throwable) {
                     e.printStackTrace()
                 }

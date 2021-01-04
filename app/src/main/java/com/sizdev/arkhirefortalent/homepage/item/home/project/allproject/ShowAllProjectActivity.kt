@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.ActivityShowAllProjectBinding
 import com.sizdev.arkhirefortalent.homepage.HomeActivity
+import com.sizdev.arkhirefortalent.homepage.item.home.HomeApiService
 import com.sizdev.arkhirefortalent.networking.ApiClient
 import kotlinx.coroutines.*
 
@@ -17,13 +18,13 @@ class ShowAllProjectActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityShowAllProjectBinding
     private lateinit var coroutineScope: CoroutineScope
-    private lateinit var service: ShowAllProjectApiService
+    private lateinit var service: HomeApiService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_show_all_project)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = ApiClient.getApiClient(this)!!.create(ShowAllProjectApiService::class.java)
+        service = ApiClient.getApiClient(this)!!.create(HomeApiService::class.java)
 
         setSupportActionBar(binding.tbShowAllProject)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -59,7 +60,6 @@ class ShowAllProjectActivity : AppCompatActivity() {
 
                 (binding.rvShowAllProject.adapter as ShowAllProjectAdapter).addList(list)
             }
-
         }
     }
 

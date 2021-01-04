@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.ActivityShowDeclinedProjectBinding
 import com.sizdev.arkhirefortalent.homepage.HomeActivity
+import com.sizdev.arkhirefortalent.homepage.item.home.HomeApiService
 import com.sizdev.arkhirefortalent.networking.ApiClient
 import kotlinx.coroutines.*
 
@@ -17,13 +18,13 @@ class ShowDeclinedProjectActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityShowDeclinedProjectBinding
     private lateinit var coroutineScope: CoroutineScope
-    private lateinit var service: ShowDeclinedProjectApiService
+    private lateinit var service: HomeApiService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_show_declined_project)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = ApiClient.getApiClient(this)!!.create(ShowDeclinedProjectApiService::class.java)
+        service = ApiClient.getApiClient(this)!!.create(HomeApiService::class.java)
 
         setSupportActionBar(binding.tbShowDeclinedProject)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

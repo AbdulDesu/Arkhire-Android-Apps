@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.ActivityShowApprovedProjectBinding
 import com.sizdev.arkhirefortalent.homepage.HomeActivity
+import com.sizdev.arkhirefortalent.homepage.item.home.HomeApiService
 import com.sizdev.arkhirefortalent.networking.ApiClient
 import kotlinx.coroutines.*
 
@@ -17,13 +18,13 @@ class ShowApprovedProjectActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityShowApprovedProjectBinding
     private lateinit var coroutineScope: CoroutineScope
-    private lateinit var service: ShowApprovedProjectApiService
+    private lateinit var service: HomeApiService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_show_approved_project)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = ApiClient.getApiClient(this)!!.create(ShowApprovedProjectApiService::class.java)
+        service = ApiClient.getApiClient(this)!!.create(HomeApiService::class.java)
 
         setSupportActionBar(binding.tbShowApprovedProject)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
