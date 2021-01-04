@@ -16,7 +16,7 @@
 
         <ImageView
             android:id="@+id/iv_projectCompanyPhoto"
-            android:src="@drawable/ic_traveloka"
+            android:src="@drawable/ic_header_project"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="250dp"/>
