@@ -28,7 +28,6 @@ class ShowDeclinedProjectAdapter : RecyclerView.Adapter<ShowDeclinedProjectAdapt
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ShowDeclinedProjectHolder, position: Int) {
         val item = items[position]
-        holder.binding.offeringID.text = item.offeringID
         holder.binding.tvProjectTitle.text = item.projectTitle
         holder.binding.tvProjectSalary.text = item.projectSallary
         holder.binding.tvProjectHiringStatus.text = "(${item.hiringStatus})"
