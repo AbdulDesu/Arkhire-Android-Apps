@@ -44,7 +44,6 @@ class DetailOfProjectActivity : AppCompatActivity() {
         binding.tvProjectDesc.text = projectDesc
         binding.tvDuration.text = projectDuration
         binding.tvReplyMsg.text = msgReply
-        binding.tvRepliedAt.text = repliedAt
 
         binding.backButton.setOnClickListener {
             finish()
@@ -66,9 +65,8 @@ class DetailOfProjectActivity : AppCompatActivity() {
         if(projectStatus == "Waiting"){
             binding.btDeclineProject.visibility = View.VISIBLE
             binding.btApproveProject.visibility = View.VISIBLE
-            binding.tvTitleReplyMsg.visibility = View.INVISIBLE
-            binding.tvReplyMsg.visibility = View.INVISIBLE
-            binding.tvRepliedAt.visibility = View.INVISIBLE
+            binding.tvTitleReplyMsg.visibility = View.GONE
+            binding.tvReplyMsg.visibility = View.GONE
         }
 
         binding.btApproveProject.setOnClickListener {

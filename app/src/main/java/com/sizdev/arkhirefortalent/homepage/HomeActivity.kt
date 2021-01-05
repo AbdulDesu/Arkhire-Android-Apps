@@ -28,12 +28,6 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
-
-        val sharedPrefData = this.getSharedPreferences("Token", Context.MODE_PRIVATE)
-        val token = sharedPrefData.getString("accToken", null)
-        Log.d("Token activity", "$token")
-
-
         //Launch Home Fragment At First
         binding.homeNavigationBar.setItemSelected(R.id.home)
         homeFragment = HomeFragment()

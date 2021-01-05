@@ -37,6 +37,21 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+        <RelativeLayout
+            android:id="@+id/loadingScreen"
+            android:background="@color/white"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_showWaitingProject"
             android:layout_width="match_parent"

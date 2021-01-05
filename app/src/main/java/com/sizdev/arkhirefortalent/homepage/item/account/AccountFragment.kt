@@ -3,6 +3,7 @@ package com.sizdev.arkhirefortalent.homepage.item.account
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -35,6 +36,10 @@ class AccountFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_account, container, false)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         service = activity?.let { ApiClient.getApiClient(it) }!!.create(AccountApiService::class.java)
+
+        // Data Loading Management
+        binding.loadingScreen.visibility = View.VISIBLE
+        binding.progressBar.max = 100
 
         // Get Saved Name
         val sharedPrefData = requireActivity().getSharedPreferences("Token", Context.MODE_PRIVATE)
@@ -87,6 +92,11 @@ class AccountFragment : Fragment() {
                         .resize(512, 512)
                         .centerCrop()
                         .into(binding.ivProfileImage)
+
+                // End Of Loading
+                Handler().postDelayed({
+                    binding.loadingScreen.visibility = View.GONE
+                }, 2000)
             }
         }
     }

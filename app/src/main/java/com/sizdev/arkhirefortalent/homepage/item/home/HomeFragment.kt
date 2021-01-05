@@ -47,6 +47,10 @@ class HomeFragment : Fragment() {
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         service = activity?.let { ApiClient.getApiClient(it) }!!.create(HomeApiService::class.java)
 
+        // Data Loading Management
+        binding.loadingScreen.visibility = View.VISIBLE
+        binding.progressBar.max = 100
+
         // Get Date
         val dateFormat = SimpleDateFormat("EEEE, dd MMMM YYYY")
         val currentDate = dateFormat.format(Date())
@@ -137,28 +141,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun sessionExpiredAlert() {
-        val view: View = layoutInflater.inflate(R.layout.alert_session_expired, null)
-
-        dialog = activity?.let {
-            AlertDialog.Builder(it)
-                    .setView(view)
-                    .setCancelable(false)
-                    .create()
-        }!!
-
-        view.bt_okRelog.setOnClickListener {
-            dialog.dismiss()
-            val intent = Intent(activity, LoginActivity::class.java)
-            val sharedPref = requireActivity().getSharedPreferences("Token", Context.MODE_PRIVATE)
-            val editor = sharedPref.edit()
-            editor.putString("accID", null)
-            editor.apply()
-            startActivity(intent)
-            activity?.finish()
-        }
-    }
-
     private fun showNewerProject() {
         coroutineScope.launch {
             Log.d("Arkhire Talent", "Start: ${Thread.currentThread().name}")
@@ -180,6 +162,32 @@ class HomeFragment : Fragment() {
 
                 (binding.rvProjectHighlight.adapter as HighLightProjectAdapter).addList(list)
             }
+
+            // End Of Loading
+            binding.loadingScreen.visibility = View.GONE
+        }
+
+    }
+
+    private fun sessionExpiredAlert() {
+        val view: View = layoutInflater.inflate(R.layout.alert_session_expired, null)
+
+        dialog = activity?.let {
+            AlertDialog.Builder(it)
+                    .setView(view)
+                    .setCancelable(false)
+                    .create()
+        }!!
+
+        view.bt_okRelog.setOnClickListener {
+            dialog.dismiss()
+            val intent = Intent(activity, LoginActivity::class.java)
+            val sharedPref = requireActivity().getSharedPreferences("Token", Context.MODE_PRIVATE)
+            val editor = sharedPref.edit()
+            editor.putString("accID", null)
+            editor.apply()
+            startActivity(intent)
+            activity?.finish()
         }
     }
 

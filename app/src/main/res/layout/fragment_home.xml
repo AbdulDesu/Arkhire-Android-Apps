@@ -6,10 +6,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".homepage.item.home.HomeFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/layout_homeFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#E5E5E5">
+
+        <RelativeLayout
+            android:id="@+id/loadingScreen"
+            android:background="@color/white"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -58,16 +75,14 @@
             </RelativeLayout>
         </LinearLayout>
 
-
         <RelativeLayout
             android:id="@+id/relativeLayout5"
-            android:layout_width="380dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/bg_menuoffering"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+            android:background="@drawable/bg_menuoffering">
 
             <TextView
                 android:id="@+id/tv_offeringMenu"
@@ -150,15 +165,12 @@
 
         <RelativeLayout
             android:id="@+id/rl_highlight"
-            android:layout_width="380dp"
+            android:layout_width="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_height="260dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/bg_menuoffering"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout5"
-            app:layout_constraintVertical_bias="0.0">
+            android:background="@drawable/bg_menuoffering">
 
             <TextView
                 android:id="@+id/tv_highlight"
@@ -225,6 +237,5 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    </LinearLayout>
 </layout>

@@ -62,17 +62,11 @@ class CompanyProfileActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMa
             else -> binding.ivCompanyProfileCover.setImageResource(R.drawable.ic_software_house)
         }
 
-        //Set Profile Images
-        if (companyImage == "null"){
-            binding.ivCompanyProfileImage.setImageResource(R.drawable.ic_empty_image)
-        }
-        else {
-            Picasso.get()
-                    .load("http://54.82.81.23:911/image/$companyImage")
-                    .resize(512, 512)
-                    .centerCrop()
-                    .into(binding.ivCompanyProfileImage)
-        }
+        Picasso.get()
+                .load("http://54.82.81.23:911/image/$companyImage")
+                .resize(512, 512)
+                .centerCrop()
+                .into(binding.ivCompanyProfileImage)
 
 
         binding.ivCompanyLinkedIn.setOnClickListener {

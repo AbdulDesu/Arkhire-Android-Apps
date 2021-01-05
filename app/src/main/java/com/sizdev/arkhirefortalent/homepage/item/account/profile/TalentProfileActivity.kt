@@ -38,6 +38,11 @@ class TalentProfileActivity : AppCompatActivity() {
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         service = ApiClient.getApiClient(this)!!.create(TalentProfileAuthService::class.java)
 
+
+        // Data Loading Management
+        binding.loadingScreen.visibility = View.VISIBLE
+        binding.progressBar.max = 100
+
         //Get Saved Profile
         val sharedPrefData = this.getSharedPreferences("Token", Context.MODE_PRIVATE)
         val talentName = sharedPrefData.getString("accName", null)
@@ -117,6 +122,14 @@ class TalentProfileActivity : AppCompatActivity() {
                     Toast.makeText(this@TalentProfileActivity, "Your Github is: https://github.com/$talentGithub", Toast.LENGTH_SHORT).show()
                 }
 
+                // Set Cover Image
+                if(result.data[0].talentTime == "Freelance"){
+                    binding.ivTalentProfileCover.setImageResource(R.drawable.ic_freelancer)
+                }
+                else{
+                    binding.ivTalentProfileCover.setImageResource(R.drawable.ic_fulltimework)
+                }
+
                 binding.menuButton.setOnClickListener {
                     val showMenu = PopupMenu(this@TalentProfileActivity, binding.menuButton)
                     showMenu.menu.add(Menu.NONE, 0 ,0, "Edit Profile")
@@ -143,6 +156,9 @@ class TalentProfileActivity : AppCompatActivity() {
                         false
                     }
                 }
+
+                // End Of Loading
+                binding.loadingScreen.visibility = View.GONE
             }
 
         }

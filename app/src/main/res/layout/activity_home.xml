@@ -23,12 +23,9 @@
             android:id="@+id/navBar"
             android:layout_width="wrap_content"
             android:layout_height="61dp"
-            android:layout_marginTop="708dp"
-            android:background="@drawable/bg_edit_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintStart_toStartOf="parent">
 
             <com.ismaeldivita.chipnavigation.ChipNavigationBar
                 android:id="@+id/homeNavigationBar"

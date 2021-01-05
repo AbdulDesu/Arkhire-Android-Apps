@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +26,11 @@ class ShowWaitingProjectActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_show_waiting_project)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         service = ApiClient.getApiClient(this)!!.create(HomeApiService::class.java)
+
+
+        // Data Loading Management
+        binding.loadingScreen.visibility = View.VISIBLE
+        binding.progressBar.max = 100
 
         setSupportActionBar(binding.tbShowWaitingProject)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -60,6 +66,9 @@ class ShowWaitingProjectActivity : AppCompatActivity() {
                 }
 
                 (binding.rvShowWaitingProject.adapter as ShowWaitingProjectAdapter).addList(list)
+
+                // End Of Loading
+                binding.loadingScreen.visibility = View.GONE
             }
 
         }

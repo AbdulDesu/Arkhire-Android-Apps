@@ -35,6 +35,11 @@ class SearchCompanyFragment : Fragment() {
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         service = activity?.let { ApiClient.getApiClient(it) }!!.create(SearchCompanyApiService::class.java)
 
+        // Data Loading Management
+        binding.loadingScreen.visibility = View.VISIBLE
+        binding.progressBar.max = 100
+
+        //Show Company List Data
         binding.rvCompany.adapter = SearchCompanyAdapter()
         binding.rvCompany.layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
         showAllCompany()
@@ -63,6 +68,9 @@ class SearchCompanyFragment : Fragment() {
                 }
 
                 (binding.rvCompany.adapter as SearchCompanyAdapter).addList(list)
+
+                // End Of Loading
+                binding.loadingScreen.visibility = View.GONE
             }
 
         }

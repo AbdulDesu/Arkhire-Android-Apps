@@ -13,6 +13,20 @@
         android:background="#E5E5E5">
 
         <RelativeLayout
+            android:id="@+id/loadingScreen"
+            android:background="@color/white"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_marginStart="14dp"

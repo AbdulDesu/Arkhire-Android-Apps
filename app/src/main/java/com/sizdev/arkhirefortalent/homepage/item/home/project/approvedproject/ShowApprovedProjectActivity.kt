@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +26,11 @@ class ShowApprovedProjectActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_show_approved_project)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         service = ApiClient.getApiClient(this)!!.create(HomeApiService::class.java)
+
+
+        // Data Loading Management
+        binding.loadingScreen.visibility = View.VISIBLE
+        binding.progressBar.max = 100
 
         setSupportActionBar(binding.tbShowApprovedProject)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -60,6 +66,9 @@ class ShowApprovedProjectActivity : AppCompatActivity() {
                 }
 
                 (binding.rvShowApprovedProject.adapter as ShowApprovedProjectAdapter).addList(list)
+
+                // End Of Loading
+                binding.loadingScreen.visibility = View.GONE
             }
 
         }
