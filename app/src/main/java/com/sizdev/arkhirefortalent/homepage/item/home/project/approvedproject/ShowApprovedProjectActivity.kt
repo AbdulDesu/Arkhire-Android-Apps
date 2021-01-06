@@ -1,6 +1,5 @@
 package com.sizdev.arkhirefortalent.homepage.item.home.project.approvedproject
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,22 +9,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.ActivityShowApprovedProjectBinding
-import com.sizdev.arkhirefortalent.homepage.HomeActivity
-import com.sizdev.arkhirefortalent.homepage.item.home.HomeApiService
-import com.sizdev.arkhirefortalent.networking.ApiClient
+import com.sizdev.arkhirefortalent.networking.ArkhireApiClient
+import com.sizdev.arkhirefortalent.networking.ArkhireApiService
 import kotlinx.coroutines.*
 
 class ShowApprovedProjectActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityShowApprovedProjectBinding
     private lateinit var coroutineScope: CoroutineScope
-    private lateinit var service: HomeApiService
+    private lateinit var service: ArkhireApiService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_show_approved_project)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = ApiClient.getApiClient(this)!!.create(HomeApiService::class.java)
+        service = ArkhireApiClient.getApiClient(this)!!.create(ArkhireApiService::class.java)
 
 
         // Data Loading Management
@@ -48,10 +46,7 @@ class ShowApprovedProjectActivity : AppCompatActivity() {
 
     private fun showApprovedProject() {
         coroutineScope.launch {
-            Log.d("Arkhire Talent", "Start: ${Thread.currentThread().name}")
-
             val result = withContext(Dispatchers.IO) {
-                Log.d("Arkhire Talent", "CallApi: ${Thread.currentThread().name}")
                 try {
                     service?.getApprovedProjectResponse()
                 } catch (e: Throwable) {
@@ -60,7 +55,6 @@ class ShowApprovedProjectActivity : AppCompatActivity() {
             }
 
             if (result is ShowApprovedProjectResponse) {
-                Log.d("Arkhire Talent", result.toString())
                 val list = result.data?.map{
                     ShowApprovedProjectModel(it.offeringID, it.projectID, it.projectTitle, it.projectDuration, it.projectDesc, it.projectSallary, it.hiringStatus, it.replyMsg, it.repliedAt)
                 }

@@ -1,5 +1,6 @@
 package com.sizdev.arkhirefortalent.homepage.item.account
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -16,7 +18,9 @@ import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.administration.password.ResetPasswordActivity
 import com.sizdev.arkhirefortalent.databinding.FragmentAccountBinding
 import com.sizdev.arkhirefortalent.homepage.item.account.profile.TalentProfileActivity
-import com.sizdev.arkhirefortalent.networking.ApiClient
+import com.sizdev.arkhirefortalent.homepage.item.account.profile.editingprofile.EditProfileActivity
+import com.sizdev.arkhirefortalent.networking.ArkhireApiClient
+import com.sizdev.arkhirefortalent.networking.ArkhireApiService
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.alert_logout_confirmation.view.*
 import kotlinx.coroutines.*
@@ -26,7 +30,7 @@ class AccountFragment : Fragment() {
     private lateinit var binding: FragmentAccountBinding
     private lateinit var dialog: AlertDialog
     private lateinit var coroutineScope: CoroutineScope
-    private lateinit var service: AccountApiService
+    private lateinit var service: ArkhireApiService
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +39,7 @@ class AccountFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_account, container, false)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = activity?.let { ApiClient.getApiClient(it) }!!.create(AccountApiService::class.java)
+        service = activity?.let { ArkhireApiClient.getApiClient(it) }!!.create(ArkhireApiService::class.java)
 
         // Data Loading Management
         binding.loadingScreen.visibility = View.VISIBLE
@@ -56,9 +60,7 @@ class AccountFragment : Fragment() {
         }
 
         binding.tvMyProfile.setOnClickListener {
-            val intent = Intent(activity, TalentProfileActivity::class.java)
-            startActivity(intent)
-
+            Toast.makeText(activity, "Loading, Please Wait..", Toast.LENGTH_LONG).show()
         }
 
         binding.tvMyPassword.setOnClickListener {
@@ -69,12 +71,10 @@ class AccountFragment : Fragment() {
         return  binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showAccountData(talentName: String) {
         coroutineScope.launch {
-            Log.d("Arkhire Talent", "Start: ${Thread.currentThread().name}")
-
             val result = withContext(Dispatchers.IO) {
-                Log.d("Arkhire Talent", "CallApi: ${Thread.currentThread().name}")
                 try {
                     service?.getAccountDataByNameResponse(talentName)
                 } catch (e: Throwable) {
@@ -83,15 +83,74 @@ class AccountFragment : Fragment() {
             }
 
             if (result is AccountResponse) {
+                //Set Data
                 binding.tvFullNameAccount.text = result.data[0].accountName
-                binding.tvTitleAccount.text = result.data[0].talentTitle
+                when(result.data[0].talentTitle){
+                    null -> binding.tvTitleAccount.text = "Let's start exploring the world !"
+                    else -> binding.tvTitleAccount.text = result.data[0].talentTitle
+                }
 
                 //Set Profile Images
-                Picasso.get()
-                        .load("http://54.82.81.23:911/image/${result.data[0].talentImage}")
-                        .resize(512, 512)
-                        .centerCrop()
-                        .into(binding.ivProfileImage)
+                when (result.data[0].talentImage){
+
+                    null -> binding.ivProfileImage.setImageResource(R.drawable.ic_empty_image)
+
+                    else -> {
+                        Picasso.get()
+                                .load("http://54.82.81.23:911/image/${result.data[0].talentImage}")
+                                .resize(512, 512)
+                                .centerCrop()
+                                .into(binding.ivProfileImage)
+                    }
+                }
+
+                binding.tvMyProfile.setOnClickListener {
+                    val intent = Intent(activity, TalentProfileActivity::class.java)
+                    val talentID = result.data[0].talentID.toString()
+                    val accountID = result.data[0].accountID.toString()
+                    val talentName = result.data[0].accountName.toString()
+                    val talentEmail = result.data[0].accountEmail.toString()
+                    val talentPhone = result.data[0].accountPhone.toString()
+                    val talentTitle = result.data[0].talentTitle.toString()
+                    val talentTime = result.data[0].talentTime.toString()
+                    val talentLocation = result.data[0].talentCity.toString()
+                    val talentDesc = result.data[0].talentDesc.toString()
+                    val talentImage = result.data[0].talentImage.toString()
+                    val talentGithub = result.data[0].talentGithub.toString()
+                    val talentCv = result.data[0].talentCv.toString()
+                    val talentSkill1 = result.data[0].talentSkill1.toString()
+                    val talentSkill2 = result.data[0].talentSkill2.toString()
+                    val talentSkill3 = result.data[0].talentSkill3.toString()
+                    val talentSkill4 = result.data[0].talentSkill4.toString()
+                    val talentSkill5 = result.data[0].talentSkill5.toString()
+
+
+                    intent.putExtra("talentID", talentID)
+                    intent.putExtra("accountID", accountID)
+                    intent.putExtra("talentName", talentName)
+                    intent.putExtra("talentEmail", talentEmail)
+                    intent.putExtra("talentPhone", talentPhone)
+                    intent.putExtra("talentTitle", talentTitle)
+                    intent.putExtra("talentTime", talentTime)
+                    intent.putExtra("talentLocation", talentLocation)
+                    intent.putExtra("talentDesc", talentDesc)
+                    intent.putExtra("talentImage", talentImage)
+                    intent.putExtra("talentGithub", talentGithub)
+                    intent.putExtra("talentCv", talentCv)
+                    intent.putExtra("talentSkill1", talentSkill1)
+                    intent.putExtra("talentSkill2", talentSkill2)
+                    intent.putExtra("talentSkill3", talentSkill3)
+                    intent.putExtra("talentSkill4", talentSkill4)
+                    intent.putExtra("talentSkill5", talentSkill5)
+
+                    if (talentTitle == "null"){
+                        startActivity(Intent(activity, EditProfileActivity::class.java))
+                    }
+                    else {
+                        startActivity(intent)
+                    }
+
+                }
 
                 // End Of Loading
                 Handler().postDelayed({

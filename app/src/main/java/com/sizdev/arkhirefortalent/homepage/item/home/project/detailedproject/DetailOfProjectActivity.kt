@@ -9,11 +9,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
-import com.sizdev.arkhirefortalent.administration.login.LoginActivity
-import com.sizdev.arkhirefortalent.administration.register.RegisterResponse
 import com.sizdev.arkhirefortalent.databinding.ActivityDetailOfProjectBinding
-import com.sizdev.arkhirefortalent.homepage.item.home.HomeApiService
-import com.sizdev.arkhirefortalent.networking.ApiClient
+import com.sizdev.arkhirefortalent.networking.ArkhireApiClient
+import com.sizdev.arkhirefortalent.networking.ArkhireApiService
 import kotlinx.android.synthetic.main.alert_reply_confirmation.view.*
 import kotlinx.coroutines.*
 
@@ -21,7 +19,7 @@ class DetailOfProjectActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailOfProjectBinding
     private lateinit var coroutineScope: CoroutineScope
-    private lateinit var service: HomeApiService
+    private lateinit var service: ArkhireApiService
     private lateinit var dialog: AlertDialog
 
     @SuppressLint("SetTextI18n")
@@ -29,7 +27,7 @@ class DetailOfProjectActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_of_project)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = ApiClient.getApiClient(this)!!.create(HomeApiService::class.java)
+        service = ArkhireApiClient.getApiClient(this)!!.create(ArkhireApiService::class.java)
 
         val projectTitle = intent.getStringExtra("projectTitle")
         val projectSalary = intent.getStringExtra("projectSalary")
@@ -37,7 +35,6 @@ class DetailOfProjectActivity : AppCompatActivity() {
         val projectDuration = intent.getStringExtra("projectDuration")
         val projectStatus = intent.getStringExtra("projectStatus")
         val msgReply = intent.getStringExtra("msgReply")
-        val repliedAt = intent.getStringExtra("repliedAt")
 
         binding.tvProjectTitle.text = projectTitle
         binding.tvDetailProjectSalary.text = projectSalary

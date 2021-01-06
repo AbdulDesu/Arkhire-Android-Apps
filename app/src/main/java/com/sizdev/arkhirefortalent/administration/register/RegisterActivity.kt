@@ -8,20 +8,21 @@ import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.administration.login.LoginActivity
 import com.sizdev.arkhirefortalent.databinding.ActivityRegisterBinding
-import com.sizdev.arkhirefortalent.networking.ApiClient
+import com.sizdev.arkhirefortalent.networking.ArkhireApiClient
+import com.sizdev.arkhirefortalent.networking.ArkhireApiService
 import kotlinx.coroutines.*
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var coroutineScope: CoroutineScope
-    private lateinit var service: RegisterAuthService
+    private lateinit var service: ArkhireApiService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_register)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = ApiClient.getApiClient(this)!!.create(RegisterAuthService::class.java)
+        service = ArkhireApiClient.getApiClient(this)!!.create(ArkhireApiService::class.java)
 
         binding.btRegister.setOnClickListener {
             val fullName = binding.etFullName.text.toString()
@@ -60,6 +61,7 @@ class RegisterActivity : AppCompatActivity() {
                     e.printStackTrace()
                 }
             }
+
             if (result is RegisterResponse) {
                 Toast.makeText(this@RegisterActivity, "Registered Succesfully, Please Login To Continue", Toast.LENGTH_LONG).show()
                 val intent = Intent(this@RegisterActivity, LoginActivity::class.java)

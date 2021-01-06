@@ -1,7 +1,5 @@
 package com.sizdev.arkhirefortalent.homepage.item.company
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,21 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.FragmentSearchCompanyBinding
-import com.sizdev.arkhirefortalent.homepage.item.home.project.allproject.ShowAllProjectAdapter
-import com.sizdev.arkhirefortalent.homepage.item.home.project.allproject.ShowAllProjectModel
-import com.sizdev.arkhirefortalent.homepage.item.home.project.allproject.ShowAllProjectResponse
-import com.sizdev.arkhirefortalent.networking.ApiClient
+import com.sizdev.arkhirefortalent.networking.ArkhireApiClient
+import com.sizdev.arkhirefortalent.networking.ArkhireApiService
 import kotlinx.coroutines.*
 
 class SearchCompanyFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchCompanyBinding
     private lateinit var coroutineScope: CoroutineScope
-    private lateinit var service: SearchCompanyApiService
+    private lateinit var service: ArkhireApiService
     
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +27,7 @@ class SearchCompanyFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_company, container, false)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = activity?.let { ApiClient.getApiClient(it) }!!.create(SearchCompanyApiService::class.java)
+        service = activity?.let { ArkhireApiClient.getApiClient(it) }!!.create(ArkhireApiService::class.java)
 
         // Data Loading Management
         binding.loadingScreen.visibility = View.VISIBLE
@@ -50,10 +44,7 @@ class SearchCompanyFragment : Fragment() {
 
     private fun showAllCompany() {
         coroutineScope.launch {
-            Log.d("Arkhire Talent", "Start: ${Thread.currentThread().name}")
-
             val result = withContext(Dispatchers.IO) {
-                Log.d("Arkhire Talent", "CallApi: ${Thread.currentThread().name}")
                 try {
                     service?.getAllCompany()
                 } catch (e: Throwable) {
@@ -62,7 +53,7 @@ class SearchCompanyFragment : Fragment() {
             }
 
             if (result is SearchCompanyResponse) {
-                Log.d("Arkhire Talent", result.toString())
+
                 val list = result.data?.map{
                     SearchCompanyModel(it.companyID, it.accountID, it.companyName, it.companyPosition, it.companyLatitude, it.companyLongitude, it.companyType, it.companyDesc, it.companyLinkedin, it.companyInstagram, it.companyFacebook, it.companyImage, it.updatedAt)
                 }

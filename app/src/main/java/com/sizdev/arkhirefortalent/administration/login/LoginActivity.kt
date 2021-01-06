@@ -11,20 +11,22 @@ import com.sizdev.arkhirefortalent.administration.password.ForgetPasswordActivit
 import com.sizdev.arkhirefortalent.administration.register.RegisterActivity
 import com.sizdev.arkhirefortalent.databinding.ActivityLoginBinding
 import com.sizdev.arkhirefortalent.homepage.HomeActivity
-import com.sizdev.arkhirefortalent.networking.ApiClient
+import com.sizdev.arkhirefortalent.networking.ArkhireApiClient
+import com.sizdev.arkhirefortalent.networking.ArkhireApiService
 import kotlinx.coroutines.*
+import java.util.*
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var coroutineScope: CoroutineScope
-    private lateinit var service: LoginAuthService
+    private lateinit var service: ArkhireApiService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = ApiClient.getApiClient(this)!!.create(LoginAuthService::class.java)
+        service = ArkhireApiClient.getApiClient(this)!!.create(ArkhireApiService::class.java)
 
         binding.btLogin.setOnClickListener {
             val email = binding.etLoginEmail.text.toString().toLowerCase()
@@ -49,6 +51,7 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, ForgetPasswordActivity::class.java)
             startActivity(intent)
         }
+
     }
 
     private fun startLogin(email: String, password: String) {

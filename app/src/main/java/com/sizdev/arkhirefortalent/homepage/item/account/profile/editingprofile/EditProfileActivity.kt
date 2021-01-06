@@ -2,23 +2,19 @@ package com.sizdev.arkhirefortalent.homepage.item.account.profile.editingprofile
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.Menu
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
-import com.sizdev.arkhirefortalent.administration.login.LoginActivity
 import com.sizdev.arkhirefortalent.administration.register.RegisterResponse
 import com.sizdev.arkhirefortalent.databinding.ActivityProfileEditBinding
-import com.sizdev.arkhirefortalent.homepage.item.account.profile.TalentProfileActivity
-import com.sizdev.arkhirefortalent.networking.ApiClient
+import com.sizdev.arkhirefortalent.networking.ArkhireApiClient
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.*
 
@@ -34,7 +30,7 @@ class EditProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profile_edit)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = ApiClient.getApiClient(this)!!.create(EditProfileAuthService::class.java)
+        service = ArkhireApiClient.getApiClient(this)!!.create(EditProfileAuthService::class.java)
 
         //Get Data From Profile Activity User Input
         val talentID = intent.getStringExtra("talentID")

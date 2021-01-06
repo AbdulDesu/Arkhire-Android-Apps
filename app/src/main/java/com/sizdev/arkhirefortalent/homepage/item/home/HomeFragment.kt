@@ -23,7 +23,8 @@ import com.sizdev.arkhirefortalent.homepage.item.home.project.declinedproject.Sh
 import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.HighLightProjectModel
 import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.HighLightProjectResponse
 import com.sizdev.arkhirefortalent.homepage.item.home.project.waitingproject.ShowWaitingProjectActivity
-import com.sizdev.arkhirefortalent.networking.ApiClient
+import com.sizdev.arkhirefortalent.networking.ArkhireApiClient
+import com.sizdev.arkhirefortalent.networking.ArkhireApiService
 import kotlinx.android.synthetic.main.alert_session_expired.view.*
 import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
@@ -35,7 +36,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var dialog: AlertDialog
     private lateinit var coroutineScope: CoroutineScope
-    private lateinit var service: HomeApiService
+    private lateinit var service: ArkhireApiService
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     override fun onCreateView(
@@ -45,7 +46,7 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         binding =  DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = activity?.let { ApiClient.getApiClient(it) }!!.create(HomeApiService::class.java)
+        service = activity?.let { ArkhireApiClient.getApiClient(it) }!!.create(ArkhireApiService::class.java)
 
         // Data Loading Management
         binding.loadingScreen.visibility = View.VISIBLE
@@ -94,10 +95,7 @@ class HomeFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun showAccountName(accountID : String) {
         coroutineScope.launch {
-            Log.d("Arkhire Talent", "Start: ${Thread.currentThread().name}")
-
             val result = withContext(Dispatchers.IO) {
-                Log.d("Arkhire Talent", "CallApi: ${Thread.currentThread().name}")
                 try {
                     service?.getAccountResponse(accountID)
                 } catch (e: Throwable) {
@@ -106,7 +104,6 @@ class HomeFragment : Fragment() {
             }
 
             if (result is HomeResponse) {
-                Log.d("Arkhire Talent", result.toString())
                 val accountName = result.data.accountName
 
                 // Split The Name
@@ -143,10 +140,7 @@ class HomeFragment : Fragment() {
 
     private fun showNewerProject() {
         coroutineScope.launch {
-            Log.d("Arkhire Talent", "Start: ${Thread.currentThread().name}")
-
             val result = withContext(Dispatchers.IO) {
-                Log.d("Arkhire Talent", "CallApi: ${Thread.currentThread().name}")
                 try {
                     service?.getNewerProjectResponse()
                 } catch (e: Throwable) {
@@ -155,7 +149,6 @@ class HomeFragment : Fragment() {
             }
 
             if (result is HighLightProjectResponse) {
-                Log.d("Arkhire Talent", result.toString())
                 val list = result.data?.map{
                     HighLightProjectModel(it.offeringID, it.projectID, it.projectTitle, it.projectDuration, it.projectDesc, it.projectSallary, it.hiringStatus, it.replyMsg, it.repliedAt)
                 }
