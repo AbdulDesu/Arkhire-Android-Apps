@@ -1,3 +1,3 @@
 package com.sizdev.arkhirefortalent.homepage.item.company
 
-data class SearchCompanyModel (val companyID: String?, val accountID: String?, val companyName: String?, val companyPosition: String?, val companyLatitude: String?, val companyLongitude: String?, val companyType: String?, val companyDesc: String?, val companyLinkedin: String?, val companyInstagram:String?, val companyFacebook:String?, val companyImage:String?, val updatedAt:String?)
+data class SearchCompanyModel (val companyID: String?, val accountID: String?, val companyName: String?, val companyPosition: String?, val companyLocation: String?, val companyLatitude: String?, val companyLongitude: String?, val companyType: String?, val companyDesc: String?, val companyLinkedin: String?, val companyInstagram:String?, val companyFacebook:String?, val companyImage:String?, val updatedAt:String?)

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".homepage.item.account.profile.portfolio.details.PortfolioDetailsActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/loadingScreen"
+            android:background="@color/white"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/backButton"
+                app:backgroundTint="#5E000000"
+                app:tint="@color/white"
+                android:src="@drawable/ic_back"
+                app:fabCustomSize="38dp"
+                app:maxImageSize="24dp"
+                app:elevation="0.01dp"
+                app:pressedTranslationZ="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/back" />
+
+            <ImageView
+                android:id="@+id/iv_portfolioImage"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="252dp"/>
+
+            <TextView
+                android:id="@+id/tv_titlePortfolioTitle"
+                android:layout_below="@id/iv_portfolioImage"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/portfolio_title"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_PortfolioTitle"
+                android:layout_below="@id/tv_titlePortfolioTitle"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text=""
+                android:textSize="14sp"
+                android:layout_width="380dp"
+                android:layout_height="14dp"/>
+
+            <TextView
+                android:id="@+id/tv_titlePortfolioDesc"
+                android:layout_below="@id/tv_PortfolioTitle"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/portfolio_description"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_portfolioDesc"
+                android:layout_below="@id/tv_titlePortfolioDesc"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:justificationMode="inter_word"
+                android:textSize="14sp"
+                android:maxLength="500"
+                android:layout_width="380dp"
+                android:layout_height="150dp"/>
+
+            <TextView
+                android:id="@+id/tv_titlePortfolioRepo"
+                android:layout_below="@id/tv_portfolioDesc"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/link_repository_of_this_portfolio"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_portfolioRepo"
+                android:layout_below="@id/tv_titlePortfolioRepo"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:textSize="14sp"
+                android:paddingLeft="12dp"
+                android:gravity="center_vertical"
+                android:maxLength="500"
+                android:layout_width="380dp"
+                android:layout_height="34dp"/>
+
+            <TextView
+                android:id="@+id/tv_portfolioDelete"
+                android:layout_below="@+id/tv_portfolioRepo"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="18dp"
+                android:text="@string/delete_portfolio"
+                android:textSize="16sp"
+                android:textColor="#FF0000"
+                android:gravity="center_vertical|center_horizontal"
+                android:background="@color/white"
+                android:maxLength="300"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>

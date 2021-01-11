@@ -1,5 +1,6 @@
 package com.sizdev.arkhirefortalent.homepage.item.home.project.waitingproject
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -24,6 +25,9 @@ class ShowWaitingProjectActivity : AppCompatActivity() {
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         service = ArkhireApiClient.getApiClient(this)!!.create(ArkhireApiService::class.java)
 
+        // Get Current Loged in Data
+        val sharedPrefData = this.getSharedPreferences("Token", Context.MODE_PRIVATE)
+        val accountID = sharedPrefData.getString("accID", null)
 
         // Data Loading Management
         binding.loadingScreen.visibility = View.VISIBLE
@@ -40,14 +44,16 @@ class ShowWaitingProjectActivity : AppCompatActivity() {
             finish()
         }
 
-        showWaitingProject()
+        if (accountID != null) {
+            showWaitingProject(accountID)
+        }
     }
 
-    private fun showWaitingProject() {
+    private fun showWaitingProject(accountID: String) {
         coroutineScope.launch {
             val result = withContext(Dispatchers.IO) {
                 try {
-                    service?.getWaitingProjectResponse()
+                    service?.getWaitingProjectResponse(accountID)
                 } catch (e: Throwable) {
                     e.printStackTrace()
                 }
@@ -64,6 +70,13 @@ class ShowWaitingProjectActivity : AppCompatActivity() {
                 binding.loadingScreen.visibility = View.GONE
             }
 
+            else {
+                // Show Error
+                binding.notFound.visibility = View.VISIBLE
+
+                // End Of Loading
+                binding.loadingScreen.visibility = View.GONE
+            }
         }
     }
 }

@@ -47,11 +47,11 @@ class AccountFragment : Fragment() {
 
         // Get Saved Name
         val sharedPrefData = requireActivity().getSharedPreferences("Token", Context.MODE_PRIVATE)
-        val savedName = sharedPrefData.getString("accName", null)
+        val savedID = sharedPrefData.getString("accID", null)
 
         // Get Saved Data
-        if (savedName != null) {
-            showAccountData(savedName)
+        if (savedID != null) {
+            showAccountData(savedID)
         }
 
         binding.tvLogout.setOnClickListener {
@@ -106,50 +106,32 @@ class AccountFragment : Fragment() {
 
                 binding.tvMyProfile.setOnClickListener {
                     val intent = Intent(activity, TalentProfileActivity::class.java)
-                    val talentID = result.data[0].talentID.toString()
-                    val accountID = result.data[0].accountID.toString()
-                    val talentName = result.data[0].accountName.toString()
-                    val talentEmail = result.data[0].accountEmail.toString()
-                    val talentPhone = result.data[0].accountPhone.toString()
-                    val talentTitle = result.data[0].talentTitle.toString()
-                    val talentTime = result.data[0].talentTime.toString()
-                    val talentLocation = result.data[0].talentCity.toString()
-                    val talentDesc = result.data[0].talentDesc.toString()
-                    val talentImage = result.data[0].talentImage.toString()
-                    val talentGithub = result.data[0].talentGithub.toString()
-                    val talentCv = result.data[0].talentCv.toString()
-                    val talentSkill1 = result.data[0].talentSkill1.toString()
-                    val talentSkill2 = result.data[0].talentSkill2.toString()
-                    val talentSkill3 = result.data[0].talentSkill3.toString()
-                    val talentSkill4 = result.data[0].talentSkill4.toString()
-                    val talentSkill5 = result.data[0].talentSkill5.toString()
+                    intent.putExtra("talentID", result.data[0].talentID)
+                    intent.putExtra("accountID", result.data[0].accountID)
+                    intent.putExtra("talentName", result.data[0].accountName)
+                    intent.putExtra("talentEmail", result.data[0].accountEmail)
+                    intent.putExtra("talentPhone", result.data[0].accountPhone)
+                    intent.putExtra("talentTitle", result.data[0].talentTitle)
+                    intent.putExtra("talentTime", result.data[0].talentTime)
+                    intent.putExtra("talentLocation", result.data[0].talentCity)
+                    intent.putExtra("talentDesc", result.data[0].talentDesc)
+                    intent.putExtra("talentImage", result.data[0].talentImage)
+                    intent.putExtra("talentGithub", result.data[0].talentGithub)
+                    intent.putExtra("talentCv", result.data[0].talentCv)
+                    intent.putExtra("talentSkill1", result.data[0].talentSkill1)
+                    intent.putExtra("talentSkill2", result.data[0].talentSkill2)
+                    intent.putExtra("talentSkill3", result.data[0].talentSkill3)
+                    intent.putExtra("talentSkill4", result.data[0].talentSkill4)
+                    intent.putExtra("talentSkill5", result.data[0].talentSkill5)
 
-
-                    intent.putExtra("talentID", talentID)
-                    intent.putExtra("accountID", accountID)
-                    intent.putExtra("talentName", talentName)
-                    intent.putExtra("talentEmail", talentEmail)
-                    intent.putExtra("talentPhone", talentPhone)
-                    intent.putExtra("talentTitle", talentTitle)
-                    intent.putExtra("talentTime", talentTime)
-                    intent.putExtra("talentLocation", talentLocation)
-                    intent.putExtra("talentDesc", talentDesc)
-                    intent.putExtra("talentImage", talentImage)
-                    intent.putExtra("talentGithub", talentGithub)
-                    intent.putExtra("talentCv", talentCv)
-                    intent.putExtra("talentSkill1", talentSkill1)
-                    intent.putExtra("talentSkill2", talentSkill2)
-                    intent.putExtra("talentSkill3", talentSkill3)
-                    intent.putExtra("talentSkill4", talentSkill4)
-                    intent.putExtra("talentSkill5", talentSkill5)
-
-                    if (talentTitle == "null"){
-                        startActivity(Intent(activity, EditProfileActivity::class.java))
+                    if (result.data[0].talentTitle == null){
+                        val intent = Intent(activity, EditProfileActivity::class.java)
+                        intent.putExtra("talentID", result.data[0].talentID)
+                        startActivity(intent)
                     }
                     else {
                         startActivity(intent)
                     }
-
                 }
 
                 // End Of Loading

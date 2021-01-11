@@ -7,6 +7,7 @@ data class SearchCompanyResponse(val success: String, val message: String, val d
                        @SerializedName("accountID") val accountID: String,
                        @SerializedName("company_name") val companyName: String,
                        @SerializedName("company_position") val companyPosition: String,
+                       @SerializedName("company_location") val companyLocation: String,
                        @SerializedName("company_latitude") val companyLatitude: String,
                        @SerializedName("company_longitude") val companyLongitude: String,
                        @SerializedName("company_type") val companyType: String,

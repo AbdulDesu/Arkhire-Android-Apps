@@ -14,9 +14,9 @@
         app:cnb_iconColor="@color/primary" />
 
     <item
-        android:id="@+id/chat"
-        android:icon="@drawable/ic_chat"
-        android:title="Chat"
+        android:id="@+id/explore"
+        android:icon="@drawable/ic_search"
+        android:title="Explore"
         app:cnb_iconColor="@color/primary"/>
 
     <item

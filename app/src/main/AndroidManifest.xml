@@ -19,6 +19,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ArkhireTalent"
         android:usesCleartextTraffic="true">
+        <activity android:name=".homepage.item.explore.contributor.ContributorActivity"></activity>
+        <activity android:name=".homepage.item.account.profile.workexperience.add.AddWorkExperienceActivity"></activity>
+        <activity android:name=".homepage.item.account.profile.portfolio.create.CreatePortfolioActivity" />
+        <activity android:name=".homepage.item.account.profile.workexperience.details.WorkExperienceDetailActivity" />
+        <activity android:name=".homepage.item.account.profile.portfolio.details.PortfolioDetailsActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -27,13 +32,13 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="${mapsApiKey}" />
 
-        <activity android:name="com.sizdev.arkhirefortalent.homepage.item.company.profile.CompanyProfileActivity"></activity>
-        <activity android:name="com.sizdev.arkhirefortalent.homepage.item.home.project.detailedproject.DetailOfProjectActivity" />
-        <activity android:name="com.sizdev.arkhirefortalent.homepage.item.home.project.waitingproject.ShowWaitingProjectActivity" />
-        <activity android:name="com.sizdev.arkhirefortalent.homepage.item.home.project.declinedproject.ShowDeclinedProjectActivity" />
-        <activity android:name="com.sizdev.arkhirefortalent.homepage.item.home.project.approvedproject.ShowApprovedProjectActivity" />
-        <activity android:name="com.sizdev.arkhirefortalent.homepage.item.home.project.allproject.ShowAllProjectActivity" />
-        <activity android:name="com.sizdev.arkhirefortalent.webviewer.ArkhireWebViewerActivity" />
+        <activity android:name=".homepage.item.company.profile.CompanyProfileActivity" />
+        <activity android:name=".homepage.item.home.project.detailedproject.DetailOfProjectActivity" />
+        <activity android:name=".homepage.item.home.project.waitingproject.ShowWaitingProjectActivity" />
+        <activity android:name=".homepage.item.home.project.declinedproject.ShowDeclinedProjectActivity" />
+        <activity android:name=".homepage.item.home.project.approvedproject.ShowApprovedProjectActivity" />
+        <activity android:name=".homepage.item.home.project.allproject.ShowAllProjectActivity" />
+        <activity android:name=".webviewer.ArkhireWebViewerActivity" />
         <activity android:name=".onboarding.OnBoardingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,8 +47,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".administration.password.ResetPasswordActivity" />
-        <activity android:name="com.sizdev.arkhirefortalent.homepage.item.account.profile.editingprofile.EditProfileActivity" />
-        <activity android:name="com.sizdev.arkhirefortalent.homepage.item.account.profile.TalentProfileActivity" />
+        <activity android:name=".homepage.item.account.profile.editingprofile.EditProfileActivity" />
+        <activity android:name=".homepage.item.account.profile.TalentProfileActivity" />
         <activity android:name=".administration.password.ForgetPasswordActivity" />
         <activity android:name=".administration.login.LoginActivity" />
         <activity android:name=".administration.register.RegisterActivity" />

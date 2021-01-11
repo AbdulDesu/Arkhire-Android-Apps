@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -59,10 +61,19 @@ class HomeFragment : Fragment() {
         // Show Current Loged in Account Name
         val sharedPrefData = requireActivity().getSharedPreferences("Token", Context.MODE_PRIVATE)
         val accountID = sharedPrefData.getString("accID", null)
-        if (accountID != null) {
-            showAccountName(accountID)
-            showNewerProject()
-        }
+
+        // Data Refresh Management
+        val mainHandler = Handler(Looper.getMainLooper())
+        mainHandler.post(object : Runnable {
+            override fun run() {
+                if (accountID != null) {
+                    showAccountName(accountID)
+                    showNewerProject(accountID)
+                }
+                mainHandler.postDelayed(this, 1000)
+            }
+        })
+
 
         binding.tvHomeDate.text = currentDate
 
@@ -104,7 +115,7 @@ class HomeFragment : Fragment() {
             }
 
             if (result is HomeResponse) {
-                val accountName = result.data.accountName
+                val accountName = result.data[0].accountName
 
                 // Split The Name
                 val nameSplitter = accountName?.split(" ")
@@ -131,6 +142,7 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
+
             else {
                 sessionExpiredAlert()
                 dialog.show()
@@ -138,11 +150,11 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun showNewerProject() {
+    private fun showNewerProject(accountID: String) {
         coroutineScope.launch {
             val result = withContext(Dispatchers.IO) {
                 try {
-                    service?.getNewerProjectResponse()
+                    service?.getNewerProjectResponse(accountID)
                 } catch (e: Throwable) {
                     e.printStackTrace()
                 }
@@ -150,14 +162,14 @@ class HomeFragment : Fragment() {
 
             if (result is HighLightProjectResponse) {
                 val list = result.data?.map{
-                    HighLightProjectModel(it.offeringID, it.projectID, it.projectTitle, it.projectDuration, it.projectDesc, it.projectSallary, it.hiringStatus, it.replyMsg, it.repliedAt)
+                    HighLightProjectModel(it.offeringID, it.projectID, it.projectTitle, it.projectDuration, it.projectDesc, it.projectSallary, it.projectOwner, it.projectOwnerName, it.projectOwnerImage, it.hiringStatus, it.replyMsg, it.repliedAt)
                 }
 
                 (binding.rvProjectHighlight.adapter as HighLightProjectAdapter).addList(list)
-            }
 
-            // End Of Loading
-            binding.loadingScreen.visibility = View.GONE
+                // End Of Loading
+                binding.loadingScreen.visibility = View.GONE
+            }
         }
 
     }

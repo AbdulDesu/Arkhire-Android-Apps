@@ -9,6 +9,9 @@ data class HighLightProjectResponse(val success: String, val message: String, va
                           @SerializedName("project_duration") val projectDuration: String,
                           @SerializedName("project_desc") val projectDesc: String,
                           @SerializedName("project_sallary") val projectSallary: String,
+                          @SerializedName("project_owner") val projectOwner: String,
+                          @SerializedName("company_name") val projectOwnerName: String,
+                          @SerializedName("company_image") val projectOwnerImage: String,
                           @SerializedName("hiring_status") val hiringStatus: String,
                           @SerializedName("reply_message") val replyMsg: String,
                           @SerializedName("repliedAt") val repliedAt: String)

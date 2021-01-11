@@ -1,40 +1,77 @@
 package com.sizdev.arkhirefortalent.homepage.item.account.profile.editingprofile
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.Menu
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.annotation.NonNull
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import androidx.loader.content.CursorLoader
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.administration.register.RegisterResponse
 import com.sizdev.arkhirefortalent.databinding.ActivityProfileEditBinding
+import com.sizdev.arkhirefortalent.homepage.item.account.profile.portfolio.create.CreatePortfolioActivity
 import com.sizdev.arkhirefortalent.networking.ArkhireApiClient
+import com.sizdev.arkhirefortalent.networking.ArkhireApiService
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.*
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
+import kotlin.math.log
 
 class EditProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileEditBinding
-    private lateinit var coroutineScope: CoroutineScope
-    private lateinit var service: EditProfileAuthService
-    private var selectedPhotoUri : Uri?=null
+    private lateinit var viewModel: EditProfileViewModel
+
+    companion object {
+        private const val IMAGE_PICK_CODE = 1000;
+        private const val PERMISSION_CODE = 1001;
+    }
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profile_edit)
-        coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = ArkhireApiClient.getApiClient(this)!!.create(EditProfileAuthService::class.java)
+        viewModel = ViewModelProvider(this).get(EditProfileViewModel::class.java)
 
-        //Get Data From Profile Activity User Input
-        val talentID = intent.getStringExtra("talentID")
+        val service = ArkhireApiClient.getApiClient(this)?.create(ArkhireApiService::class.java)
+        if (service != null) {
+            viewModel.setService(service)
+        }
+
+        // Get Saved Data
+        var talentID = intent.getStringExtra("talentID")
+        val accountID = intent.getStringExtra("accountID")
+        val talentName = intent.getStringExtra("talentName")
+        val talentTitle = intent.getStringExtra("talentTitle")
+        val talentTime = intent.getStringExtra("talentTime")
+        val talentLocation = intent.getStringExtra("talentLocation")
+        val talentDesc = intent.getStringExtra("talentDesc")
+        val talentEmail = intent.getStringExtra("talentEmail")
+        val talentPhone = intent.getStringExtra("talentPhone")
         val talentImage = intent.getStringExtra("talentImage")
+        val talentGithub = intent.getStringExtra("talentGithub")
+        val talentSkill1 = intent.getStringExtra("talentSkill1")
+        val talentSkill2 = intent.getStringExtra("talentSkill2")
+        val talentSkill3 = intent.getStringExtra("talentSkill3")
+        val talentSkill4 = intent.getStringExtra("talentSkill4")
+        val talentSkill5 = intent.getStringExtra("talentSkill5")
 
         //Set Image Default
         if(talentImage != null){
@@ -48,15 +85,13 @@ class EditProfileActivity : AppCompatActivity() {
             binding.ivEditProfileImage.setImageResource(R.drawable.ic_empty_image)
         }
 
-
-
         //Job Tittle Pop Up Menu
         val jobTitle = PopupMenu(this, binding.etNewProfileJobTitle)
 
         jobTitle.menu.add(Menu.NONE, 0 ,0, "Android Developer")
         jobTitle.menu.add(Menu.NONE, 1 ,1, "Fullstack Mobile")
         jobTitle.menu.add(Menu.NONE, 2 ,2, "Fullstack Web")
-        jobTitle.menu.add(Menu.NONE, 3 ,3, "DevOps Engineer")
+        jobTitle.menu.add(Menu.NONE, 3 ,3, "Devops Engineer")
 
         //Talent City Pop Up Menu
         val city = PopupMenu(this, binding.etNewProfileLocation)
@@ -74,7 +109,7 @@ class EditProfileActivity : AppCompatActivity() {
         val workTime = PopupMenu(this, binding.etNewProfileWorkTime)
 
         workTime.menu.add(Menu.NONE, 0 ,0, "FullTime")
-        workTime.menu.add(Menu.NONE, 1 ,1, "Freelancer")
+        workTime.menu.add(Menu.NONE, 1 ,1, "Freelance")
 
         //Skill Choose Pop Up Menu
         val talentSKill1 = PopupMenu(this, binding.etNewProfileSkill1)
@@ -132,10 +167,10 @@ class EditProfileActivity : AppCompatActivity() {
             val id = menuItem.itemId
 
             when (id) {
-                0 -> {binding.etNewProfileJobTitle.text = "Android Developer"}
-                1 -> {binding.etNewProfileJobTitle.text = "Fullstack Mobile"}
-                2 -> {binding.etNewProfileJobTitle.text = "Fullstack Web"}
-                3 -> {binding.etNewProfileJobTitle.text = "DevOps Engineer"}
+                0 -> {binding.etNewProfileJobTitle.text ="Android Developer"}
+                1 -> {binding.etNewProfileJobTitle.text ="Fullstack Mobile"}
+                2 -> {binding.etNewProfileJobTitle.text ="Fullstack Web"}
+                3 -> {binding.etNewProfileJobTitle.text ="Devops Engineer"}
             }
 
             false
@@ -164,9 +199,8 @@ class EditProfileActivity : AppCompatActivity() {
             val id = menuItem.itemId
 
             when (id) {
-                0 -> {binding.etNewProfileWorkTime.text = "Full Time"}
-                1 -> {binding.etNewProfileWorkTime.text = "Freelancer"}
-
+                0 -> {binding.etNewProfileWorkTime.text = "Fulltime"}
+                1 -> {binding.etNewProfileWorkTime.text = "Freelance"}
             }
 
             false
@@ -291,63 +325,141 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         binding.btEditProfileImage.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            startActivityForResult(intent, 0)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                    PackageManager.PERMISSION_DENIED){
+                    //permission denied
+                    val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
+                    //show popup to request runtime permission
+                    requestPermissions(permissions, EditProfileActivity.PERMISSION_CODE);
+                }
+                else{
+                    //permission already granted
+                    pickImageFromGallery();
+                }
+            }
+            else{
+                //system OS is < Marshmallow
+                pickImageFromGallery();
+            }
         }
 
         binding.btNewProfileDone.setOnClickListener {
-            val talentTitle = binding.etNewProfileJobTitle.text.toString()
-            val talentWorkTime = binding.etNewProfileWorkTime.text.toString()
-            val talentLocation = binding.etNewProfileLocation.text.toString()
-            val talentDesc = binding.etNewProfileDesc.text.toString()
 
-            if(talentTitle.isEmpty() || talentWorkTime.isEmpty() || talentLocation.isEmpty() || talentDesc.isEmpty()){
+            if(binding.etNewProfileJobTitle.text.isEmpty() || binding.etNewProfileWorkTime.text.isEmpty() || binding.etNewProfileLocation.text.isEmpty() || binding.etNewProfileDesc.text.isEmpty()){
                 Toast.makeText(this, "Please Fill All Field", Toast.LENGTH_LONG).show()
             }
-            else {
-                if (talentID != null) {
-                    if (talentImage != null) {
-                        startUpdateProfile(talentID, talentTitle, talentWorkTime, talentLocation, talentDesc, talentImage)
-                    }
-                    else {
-                        startUpdateProfile(talentID, talentTitle, talentWorkTime, talentLocation, talentDesc, "null")
-                    }
+            else{
+                if(talentImage != "null"){
+                    /*val savedTalentTitle = createPartFromString(binding.etNewProfileJobTitle.text.toString())
+                    val savedTalentTime = createPartFromString(binding.etNewProfileWorkTime.text.toString())
+                    val savedTalentCity = createPartFromString(binding.etNewProfileLocation.text.toString())
+                    val savedTalentDesc = createPartFromString(binding.etNewProfileDesc.text.toString())
+                    val savedTalentImage = createPartFromString(talentImage!!)
+                    viewModel.updateBasicInfo(talentID!!, savedTalentTitle, savedTalentTime, savedTalentCity, savedTalentDesc, savedTalentImage)*/
                 }
             }
-
         }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when(requestCode) {
+            EditProfileActivity.PERMISSION_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED){
+                    //permission from popup granted
+                    pickImageFromGallery()
+                }
+                else{
+                    //permission from popup denied
+                    Toast.makeText(this, "Please Allow Permission", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun pickImageFromGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, EditProfileActivity.IMAGE_PICK_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null){
-            selectedPhotoUri = data.data
+        if (resultCode == Activity.RESULT_OK && requestCode == EditProfileActivity.IMAGE_PICK_CODE) {
+            binding.ivEditProfileImage.setImageURI(data?.data)
 
-            val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, selectedPhotoUri)
+            var talentID = intent.getStringExtra("talentID")
 
-            binding.ivEditProfileImage.setImageBitmap(bitmap)
+            val filePath = data?.data?.let { getPath(this, it) }
+            val file = File(filePath)
 
+            val talentTitle = createPartFromString(binding.etNewProfileJobTitle.text.toString())
+            val talentTime = createPartFromString(binding.etNewProfileWorkTime.text.toString())
+            val talentCity = createPartFromString(binding.etNewProfileLocation.text.toString())
+            val talentDesc = createPartFromString(binding.etNewProfileDesc.text.toString())
+            var talentImage: MultipartBody.Part? = null
+            val mediaTypeImg = "image/jpeg".toMediaType()
+            val inputStream = data?.data?.let { contentResolver.openInputStream(it) }
+            val reqFile: RequestBody? = inputStream?.readBytes()?.toRequestBody(mediaTypeImg)
+
+            talentImage = reqFile?.let { it1 ->
+                MultipartBody.Part.createFormData("talent_image", file.name, it1)
+            }
+
+            binding.btNewProfileDone.setOnClickListener {
+                if(binding.etNewProfileJobTitle.text.isEmpty() || binding.etNewProfileWorkTime.text.isEmpty() || binding.etNewProfileLocation.text.isEmpty() || binding.etNewProfileDesc.text.isEmpty()){
+                    Toast.makeText(this, "Please Fill All Field!", Toast.LENGTH_SHORT).show()
+                }
+                else {
+                    if (talentImage != null) {
+                    viewModel.updateBasicInfo(talentID!!, talentTitle, talentTime, talentCity, talentDesc, talentImage)
+                    viewModel.updateSkill(talentID!!, binding.etNewProfileSkill1.text.toString(), binding.etNewProfileSkill2.text.toString(), binding.etNewProfileSkill3.text.toString(), binding.etNewProfileSkill4.text.toString(), binding.etNewProfileSkill5.text.toString())
+                    }
+                }
+            }
+
+            subscribeLiveData()
         }
     }
 
-    private fun startUpdateProfile(talentID : String, talentTitle: String, talentWorkTime: String, talentLocation: String, talentDesc: String, talentImage: String) {
-        coroutineScope.launch {
-            val result = withContext(Dispatchers.IO) {
-                try {
-                    service.updateTalent(talentID, talentTitle, talentWorkTime, talentLocation, talentDesc, talentImage)
-                } catch (e: Throwable) {
-                    e.printStackTrace()
-                }
-            }
-            if (result is RegisterResponse) {
-                Toast.makeText(this@EditProfileActivity, "Your Profile Updated Succesfully", Toast.LENGTH_LONG).show()
-                finish()
-            }
+    fun getPath(context: Context, contentUri: Uri) : String? {
+        var result: String? = null
+        val data = arrayOf(MediaStore.Images.Media.DATA)
 
+        val cursorLoader = CursorLoader(context, contentUri, data, null, null, null)
+        val cursor = cursorLoader.loadInBackground()
 
+        if (cursor != null) {
+            val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            cursor.moveToFirst()
+            result = cursor.getString(columnIndex)
+            cursor.close()
         }
+        return result
+    }
+
+    @NonNull
+    private fun createPartFromString(json: String): RequestBody {
+        val mediaType = "multipart/form-data".toMediaType()
+        return json
+            .toRequestBody(mediaType)
+    }
+
+    private fun subscribeLiveData() {
+        viewModel.isSuccess.observe(this, {
+            if (viewModel.isSuccess.value == "Success") {
+                Toast.makeText(this, "Profile Updated !", Toast.LENGTH_SHORT).show()
+                finish()
+            } else {
+                Toast.makeText(this, "Failed, To Update !", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
 

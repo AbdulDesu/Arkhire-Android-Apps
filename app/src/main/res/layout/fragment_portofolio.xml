@@ -10,6 +10,20 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <RelativeLayout
+            android:id="@+id/loadingScreen"
+            android:background="@color/white"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -21,7 +35,8 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/bt_addPortfolio"
-                    android:text="Add portfolio"
+                    android:text="@string/add_portfolio"
+                    android:layout_gravity="center"
                     android:layout_marginTop="18dp"
                     android:textColor="@color/white"
                     android:textSize="16sp"
@@ -31,40 +46,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"/>
 
-                <ImageView
+                <RelativeLayout
+                    android:id="@+id/emptyData"
+                    android:visibility="gone"
                     android:layout_marginTop="18dp"
-                    android:id="@+id/iv_portofolio1"
-                    android:src="@drawable/portofolio1"
                     android:layout_width="match_parent"
-                    android:layout_height="270dp"/>
+                    android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/iv_portofolio2"
-                    android:src="@drawable/portofolio2"
-                    android:layout_marginTop="30dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="270dp"/>
+                    <ImageView
+                        android:src="@drawable/empty_data_set"
+                        android:scaleType="centerCrop"
+                        android:layout_centerInParent="true"
+                        android:layout_width="512dp"
+                        android:layout_height="312dp"/>
 
-                <ImageView
-                    android:id="@+id/iv_portofolio3"
-                    android:src="@drawable/portofolio3"
-                    android:layout_marginTop="30dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="270dp"/>
+                </RelativeLayout>
 
-                <ImageView
-                    android:id="@+id/iv_portofolio4"
-                    android:src="@drawable/portofolio4"
-                    android:layout_marginTop="30dp"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_portfolio"
+                    android:layout_marginTop="18dp"
                     android:layout_width="match_parent"
-                    android:layout_height="270dp"/>
-
-                <ImageView
-                    android:id="@+id/iv_portofolio5"
-                    android:src="@drawable/portofolio5"
-                    android:layout_marginTop="30dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="270dp"/>
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>

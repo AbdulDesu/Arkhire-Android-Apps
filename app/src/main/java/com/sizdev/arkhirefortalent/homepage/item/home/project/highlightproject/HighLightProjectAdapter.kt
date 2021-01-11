@@ -12,6 +12,7 @@ import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.ItemTalentProjectHighlightBinding
 import com.sizdev.arkhirefortalent.homepage.item.home.project.allproject.ShowAllProjectModel
 import com.sizdev.arkhirefortalent.homepage.item.home.project.detailedproject.DetailOfProjectActivity
+import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import java.util.*
 
@@ -38,6 +39,21 @@ class HighLightProjectAdapter : RecyclerView.Adapter<HighLightProjectAdapter.Pro
         holder.binding.tvHighlightProjectDeadline.text = "${item.projectDuration?.capitalize(Locale.ROOT)} DEADLINE"
         holder.binding.tvHighlightProjectSallary.text = item.projectSallary
         holder.binding.tvHighlightHiringStatus.text = "(${item.hiringStatus})"
+        when(item.hiringStatus){
+            "Approved" -> holder.binding.lnCard.setBackgroundResource(R.drawable.bg_card_approved)
+            "Declined" -> holder.binding.lnCard.setBackgroundResource(R.drawable.bg_card_declined)
+            else -> holder.binding.lnCard.setBackgroundResource(R.drawable.bg_card_waiting)
+        }
+        when(item.projectOwnerImage){
+            null -> holder.binding.ivHighLightProjectImage.setImageResource(R.drawable.arkhireicon)
+            else -> {
+                Picasso.get()
+                        .load("http://54.82.81.23:911/image/${item.projectOwnerImage}")
+                        .resize(512, 512)
+                        .centerCrop()
+                        .into(holder.binding.ivHighLightProjectImage)
+            }
+        }
 
         holder.itemView.setOnClickListener {
             val context = holder.binding.itemProjectHighlightHolder.context

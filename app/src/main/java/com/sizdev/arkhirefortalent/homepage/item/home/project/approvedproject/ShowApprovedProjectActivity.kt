@@ -1,5 +1,6 @@
 package com.sizdev.arkhirefortalent.homepage.item.home.project.approvedproject
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -26,6 +27,10 @@ class ShowApprovedProjectActivity : AppCompatActivity() {
         service = ArkhireApiClient.getApiClient(this)!!.create(ArkhireApiService::class.java)
 
 
+        // Get Current Loged in Data
+        val sharedPrefData = this.getSharedPreferences("Token", Context.MODE_PRIVATE)
+        val accountID = sharedPrefData.getString("accID", null)
+
         // Data Loading Management
         binding.loadingScreen.visibility = View.VISIBLE
         binding.progressBar.max = 100
@@ -41,14 +46,16 @@ class ShowApprovedProjectActivity : AppCompatActivity() {
             finish()
         }
 
-        showApprovedProject()
+        if (accountID != null) {
+            showApprovedProject(accountID)
+        }
     }
 
-    private fun showApprovedProject() {
+    private fun showApprovedProject(accountID: String) {
         coroutineScope.launch {
             val result = withContext(Dispatchers.IO) {
                 try {
-                    service?.getApprovedProjectResponse()
+                    service?.getApprovedProjectResponse(accountID)
                 } catch (e: Throwable) {
                     e.printStackTrace()
                 }
@@ -65,6 +72,13 @@ class ShowApprovedProjectActivity : AppCompatActivity() {
                 binding.loadingScreen.visibility = View.GONE
             }
 
+            else {
+                // Show Error
+                binding.notFound.visibility = View.VISIBLE
+
+                // End Of Loading
+                binding.loadingScreen.visibility = View.GONE
+            }
         }
     }
 

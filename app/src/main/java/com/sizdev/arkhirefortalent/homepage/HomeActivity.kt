@@ -1,16 +1,15 @@
 package com.sizdev.arkhirefortalent.homepage
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.ActivityHomeBinding
 import com.sizdev.arkhirefortalent.homepage.item.account.AccountFragment
-import com.sizdev.arkhirefortalent.homepage.item.chat.ChatFragment
+import com.sizdev.arkhirefortalent.homepage.item.explore.ExploreFragment
 import com.sizdev.arkhirefortalent.homepage.item.home.HomeFragment
 import com.sizdev.arkhirefortalent.homepage.item.company.SearchCompanyFragment
 
@@ -21,7 +20,7 @@ class HomeActivity : AppCompatActivity() {
     lateinit var accountFragment: AccountFragment
     lateinit var homeFragment: HomeFragment
     lateinit var searchFragment: SearchCompanyFragment
-    lateinit var chatFragment: ChatFragment
+    lateinit var exploreFragment: ExploreFragment
 
     private var doubleBackToExitPressedOnce = false
 
@@ -54,11 +53,11 @@ class HomeActivity : AppCompatActivity() {
                         .commit()
                 }
 
-                R.id.chat -> {
-                    chatFragment = ChatFragment()
+                R.id.explore -> {
+                    exploreFragment = ExploreFragment()
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.homeViewer, chatFragment)
+                        .replace(R.id.homeViewer, exploreFragment)
                         .commit()
                 }
 

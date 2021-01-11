@@ -1,32 +1,56 @@
 package com.sizdev.arkhirefortalent.homepage.item.account.profile.workexperience
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sizdev.arkhirefortalent.R
+import com.sizdev.arkhirefortalent.databinding.ItemTalentWorkExperienceBinding
+import com.sizdev.arkhirefortalent.homepage.item.account.profile.workexperience.details.WorkExperienceDetailActivity
 
-class WorkExperienceAdapter : RecyclerView.Adapter<WorkExperienceAdapter.TalentWorkExperienceHolder>() {
+class WorkExperienceAdapter : RecyclerView.Adapter<WorkExperienceAdapter.WorkExperienceHolder>() {
+    private var items = mutableListOf<WorkExperienceModel>()
 
-    val listPosition = listOf("Software Engineer", "Senior Software Engineer", "Software developer", "Junior Developer", "Team Leader", "Software Testing Officer")
-    val listYear = listOf("2014-2015","2015-2016", "2016-2017", "2017-2018", "2018-2019", "2019-2020").reversed()
-
-    class TalentWorkExperienceHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        var positionExperience: TextView = itemView.findViewById(R.id.tv_workExperiencePosition)
-        var yearExperience: TextView = itemView.findViewById(R.id.tv_workExperienceYearRange)
+    fun addList(list: List<WorkExperienceModel>){
+        items.clear()
+        items.addAll(list)
+        notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TalentWorkExperienceHolder {
-        return TalentWorkExperienceHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_talent_work_experience, parent, false))
+    class WorkExperienceHolder(val binding: ItemTalentWorkExperienceBinding) : RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkExperienceHolder {
+        return WorkExperienceHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_talent_work_experience, parent, false))
     }
 
-    override fun onBindViewHolder(holder: TalentWorkExperienceHolder, position: Int) {
-        holder.positionExperience.text = listPosition[position]
-        holder.yearExperience.text = listYear[position]
+    @SuppressLint("SetTextI18n")
+    override fun onBindViewHolder(holder: WorkExperienceHolder, position: Int) {
+        val item = items[position]
+        holder.binding.tvWorkExperiencePosition.text = item.experienceTitle
+        holder.binding.tvWorkExperienceCompany.text = item.experienceSource
+        holder.binding.tvWorkExperienceYearStart.text = "${item.experienceStart} -"
+        holder.binding.tvWorkExperienceYearEnd.text = " ${item.experienceEnd}"
+
+        when (item.experienceDesc){
+            "" -> holder.binding.tvWorkExperienceDescription.text = "-"
+            else -> holder.binding.tvWorkExperienceDescription.text = item.experienceDesc
+        }
+
+        holder.itemView.setOnClickListener {
+            val context = holder.binding.itemWorkexperienceHolder.context
+            val intent = Intent(context, WorkExperienceDetailActivity::class.java)
+
+            intent.putExtra("experienceID", item.experienceID)
+            intent.putExtra("experienceTitle", item.experienceTitle)
+            intent.putExtra("experienceSource", item.experienceSource)
+            intent.putExtra("experienceStart", item.experienceStart)
+            intent.putExtra("experienceEnd", item.experienceEnd)
+            intent.putExtra("experienceDesc", item.experienceDesc)
+            context.startActivity(intent)
+        }
     }
 
-    override fun getItemCount(): Int = listPosition.size
-
-
+    override fun getItemCount(): Int = items.size
 }

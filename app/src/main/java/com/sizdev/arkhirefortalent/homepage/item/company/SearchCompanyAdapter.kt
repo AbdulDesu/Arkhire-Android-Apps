@@ -31,7 +31,8 @@ class SearchCompanyAdapter : RecyclerView.Adapter<SearchCompanyAdapter.SearchCom
         val item = items[position]
         holder.binding.tvCompanyName.text = item.companyName
         holder.binding.tvCompanyType.text = item.companyType
-        holder.binding.tvCompanyLocation.text = "${item.companyLatitude}, ${item.companyLongitude}"
+        holder.binding.tvCompanyLocation.text = item.companyLocation
+
         Picasso.get()
                 .load("http://54.82.81.23:911/image/${item.companyImage}")
                 .resize(86, 86)

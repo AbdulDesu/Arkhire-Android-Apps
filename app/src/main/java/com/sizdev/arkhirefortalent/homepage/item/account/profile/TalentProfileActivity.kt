@@ -26,9 +26,6 @@ class TalentProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTalentProfileBinding
     private lateinit var pagerAdapter: TalentProfileTabAdapter
-    private lateinit var coroutineScope: CoroutineScope
-    private lateinit var service: ArkhireApiService
-
     private var doubleBackToExitPressedOnce = false
 
 
@@ -36,8 +33,6 @@ class TalentProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_talent_profile)
-        coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = ArkhireApiClient.getApiClient(this)!!.create(ArkhireApiService::class.java)
 
         // Get Saved Data
         val talentID = intent.getStringExtra("talentID")
@@ -146,7 +141,7 @@ class TalentProfileActivity : AppCompatActivity() {
                         startActivity(intent)
                     }
                     1 -> {
-                        startActivity(Intent(this@TalentProfileActivity, HomeActivity::class.java))
+                        Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
                     }
                 }
                 false
@@ -181,10 +176,5 @@ class TalentProfileActivity : AppCompatActivity() {
         Handler().postDelayed(Runnable {
             doubleBackToExitPressedOnce = false
         }, 2000)
-    }
-
-    override fun onDestroy() {
-        coroutineScope.cancel()
-        super.onDestroy()
     }
 }
