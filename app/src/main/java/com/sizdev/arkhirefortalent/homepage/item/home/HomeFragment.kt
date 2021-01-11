@@ -70,7 +70,7 @@ class HomeFragment : Fragment() {
                     showAccountName(accountID)
                     showNewerProject(accountID)
                 }
-                mainHandler.postDelayed(this, 1000)
+                mainHandler.postDelayed(this, 2000)
             }
         })
 
@@ -169,6 +169,13 @@ class HomeFragment : Fragment() {
 
                 // End Of Loading
                 binding.loadingScreen.visibility = View.GONE
+            }
+
+            else {
+                // End Of Loading
+                binding.loadingScreen.visibility = View.GONE
+                binding.rvProjectHighlight.visibility = View.GONE
+                binding.emptyHighlight.visibility = View.VISIBLE
             }
         }
 

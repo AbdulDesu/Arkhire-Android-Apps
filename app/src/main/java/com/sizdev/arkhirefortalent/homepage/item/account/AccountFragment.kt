@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -49,10 +50,14 @@ class AccountFragment : Fragment() {
         val sharedPrefData = requireActivity().getSharedPreferences("Token", Context.MODE_PRIVATE)
         val savedID = sharedPrefData.getString("accID", null)
 
-        // Get Saved Data
-        if (savedID != null) {
-            showAccountData(savedID)
-        }
+        // Data Refresh Management
+        val mainHandler = Handler(Looper.getMainLooper())
+        mainHandler.post(object : Runnable {
+            override fun run() {
+                showAccountData(savedID!!)
+                mainHandler.postDelayed(this, 2000)
+            }
+        })
 
         binding.tvLogout.setOnClickListener {
             startAlertLogoutConfirmation()
