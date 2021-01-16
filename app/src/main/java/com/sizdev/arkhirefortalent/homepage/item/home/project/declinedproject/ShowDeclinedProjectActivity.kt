@@ -1,86 +1,163 @@
 package com.sizdev.arkhirefortalent.homepage.item.home.project.declinedproject
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sizdev.arkhirefortalent.R
+import com.sizdev.arkhirefortalent.administration.login.LoginActivity
 import com.sizdev.arkhirefortalent.databinding.ActivityShowDeclinedProjectBinding
+import com.sizdev.arkhirefortalent.homepage.item.home.project.ProjectAdapter
+import com.sizdev.arkhirefortalent.homepage.item.home.project.ProjectContract
+import com.sizdev.arkhirefortalent.homepage.item.home.project.ProjectModel
+import com.sizdev.arkhirefortalent.homepage.item.home.project.ProjectPresenter
 import com.sizdev.arkhirefortalent.networking.ArkhireApiClient
 import com.sizdev.arkhirefortalent.networking.ArkhireApiService
+import kotlinx.android.synthetic.main.alert_session_expired.view.*
 import kotlinx.coroutines.*
 
-class ShowDeclinedProjectActivity : AppCompatActivity() {
+class ShowDeclinedProjectActivity : AppCompatActivity(), ProjectContract.View {
 
     private lateinit var binding: ActivityShowDeclinedProjectBinding
     private lateinit var coroutineScope: CoroutineScope
-    private lateinit var service: ArkhireApiService
+    private lateinit var handler: Handler
+    private lateinit var dialog: AlertDialog
+
+    private var presenter: ProjectPresenter? =null
+    private var accountID: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_show_declined_project)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = ArkhireApiClient.getApiClient(this)!!.create(ArkhireApiService::class.java)
 
-        //Get Account Data
-        // Show Current Loged in Account Name
+        // Set Service
+        setService()
+
+        // Get Current Login Data
+        getCurrentLoginData()
+
+        // Set Action Bar
+        setActionBar()
+
+        // Set Up Recyclerview
+        setRecyclerView()
+
+        // Set Up Refresh Manager
+        setRefreshManager()
+
+        // Show Progress Bar
+        showProgressBar()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        presenter?.bindToView(this)
+    }
+
+    override fun addProjectList(list: List<ProjectModel>) {
+        (binding.rvShowDeclinedProject.adapter as ProjectAdapter).addList(list)
+
+    }
+
+    override fun setRefreshManager() {
+        handler = Handler(Looper.getMainLooper())
+        handler.post(object : Runnable {
+            override fun run() {
+                presenter?.getDeclinedProject(accountID!!)
+                handler.postDelayed(this, 5000)
+            }
+        })
+    }
+
+    override fun setService() {
+        val service = ArkhireApiClient.getApiClient(this)!!.create(ArkhireApiService::class.java)
+        presenter = ProjectPresenter(coroutineScope, service)
+    }
+
+    override fun setError(error: String) {
+        when (error) {
+            "Session Expired !" -> {
+                showSessionExpired()
+            }
+
+            "Project Not Found !" -> {
+                binding.loadingScreen.visibility = View.GONE
+                binding.notFound.visibility = View.VISIBLE
+            }
+
+            else -> {
+                Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    override fun getCurrentLoginData() {
         val sharedPrefData = this.getSharedPreferences("Token", Context.MODE_PRIVATE)
-        val accountID = sharedPrefData.getString("accID", null)
+        accountID = sharedPrefData.getString("accID", null)
+    }
 
-        // Data Loading Management
+    override fun showProgressBar() {
         binding.loadingScreen.visibility = View.VISIBLE
         binding.progressBar.max = 100
+    }
 
+    override fun setRecyclerView() {
+        binding.rvShowDeclinedProject.adapter = ProjectAdapter()
+        binding.rvShowDeclinedProject.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+    }
+
+    override fun hideProgressBar() {
+        binding.loadingScreen.visibility = View.GONE
+    }
+
+    override fun setActionBar() {
         setSupportActionBar(binding.tbShowDeclinedProject)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        binding.rvShowDeclinedProject.adapter = ShowDeclinedProjectAdapter()
-        binding.rvShowDeclinedProject.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         binding.tbShowDeclinedProject.setNavigationOnClickListener {
             finish()
         }
+    }
 
-        if (accountID != null) {
-            showDeclinedProject(accountID)
+    override fun showSessionExpired() {
+        val view: View = layoutInflater.inflate(R.layout.alert_session_expired, null)
+
+        dialog = this.let {
+            AlertDialog.Builder(it)
+                    .setView(view)
+                    .setCancelable(false)
+                    .create()
+        }
+
+        view.bt_okRelog.setOnClickListener {
+            dialog.dismiss()
+            val intent = Intent(this, LoginActivity::class.java)
+            val sharedPref = this.getSharedPreferences("Token", Context.MODE_PRIVATE)
+            val editor = sharedPref.edit()
+            editor.putString("accID", null)
+            editor.apply()
+            startActivity(intent)
+            finish()
         }
     }
 
-    private fun showDeclinedProject(accountID: String) {
-        coroutineScope.launch {
-            val result = withContext(Dispatchers.IO) {
-                try {
-                    service?.getDeclinedProjectResponse(accountID)
-                } catch (e: Throwable) {
-                    e.printStackTrace()
-                }
-            }
-
-            if (result is ShowDeclinedProjectResponse) {
-                val list = result.data?.map{
-                    ShowDeclinedProjectModel(it.offeringID, it.projectID, it.projectTitle, it.projectDuration, it.projectDesc, it.projectSallary, it.hiringStatus, it.replyMsg, it.repliedAt)
-                }
-
-                (binding.rvShowDeclinedProject.adapter as ShowDeclinedProjectAdapter).addList(list)
-
-                // End Of Loading
-                binding.loadingScreen.visibility = View.GONE
-            }
-
-            else {
-                // Show Error
-                binding.notFound.visibility = View.VISIBLE
-
-                // End Of Loading
-                binding.loadingScreen.visibility = View.GONE
-            }
-
-        }
+    override fun onStop() {
+        super.onStop()
+        presenter?.unbind()
     }
-}
+
+    override fun onDestroy() {
+        coroutineScope.cancel()
+        super.onDestroy()
+    }}

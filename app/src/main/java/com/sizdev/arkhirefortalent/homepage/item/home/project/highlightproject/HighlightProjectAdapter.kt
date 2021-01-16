@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.ItemTalentProjectHighlightBinding
+import com.sizdev.arkhirefortalent.homepage.item.home.project.ProjectModel
 import com.sizdev.arkhirefortalent.homepage.item.home.project.detailedproject.DetailOfProjectActivity
 import com.squareup.picasso.Picasso
 import java.text.NumberFormat
@@ -15,9 +16,9 @@ import java.util.*
 
 
 class HighLightProjectAdapter : RecyclerView.Adapter<HighLightProjectAdapter.ProjectHolder>() {
-    private var items = mutableListOf<HighLightProjectModel>()
+    private var items = mutableListOf<ProjectModel>()
 
-    fun addList(list: List<HighLightProjectModel>){
+    fun addList(list: List<ProjectModel>){
         items.clear()
         items.addAll(list)
         notifyDataSetChanged()

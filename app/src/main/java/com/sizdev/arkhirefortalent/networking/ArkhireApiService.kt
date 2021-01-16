@@ -13,12 +13,8 @@ import com.sizdev.arkhirefortalent.homepage.item.account.profile.workexperience.
 import com.sizdev.arkhirefortalent.homepage.item.company.SearchCompanyResponse
 import com.sizdev.arkhirefortalent.homepage.item.explore.contributor.ContributorResponse
 import com.sizdev.arkhirefortalent.homepage.item.home.HomeResponse
-import com.sizdev.arkhirefortalent.homepage.item.home.project.allproject.ShowAllProjectResponse
-import com.sizdev.arkhirefortalent.homepage.item.home.project.approvedproject.ShowApprovedProjectResponse
-import com.sizdev.arkhirefortalent.homepage.item.home.project.declinedproject.ShowDeclinedProjectResponse
+import com.sizdev.arkhirefortalent.homepage.item.home.project.ProjectResponse
 import com.sizdev.arkhirefortalent.homepage.item.home.project.detailedproject.ProjectReplyResponse
-import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.HighLightProjectResponse
-import com.sizdev.arkhirefortalent.homepage.item.home.project.waitingproject.ShowWaitingProjectResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
@@ -53,19 +49,19 @@ interface ArkhireApiService {
 
     // Project Service
     @GET("contributor/participator/{accountID}")
-    suspend fun getAllProjectResponse(@Path("accountID") accountID: String): ShowAllProjectResponse
+    suspend fun getAllProjectResponse(@Path("accountID") accountID: String): ProjectResponse
 
     @GET("contributor/participator/{accountID}?search=Approved")
-    suspend fun getApprovedProjectResponse(@Path("accountID") accountID: String): ShowApprovedProjectResponse
+    suspend fun getApprovedProjectResponse(@Path("accountID") accountID: String): ProjectResponse
 
     @GET("contributor/participator/{accountID}?search=Declined")
-    suspend fun getDeclinedProjectResponse(@Path("accountID") accountID: String): ShowDeclinedProjectResponse
+    suspend fun getDeclinedProjectResponse(@Path("accountID") accountID: String): ProjectResponse
 
     @GET("contributor/participator/{accountID}?search=Waiting")
-    suspend fun getWaitingProjectResponse(@Path("accountID") accountID: String): ShowWaitingProjectResponse
+    suspend fun getWaitingProjectResponse(@Path("accountID") accountID: String): ProjectResponse
 
     @GET("projectresp/highlight/{accountID}")
-    suspend fun getNewerProjectResponse(@Path("accountID") accountID: String): HighLightProjectResponse
+    suspend fun getNewerProjectResponse(@Path("accountID") accountID: String): ProjectResponse
 
 
     @FormUrlEncoded

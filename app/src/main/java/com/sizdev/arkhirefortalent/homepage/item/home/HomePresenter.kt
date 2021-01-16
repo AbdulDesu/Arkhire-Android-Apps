@@ -1,8 +1,7 @@
 package com.sizdev.arkhirefortalent.homepage.item.home
 
-import com.sizdev.arkhirefortalent.homepage.item.account.AccountResponse
-import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.HighLightProjectModel
-import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.HighLightProjectResponse
+import com.sizdev.arkhirefortalent.homepage.item.home.project.ProjectModel
+import com.sizdev.arkhirefortalent.homepage.item.home.project.ProjectResponse
 import com.sizdev.arkhirefortalent.networking.ArkhireApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -83,10 +82,10 @@ class HomePresenter (private val coroutineScope: CoroutineScope,
                 }
             }
 
-            if (result is HighLightProjectResponse) {
+            if (result is ProjectResponse) {
                 if (result.success){
                     val list = result.data?.map{
-                        HighLightProjectModel(it.contributorID, it.talentID, it.companyName, it.companyImage, it.projectTittle, it.projectDesc, it.projectDuration, it.projectSalary, it.projectImage, it.offeringID, it.hiringStatus, it.offeredSalary, it.replyMsg)
+                        ProjectModel(it.contributorID, it.talentID, it.companyID, it.companyName, it.companyImage, it.projectTittle, it.projectDesc, it.projectDuration, it.projectSalary, it.projectImage, it.offeringID, it.hiringStatus, it.offeredSalary, it.replyMsg)
                     }
                     view?.hideProgressBar()
                     view?.addHighlightProject(list)

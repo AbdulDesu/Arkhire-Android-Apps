@@ -1,9 +1,9 @@
-package com.sizdev.arkhirefortalent.homepage.item.home.project.allproject
+package com.sizdev.arkhirefortalent.homepage.item.home.project
 
-interface ShowAllProjectContract {
+interface ProjectContract {
 
     interface View {
-        fun addAllProjectList(list: List<ShowAllProjectModel>)
+        fun addProjectList(list: List<ProjectModel>)
         fun setRefreshManager()
         fun setService()
         fun setError(error: String)
@@ -18,7 +18,12 @@ interface ShowAllProjectContract {
     interface Presenter{
         fun bindToView(view: View)
         fun unbind()
-        fun getCurrentProject(accountID: String)
+        fun getAllProject(accountID: String)
+        fun getHighlightProject(accountID: String)
+        fun getApprovedProject(accountID: String)
+        fun getDeclinedProject(accountID: String)
+        fun getWaitingProject(accountID: String)
     }
+
 
 }

@@ -15,19 +15,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.administration.login.LoginActivity
 import com.sizdev.arkhirefortalent.databinding.ActivityShowAllProjectBinding
+import com.sizdev.arkhirefortalent.homepage.item.home.project.ProjectAdapter
+import com.sizdev.arkhirefortalent.homepage.item.home.project.ProjectContract
+import com.sizdev.arkhirefortalent.homepage.item.home.project.ProjectModel
+import com.sizdev.arkhirefortalent.homepage.item.home.project.ProjectPresenter
 import com.sizdev.arkhirefortalent.networking.ArkhireApiClient
 import com.sizdev.arkhirefortalent.networking.ArkhireApiService
 import kotlinx.android.synthetic.main.alert_session_expired.view.*
 import kotlinx.coroutines.*
 
-class ShowAllProjectActivity : AppCompatActivity(), ShowAllProjectContract.View {
+class ShowAllProjectActivity : AppCompatActivity(), ProjectContract.View {
 
     private lateinit var binding : ActivityShowAllProjectBinding
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var handler: Handler
     private lateinit var dialog: AlertDialog
 
-    private var presenter: ShowAllProjectPresenter? =null
+    private var presenter: ProjectPresenter? =null
     private var accountID: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,15 +63,16 @@ class ShowAllProjectActivity : AppCompatActivity(), ShowAllProjectContract.View 
         presenter?.bindToView(this)
     }
 
-    override fun addAllProjectList(list: List<ShowAllProjectModel>) {
-        (binding.rvShowAllProject.adapter as ShowAllProjectAdapter).addList(list)
+    override fun addProjectList(list: List<ProjectModel>) {
+        (binding.rvShowAllProject.adapter as ProjectAdapter).addList(list)
+
     }
 
     override fun setRefreshManager() {
         handler = Handler(Looper.getMainLooper())
         handler.post(object : Runnable {
             override fun run() {
-                presenter?.getCurrentProject(accountID!!)
+                presenter?.getAllProject(accountID!!)
                 handler.postDelayed(this, 5000)
             }
         })
@@ -75,7 +80,7 @@ class ShowAllProjectActivity : AppCompatActivity(), ShowAllProjectContract.View 
 
     override fun setService() {
         val service = ArkhireApiClient.getApiClient(this)!!.create(ArkhireApiService::class.java)
-        presenter = ShowAllProjectPresenter(coroutineScope, service)
+        presenter = ProjectPresenter(coroutineScope, service)
     }
 
     override fun setError(error: String) {
@@ -85,6 +90,7 @@ class ShowAllProjectActivity : AppCompatActivity(), ShowAllProjectContract.View 
             }
 
             "Project Not Found !" -> {
+                binding.loadingScreen.visibility = View.GONE
                 binding.notFound.visibility = View.VISIBLE
             }
 
@@ -105,7 +111,7 @@ class ShowAllProjectActivity : AppCompatActivity(), ShowAllProjectContract.View 
     }
 
     override fun setRecyclerView() {
-        binding.rvShowAllProject.adapter = ShowAllProjectAdapter()
+        binding.rvShowAllProject.adapter = ProjectAdapter()
         binding.rvShowAllProject.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
     }
 

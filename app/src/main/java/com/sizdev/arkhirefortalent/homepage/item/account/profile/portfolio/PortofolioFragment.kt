@@ -15,9 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.FragmentPortofolioBinding
 import com.sizdev.arkhirefortalent.homepage.item.account.profile.portfolio.create.CreatePortfolioActivity
-import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.HighLightProjectAdapter
-import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.HighLightProjectModel
-import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.HighLightProjectResponse
 import com.sizdev.arkhirefortalent.networking.ArkhireApiClient
 import com.sizdev.arkhirefortalent.networking.ArkhireApiService
 import kotlinx.coroutines.*

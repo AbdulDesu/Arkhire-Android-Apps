@@ -1,9 +1,5 @@
 package com.sizdev.arkhirefortalent.homepage.item.company
 
-import android.view.View
-import com.sizdev.arkhirefortalent.homepage.item.home.HomeContract
-import com.sizdev.arkhirefortalent.homepage.item.home.HomeResponse
-import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.HighLightProjectModel
 import com.sizdev.arkhirefortalent.networking.ArkhireApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

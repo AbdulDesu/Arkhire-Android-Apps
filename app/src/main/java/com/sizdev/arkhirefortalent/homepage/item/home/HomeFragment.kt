@@ -17,11 +17,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.administration.login.LoginActivity
 import com.sizdev.arkhirefortalent.databinding.FragmentHomeBinding
+import com.sizdev.arkhirefortalent.homepage.item.home.project.ProjectAdapter
+import com.sizdev.arkhirefortalent.homepage.item.home.project.ProjectModel
 import com.sizdev.arkhirefortalent.homepage.item.home.project.allproject.ShowAllProjectActivity
 import com.sizdev.arkhirefortalent.homepage.item.home.project.approvedproject.ShowApprovedProjectActivity
 import com.sizdev.arkhirefortalent.homepage.item.home.project.declinedproject.ShowDeclinedProjectActivity
 import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.HighLightProjectAdapter
-import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.HighLightProjectModel
 import com.sizdev.arkhirefortalent.homepage.item.home.project.waitingproject.ShowWaitingProjectActivity
 import com.sizdev.arkhirefortalent.networking.ArkhireApiClient
 import com.sizdev.arkhirefortalent.networking.ArkhireApiService
@@ -123,7 +124,7 @@ class HomeFragment : Fragment(), HomeContract.View {
     }
 
 
-    override fun addHighlightProject(list: List<HighLightProjectModel>) {
+    override fun addHighlightProject(list: List<ProjectModel>) {
         (binding.rvProjectHighlight.adapter as HighLightProjectAdapter).addList(list)
     }
 
