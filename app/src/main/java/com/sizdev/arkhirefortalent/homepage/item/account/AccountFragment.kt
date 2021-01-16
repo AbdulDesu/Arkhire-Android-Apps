@@ -16,6 +16,7 @@ import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.administration.login.LoginActivity
 import com.sizdev.arkhirefortalent.administration.password.ResetPasswordActivity
 import com.sizdev.arkhirefortalent.databinding.FragmentAccountBinding
+import com.sizdev.arkhirefortalent.homepage.item.account.profile.TalentProfileActivity
 import com.sizdev.arkhirefortalent.networking.ArkhireApiClient
 import com.sizdev.arkhirefortalent.networking.ArkhireApiService
 import com.squareup.picasso.Picasso
@@ -111,7 +112,7 @@ class AccountFragment : Fragment(), AccountContract.View {
         super.onDestroy()
     }
 
-    override fun addAccountData(AccountName: String?, AccountTitle: String?, accountImage: String?) {
+    override fun setAccountData(AccountName: String?, AccountTitle: String?, accountImage: String?, talentID: String?) {
         binding.tvFullNameAccount.text = AccountName
         binding.tvTitleAccount.text = AccountTitle
 
@@ -125,6 +126,12 @@ class AccountFragment : Fragment(), AccountContract.View {
                         .centerCrop()
                         .into(binding.ivProfileImage)
             }
+        }
+
+        binding.tvMyProfile.setOnClickListener {
+            val intent = Intent(activity, TalentProfileActivity::class.java)
+            intent.putExtra("talentID", talentID)
+            startActivity(intent)
         }
     }
 

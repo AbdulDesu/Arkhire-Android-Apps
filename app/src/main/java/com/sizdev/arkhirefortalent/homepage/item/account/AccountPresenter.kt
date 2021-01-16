@@ -33,10 +33,6 @@ class AccountPresenter (private val coroutineScope: CoroutineScope,
                                 view?.setError("Session Expired !")
                             }
 
-                            e.code() == 404 -> {
-                                view?.setError("Project Not Found !")
-                            }
-
                             else -> {
                                 view?.setError("Unknown Error, Please Try Again Later !")
                             }
@@ -47,7 +43,7 @@ class AccountPresenter (private val coroutineScope: CoroutineScope,
 
             if (result is AccountResponse) {
                 if (result.success) {
-                    view?.addAccountData(result.data[0].accountName, result.data[0].talentTitle, result.data[0].talentImage)
+                    view?.setAccountData(result.data[0].accountName, result.data[0].talentTitle, result.data[0].talentImage, result.data[0].talentID)
                     view?.hideProgressBar()
 
                 } else {

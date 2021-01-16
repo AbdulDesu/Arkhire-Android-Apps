@@ -3,7 +3,7 @@ package com.sizdev.arkhirefortalent.homepage.item.account
 interface AccountContract {
 
     interface View {
-        fun addAccountData(AccountName: String?, AccountTitle: String?, accountImage: String?)
+        fun setAccountData(AccountName: String?, AccountTitle: String?, accountImage: String?, talentID: String?)
         fun setRefreshManager()
         fun setService()
         fun setError(error: String)
