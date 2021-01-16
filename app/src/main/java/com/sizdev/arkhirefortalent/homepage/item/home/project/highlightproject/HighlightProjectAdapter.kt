@@ -64,11 +64,16 @@ class HighLightProjectAdapter : RecyclerView.Adapter<HighLightProjectAdapter.Pro
             val intent = Intent(context, DetailOfProjectActivity::class.java)
 
             intent.putExtra("offeringID", item.offeringID)
+            intent.putExtra("companyID", item.companyID)
+            intent.putExtra("companyName", item.companyName)
+            intent.putExtra("companyImage", item.companyImage)
             intent.putExtra("projectTitle", item.projectTittle)
-            intent.putExtra("projectSalary", item.offeredSalary)
+            intent.putExtra("projectSalary", item.projectSalary)
             intent.putExtra("projectDesc", item.projectDesc)
             intent.putExtra("projectDuration", item.projectDuration)
+            intent.putExtra("projectImage", item.projectImage)
             intent.putExtra("projectStatus", item.hiringStatus)
+            intent.putExtra("offeredSalary", item.offeredSalary)
             intent.putExtra("msgReply", item.replyMsg)
             context.startActivity(intent)
         }
