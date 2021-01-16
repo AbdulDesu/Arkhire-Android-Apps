@@ -2,7 +2,7 @@ package com.sizdev.arkhirefortalent.homepage.item.account
 
 import com.google.gson.annotations.SerializedName
 
-data class AccountResponse(val success: String, val message: String, val data: List<AccountData>) {
+data class AccountResponse(val success: Boolean, val message: String, val data: List<AccountData>) {
 
     data class AccountData(
             val talentID : String?,

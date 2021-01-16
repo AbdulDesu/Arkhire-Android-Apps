@@ -42,7 +42,7 @@ interface ArkhireApiService {
 
     // Account Service
     @GET("/talent/talentaccount/{accountID}")
-    suspend fun getAccountDataByNameResponse(@Path("accountID") accountID: String): AccountResponse
+    suspend fun getAccountDataByHolderResponse(@Path("accountID") accountID: String): AccountResponse
 
     // Home Service
     @GET("/talent/talentaccount/{accountID}")

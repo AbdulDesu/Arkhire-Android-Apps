@@ -2,7 +2,7 @@ package com.sizdev.arkhirefortalent.homepage.item.home.project.allproject
 
 import com.google.gson.annotations.SerializedName
 
-data class ShowAllProjectResponse(val success: String, val message: String, val data: List<Project>) {
+data class ShowAllProjectResponse(val success: Boolean, val message: String, val data: List<Project>) {
     data class Project(@SerializedName("offeringID") val offeringID: String,
                        @SerializedName("projectID") val projectID: String,
                        @SerializedName("project_tittle") val projectTitle: String,
@@ -10,6 +10,7 @@ data class ShowAllProjectResponse(val success: String, val message: String, val 
                        @SerializedName("project_desc") val projectDesc: String,
                        @SerializedName("project_sallary") val projectSallary: String,
                        @SerializedName("hiring_status") val hiringStatus: String,
+                       @SerializedName("offered_salary") val offeredSalary: String,
                        @SerializedName("reply_message") val replyMsg: String,
                        @SerializedName("repliedAt") val repliedAt: String)
 }
