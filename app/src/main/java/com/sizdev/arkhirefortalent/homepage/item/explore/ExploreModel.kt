@@ -1,3 +1,3 @@
-package com.sizdev.arkhireforcompany.homepage.item.explore
+package com.sizdev.arkhirefortalent.homepage.item.explore
 
-data class ExploreModel(val projectTitle: String?, val projectDesc: String?, val projectSallary: String?, val projectOwner: String?, val projectOwnerName: String?, val projectOwnerImage: String?,  val postedAt: String)
+data class ExploreModel(val projectID: String?, val projectTitle: String?, val projectDuration: String?, val projectDesc: String?, val projectSalary: String?, val projectImage: String?, val companyID: String?, val companyName: String?, val companyImage: String?,  val postedAt: String)

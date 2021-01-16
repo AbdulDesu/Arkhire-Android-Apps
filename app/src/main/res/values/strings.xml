@@ -95,5 +95,7 @@
     <string name="started">Started</string>
     <string name="about_experience">About Experience</string>
     <string name="delete_experience">DELETE EXPERIENCE</string>
+    <string name="loging_in">Loging In...</string>
+    <string name="creating_account">Creating Account...</string>
 
 </resources>

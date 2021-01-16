@@ -11,6 +11,7 @@ import com.sizdev.arkhirefortalent.homepage.item.account.profile.portfolio.Portf
 import com.sizdev.arkhirefortalent.homepage.item.account.profile.portfolio.create.CreatePortfolioResponse
 import com.sizdev.arkhirefortalent.homepage.item.account.profile.workexperience.WorkExperienceResponse
 import com.sizdev.arkhirefortalent.homepage.item.company.SearchCompanyResponse
+import com.sizdev.arkhirefortalent.homepage.item.explore.contributor.ContributorResponse
 import com.sizdev.arkhirefortalent.homepage.item.home.HomeResponse
 import com.sizdev.arkhirefortalent.homepage.item.home.project.allproject.ShowAllProjectResponse
 import com.sizdev.arkhirefortalent.homepage.item.home.project.approvedproject.ShowApprovedProjectResponse
@@ -48,16 +49,16 @@ interface ArkhireApiService {
     suspend fun getAccountResponse(@Path("accountID") accountID: String): HomeResponse
 
     // Project Service
-    @GET("projectresp/target/{accountID}")
+    @GET("contributor/participator/{accountID}")
     suspend fun getAllProjectResponse(@Path("accountID") accountID: String): ShowAllProjectResponse
 
-    @GET("projectresp/target/{accountID}?search=Approved")
+    @GET("contributor/participator/{accountID}?search=Approved")
     suspend fun getApprovedProjectResponse(@Path("accountID") accountID: String): ShowApprovedProjectResponse
 
-    @GET("projectresp/target/{accountID}?search=Declined")
+    @GET("contributor/participator/{accountID}?search=Declined")
     suspend fun getDeclinedProjectResponse(@Path("accountID") accountID: String): ShowDeclinedProjectResponse
 
-    @GET("projectresp/target/{accountID}?search=Waiting")
+    @GET("contributor/participator/{accountID}?search=Waiting")
     suspend fun getWaitingProjectResponse(@Path("accountID") accountID: String): ShowWaitingProjectResponse
 
     @GET("projectresp/highlight/{accountID}")
@@ -83,6 +84,9 @@ interface ArkhireApiService {
 
     @GET("project")
     suspend fun searchExplore(@Query("search") projectTitle: String) : ExploreResponse
+
+    @GET("contributor/room/{projectID}")
+    suspend fun showContributor(@Path("projectID") projectId: String) : ContributorResponse
 
     // Profile Service
     @Multipart

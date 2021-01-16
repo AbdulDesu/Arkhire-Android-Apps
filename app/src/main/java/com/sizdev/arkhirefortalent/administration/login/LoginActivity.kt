@@ -3,9 +3,11 @@ package com.sizdev.arkhirefortalent.administration.login
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.administration.password.ForgetPasswordActivity
 import com.sizdev.arkhirefortalent.administration.register.RegisterActivity
@@ -19,14 +21,16 @@ import java.util.*
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var coroutineScope: CoroutineScope
-    private lateinit var service: ArkhireApiService
+    private lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = ArkhireApiClient.getApiClient(this)!!.create(ArkhireApiService::class.java)
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+
+        // Set Service
+        setService()
+        subscribeLiveData()
 
         binding.btLogin.setOnClickListener {
             val email = binding.etLoginEmail.text.toString().toLowerCase()
@@ -37,9 +41,8 @@ class LoginActivity : AppCompatActivity() {
             }
 
             else {
-                startLogin(email, password)
+                viewModel.startLogin(email, password)
             }
-
         }
 
         binding.tvRegisterScreen.setOnClickListener {
@@ -51,53 +54,60 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, ForgetPasswordActivity::class.java)
             startActivity(intent)
         }
-
     }
 
-    private fun startLogin(email: String, password: String) {
-        coroutineScope.launch {
-
-            val result = withContext(Dispatchers.IO) {
-                try {
-                    service.loginRequest(email, password)
-                } catch (e: Throwable) {
-                    e.printStackTrace()
-                }
-            }
-
-            if (result is LoginResponse) {
-
-                if (result.message == "Success Login!") {
-
-                    if(result.data?.privilege == "0"){
-                        Toast.makeText(this@LoginActivity, "Welcome Back !", Toast.LENGTH_SHORT).show()
-
-                        // Save Token
-                        val sharedPref = this@LoginActivity.getSharedPreferences("Token", Context.MODE_PRIVATE)
-                        val editor = sharedPref.edit()
-                        editor.putString("accToken", result.data.token)
-                        editor.putString("accID", result.data.userId)
-                        editor.putString("accName", result.data.userName)
-                        editor.apply()
-
-                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-                        startActivity(intent)
-                    }
-
-                    else {
-                        Toast.makeText(this@LoginActivity, "Please use company version of Arkhire !", Toast.LENGTH_LONG).show()
-                    }
-                }
-
-            }
-
-            else {
-                Toast.makeText(this@LoginActivity, "Invalid Email/Password", Toast.LENGTH_SHORT).show()
-            }
-
+    private fun setService() {
+        val service = ArkhireApiClient.getApiClient(this)?.create(ArkhireApiService::class.java)
+        if (service != null) {
+            viewModel.setService(service)
         }
     }
 
 
+    private fun subscribeLiveData() {
+        viewModel.isLoading.observe(this, {
+            binding.loadingScreen.visibility = View.VISIBLE
+        })
+
+        viewModel.onSuccess.observe(this, {
+            if (it) {
+                if(viewModel.loginData.value?.privilege == "0"){
+
+                    // Stop Loading
+                    binding.loadingScreen.visibility = View.GONE
+
+                    Toast.makeText(this@LoginActivity, "Welcome Back !", Toast.LENGTH_SHORT).show()
+
+                    // Save Token
+                    val sharedPref = this@LoginActivity.getSharedPreferences("Token", Context.MODE_PRIVATE)
+                    val editor = sharedPref.edit()
+                    editor.putString("accToken", viewModel.loginData.value?.token)
+                    editor.putString("accID", viewModel.loginData.value?.userId)
+                    editor.putString("accName", viewModel.loginData.value?.userName)
+                    editor.apply()
+
+                    val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+
+                else {
+                    // Stop Loading
+                    binding.loadingScreen.visibility = View.GONE
+                    Toast.makeText(this@LoginActivity, "Please use company version of Arkhire !", Toast.LENGTH_LONG).show()
+                }
+            }
+
+            else{
+                // Stop Loading
+                binding.loadingScreen.visibility = View.GONE
+            }
+        })
+
+        viewModel.onFail.observe(this, {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        })
+
+    }
 }
 

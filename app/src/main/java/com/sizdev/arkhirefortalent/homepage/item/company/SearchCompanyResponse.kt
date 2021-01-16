@@ -2,7 +2,7 @@ package com.sizdev.arkhirefortalent.homepage.item.company
 
 import com.google.gson.annotations.SerializedName
 
-data class SearchCompanyResponse(val success: String, val message: String, val data: List<Project>) {
+data class SearchCompanyResponse(val success: Boolean, val message: String, val data: List<Project>) {
     data class Project(@SerializedName("companyID") val companyID: String,
                        @SerializedName("accountID") val accountID: String,
                        @SerializedName("company_name") val companyName: String,

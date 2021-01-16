@@ -2,6 +2,7 @@ package com.sizdev.arkhirefortalent.homepage.item.company
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,36 +12,41 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.sizdev.arkhirefortalent.R
+import com.sizdev.arkhirefortalent.administration.login.LoginActivity
 import com.sizdev.arkhirefortalent.databinding.FragmentSearchCompanyBinding
+import com.sizdev.arkhirefortalent.homepage.item.home.HomePresenter
 import com.sizdev.arkhirefortalent.networking.ArkhireApiClient
 import com.sizdev.arkhirefortalent.networking.ArkhireApiService
+import kotlinx.android.synthetic.main.alert_session_expired.view.*
 import kotlinx.coroutines.*
 
 
-class SearchCompanyFragment : Fragment() {
+class SearchCompanyFragment : Fragment(), SearchCompanyContract.View {
 
     private lateinit var binding: FragmentSearchCompanyBinding
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: ArkhireApiService
+    private lateinit var handler: Handler
+    private lateinit var dialog: AlertDialog
+
+    private var presenter: SearchCompanyPresenter? = null
     
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_search_company,
-            container,
-            false
-        )
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_company, container, false)
+
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = activity?.let { ArkhireApiClient.getApiClient(it) }!!.create(ArkhireApiService::class.java)
+        val service = activity?.let { ArkhireApiClient.getApiClient(it)?.create(ArkhireApiService::class.java) }
+        presenter = SearchCompanyPresenter(coroutineScope, service)
 
         // Data Loading Management
         binding.loadingScreen.visibility = View.VISIBLE
@@ -56,30 +62,33 @@ class SearchCompanyFragment : Fragment() {
         )
 
         // Data Refresh Management
-        val mainHandler = Handler(Looper.getMainLooper())
-        mainHandler.post(object : Runnable {
+        handler = Handler(Looper.getMainLooper())
+        handler.post(object : Runnable {
             override fun run() {
-                showAllCompany()
-                mainHandler.postDelayed(this, 5000)
+                presenter?.getCompanyList()
+                handler.postDelayed(this, 5000)
             }
         })
 
         // Search Management
-
         binding.svSearchCompany.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 binding.svSearchCompany.clearFocus()
                 if (query != null) {
-                    mainHandler.removeCallbacksAndMessages(null)
-                    searchCompany(query)
+                    handler.removeCallbacksAndMessages(null)
+                    binding.lnNotFound.visibility = View.GONE
+                    binding.rvCompany.visibility = View.VISIBLE
+                    presenter?.searchCompany(query)
                 }
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText != null) {
-                    mainHandler.removeCallbacksAndMessages(null)
-                    searchCompany(newText)
+                    handler.removeCallbacksAndMessages(null)
+                    binding.lnNotFound.visibility = View.GONE
+                    binding.rvCompany.visibility = View.VISIBLE
+                    presenter?.searchCompany(newText)
                 }
                 return false
             }
@@ -87,103 +96,72 @@ class SearchCompanyFragment : Fragment() {
 
         binding.svSearchCompany.setOnCloseListener {
             binding.svSearchCompany.clearFocus()
-            showAllCompany()
+            presenter?.getCompanyList()
             false
         }
-
-
 
         return binding.root
     }
 
-    private fun showAllCompany() {
-        coroutineScope.launch {
-            val result = withContext(Dispatchers.IO) {
-                try {
-                    service?.getAllCompany()
-                } catch (e: Throwable) {
-                    e.printStackTrace()
-                }
-            }
 
-            if (result is SearchCompanyResponse) {
+    override fun onStart() {
+        super.onStart()
+        presenter?.bindToView(this)
+    }
 
-                val list = result.data?.map{
-                    SearchCompanyModel(
-                        it.companyID,
-                        it.accountID,
-                        it.companyName,
-                        it.companyPosition,
-                        it.companyLocation,
-                        it.companyLatitude,
-                        it.companyLongitude,
-                        it.companyType,
-                        it.companyDesc,
-                        it.companyLinkedin,
-                        it.companyInstagram,
-                        it.companyFacebook,
-                        it.companyImage,
-                        it.updatedAt
-                    )
-                }
+    override fun addCompanyList(list: List<SearchCompanyModel>) {
+        (binding.rvCompany.adapter as SearchCompanyAdapter).addList(list)
+    }
 
-                (binding.rvCompany.adapter as SearchCompanyAdapter).addList(list)
-
-                // End Of Loading
-                binding.loadingScreen.visibility = View.GONE
-            }
-
+    override fun setError(error: String) {
+        if (error == "Session Expired !"){
+            sessionExpiredAlert()
+            dialog.show()
         }
+    }
+
+    private fun sessionExpiredAlert() {
+        handler.removeCallbacksAndMessages(null)
+        val view: View = layoutInflater.inflate(R.layout.alert_session_expired, null)
+
+        dialog = activity?.let {
+            AlertDialog.Builder(it)
+                    .setView(view)
+                    .setCancelable(false)
+                    .create()
+        }!!
+
+        view.bt_okRelog.setOnClickListener {
+            dialog.dismiss()
+            val intent = Intent(activity, LoginActivity::class.java)
+            val sharedPref = requireActivity().getSharedPreferences("Token", Context.MODE_PRIVATE)
+            val editor = sharedPref.edit()
+            editor.putString("accID", null)
+            editor.apply()
+            startActivity(intent)
+            activity?.finish()
+        }
+    }
+
+    override fun hideProgressBar() {
+        binding.loadingScreen.visibility = View.GONE
     }
 
     @SuppressLint("SetTextI18n")
-    private fun searchCompany(companyName: String) {
-        coroutineScope.launch {
-            val result = withContext(Dispatchers.IO) {
-                try {
-                    service?.searchCompany(companyName)
-                } catch (e: Throwable) {
-                    e.printStackTrace()
-                }
-            }
+    override fun showNotFound() {
+        binding.rvCompany.visibility = View.GONE
+        binding.lnNotFound.visibility = View.VISIBLE
+        binding.tvQueryNotfound.text = "Company With That Name is Not Found !"
+    }
 
-            if (result is SearchCompanyResponse) {
-
-                val list = result.data?.map{
-                    SearchCompanyModel(
-                        it.companyID,
-                        it.accountID,
-                        it.companyName,
-                        it.companyPosition,
-                        it.companyLocation,
-                        it.companyLatitude,
-                        it.companyLongitude,
-                        it.companyType,
-                        it.companyDesc,
-                        it.companyLinkedin,
-                        it.companyInstagram,
-                        it.companyFacebook,
-                        it.companyImage,
-                        it.updatedAt
-                    )
-                }
-
-                (binding.rvCompany.adapter as SearchCompanyAdapter).addList(list)
-
-                binding.lnNotFound.visibility = View.GONE
-                binding.rvCompany.visibility = View.VISIBLE
-            }
-
-            else {
-                binding.rvCompany.visibility = View.GONE
-                binding.lnNotFound.visibility = View.VISIBLE
-                binding.tvQueryNotfound.text = "Search Result of $companyName is not found"
-            }
-        }
+    override fun onStop() {
+        super.onStop()
+        presenter?.unbind()
     }
 
     override fun onDestroy() {
-        coroutineScope.cancel()
         super.onDestroy()
+        coroutineScope.cancel()
+        presenter = null
     }
 }
