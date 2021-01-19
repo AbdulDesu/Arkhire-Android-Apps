@@ -4,12 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.sizdev.arkhirefortalent.R
-import com.sizdev.arkhirefortalent.administration.password.ForgetPasswordActivity
+import com.sizdev.arkhirefortalent.administration.email.ResetEmailActivity
 import com.sizdev.arkhirefortalent.administration.register.RegisterActivity
 import com.sizdev.arkhirefortalent.databinding.ActivityLoginBinding
 import com.sizdev.arkhirefortalent.homepage.HomeActivity
@@ -28,8 +29,16 @@ class LoginActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
+        // Set Status Bar
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+
         // Set Service
         setService()
+
+        // Observe Data
         subscribeLiveData()
 
         binding.btLogin.setOnClickListener {
@@ -45,14 +54,13 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        binding.tvRegisterScreen.setOnClickListener {
+        binding.tvGoRegister.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
 
         binding.tvForgetPassword.setOnClickListener {
-            val intent = Intent(this, ForgetPasswordActivity::class.java)
-            startActivity(intent)
+            Toast.makeText(this, "Currently Unavailable", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -72,10 +80,6 @@ class LoginActivity : AppCompatActivity() {
         viewModel.onSuccess.observe(this, {
             if (it) {
                 if(viewModel.loginData.value?.privilege == "0"){
-
-                    // Stop Loading
-                    binding.loadingScreen.visibility = View.GONE
-
                     Toast.makeText(this@LoginActivity, "Welcome Back !", Toast.LENGTH_SHORT).show()
 
                     // Save Token
@@ -84,6 +88,8 @@ class LoginActivity : AppCompatActivity() {
                     editor.putString("accToken", viewModel.loginData.value?.token)
                     editor.putString("accID", viewModel.loginData.value?.userId)
                     editor.putString("accName", viewModel.loginData.value?.userName)
+                    editor.putString("accEmail", viewModel.loginData.value?.userEmail)
+                    editor.putString("accPassword", binding.etLoginPassword.text.toString())
                     editor.apply()
 
                     val intent = Intent(this@LoginActivity, HomeActivity::class.java)

@@ -1,4 +1,4 @@
-package com.sizdev.arkhireforcompany.homepage.item.explore
+package com.sizdev.arkhirefortalent.homepage.item.explore
 
 import com.google.gson.annotations.SerializedName
 

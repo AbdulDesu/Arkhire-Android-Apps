@@ -1,6 +1,5 @@
 package com.sizdev.arkhirefortalent.homepage.item.explore
 
-import com.sizdev.arkhireforcompany.homepage.item.explore.ExploreResponse
 import com.sizdev.arkhirefortalent.networking.ArkhireApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

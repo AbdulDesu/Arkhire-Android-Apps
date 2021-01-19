@@ -43,6 +43,9 @@ class WorkExperienceFragment : Fragment() {
         binding.loadingScreen.visibility = View.VISIBLE
         binding.progressBar.max = 100
 
+        // Check View Code
+        checkViewCode()
+
         // Get Current Logged in Account ID
         val sharedPrefData = requireActivity().getSharedPreferences("Token", Context.MODE_PRIVATE)
         val accountID = sharedPrefData.getString("accID", null)
@@ -69,6 +72,14 @@ class WorkExperienceFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun checkViewCode() {
+        val viewCode = activity?.intent?.getStringExtra("previewCode")
+
+        if (viewCode == "owner" || viewCode == "guest"){
+            binding.btAddExperience.visibility = View.GONE
+        }
     }
 
     private fun showExperiences(accountID: String) {

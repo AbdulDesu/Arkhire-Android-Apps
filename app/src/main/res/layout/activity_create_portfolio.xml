@@ -12,6 +12,31 @@
         android:background="#E5E5E5">
 
         <RelativeLayout
+            android:id="@+id/loadingScreen"
+            android:background="@color/white"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="@string/uploading_portfolio"
+                android:textSize="20sp"
+                android:layout_centerInParent="true"
+                android:layout_above="@id/progressBar"
+                android:layout_marginBottom="22dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:max="50"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -67,7 +92,7 @@
                     android:layout_width="349dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="28dp"
+                    android:layout_marginTop="88dp"
                     android:layout_marginEnd="32dp"
                     android:background="@drawable/bg_edit_text"
                     android:drawablePadding="16dp"
@@ -81,7 +106,7 @@
                     android:layout_width="349dp"
                     android:layout_height="130dp"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="26dp"
                     android:layout_marginEnd="32dp"
                     android:background="@drawable/bg_edit_text"
                     android:padding="4dp"
@@ -97,7 +122,7 @@
                     android:layout_width="349dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="26dp"
                     android:layout_marginEnd="32dp"
                     android:background="@drawable/bg_edit_text"
                     android:drawablePadding="16dp"
@@ -108,7 +133,7 @@
 
                 <LinearLayout
                     android:orientation="vertical"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="86dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginEnd="32dp"
                     android:background="#DAD7D7"
@@ -141,9 +166,9 @@
                     android:layout_width="349dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="36dp"
                     android:layout_marginEnd="32dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="50dp"
                     android:background="@drawable/round_bg"
                     android:text="@string/done"
                     android:textColor="@android:color/white"

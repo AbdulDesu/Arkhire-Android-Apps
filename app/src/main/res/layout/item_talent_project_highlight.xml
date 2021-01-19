@@ -98,7 +98,7 @@
                             app:civ_border_color="#FFFFFF"
                             app:civ_border_width="1dp"
                             android:layout_width="50dp"
-                            android:src="@drawable/arkhireicon"
+                            android:background="@drawable/ic_profile_loading"
                             android:scaleType="centerCrop"
                             android:layout_height="50dp"/>
 

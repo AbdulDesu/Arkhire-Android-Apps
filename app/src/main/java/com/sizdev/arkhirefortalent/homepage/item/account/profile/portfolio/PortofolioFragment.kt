@@ -44,6 +44,9 @@ class PortofolioFragment : Fragment() {
         val sharedPrefData = requireActivity().getSharedPreferences("Token", Context.MODE_PRIVATE)
         val accountID = sharedPrefData.getString("accID", null)
 
+        // Check View Code
+        checkViewCode()
+
         // Data Refresh Management
         mainHandler = Handler(Looper.getMainLooper())
         mainHandler.post(object : Runnable {
@@ -66,6 +69,14 @@ class PortofolioFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun checkViewCode() {
+        val viewCode = activity?.intent?.getStringExtra("previewCode")
+
+        if (viewCode == "owner" || viewCode == "guest"){
+            binding.btAddPortfolio.visibility = View.GONE
+        }
     }
 
     private fun showPortfolio(accountID: String) {

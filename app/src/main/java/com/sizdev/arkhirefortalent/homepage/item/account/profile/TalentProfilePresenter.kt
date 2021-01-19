@@ -45,7 +45,7 @@ class TalentProfilePresenter(private val coroutineScope: CoroutineScope,
             if (result is AccountResponse) {
                 if (result.success){
                     view?.hideProgressBar()
-                    view?.setTalentData(result.data[0].talentID, result.data[0].accountName, result.data[0].accountEmail, result.data[0].accountPhone, result.data[0].talentTitle, result.data[0].talentTime, result.data[0].talentCity, result.data[0].talentDesc, result.data[0].talentImage, result.data[0].talentGithub, result.data[0].talentCv, result.data[0].talentSkill1, result.data[0].talentSkill2, result.data[0].talentSkill3, result.data[0].talentSkill4, result.data[0].talentSkill5)
+                    view?.setTalentData(result.data[0].talentID, result.data[0].accountID ,result.data[0].accountName, result.data[0].accountEmail, result.data[0].accountPhone, result.data[0].talentTitle, result.data[0].talentTime, result.data[0].talentCity, result.data[0].talentDesc, result.data[0].talentImage, result.data[0].talentGithub, result.data[0].talentCv, result.data[0].talentSkill1, result.data[0].talentSkill2, result.data[0].talentSkill3, result.data[0].talentSkill4, result.data[0].talentSkill5)
                 }
                 else {
                     view?.hideProgressBar()

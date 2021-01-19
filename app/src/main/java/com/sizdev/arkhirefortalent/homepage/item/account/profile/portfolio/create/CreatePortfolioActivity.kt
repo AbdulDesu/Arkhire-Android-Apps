@@ -10,6 +10,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.databinding.DataBindingUtil
@@ -45,24 +46,26 @@ class CreatePortfolioActivity : AppCompatActivity() {
             viewModel.setService(service)
         }
 
+        // Observe Live Data
+        subscribeLiveData()
+
         binding.btPickImage.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                    PackageManager.PERMISSION_DENIED){
-                    //permission denied
-                    val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
-                    //show popup to request runtime permission
-                    requestPermissions(permissions, PERMISSION_CODE);
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                PackageManager.PERMISSION_DENIED){
+                //permission denied
+                val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
+                //show popup to request runtime permission
+                requestPermissions(permissions, PERMISSION_CODE);
+            }
+            else{
+                //permission already granted
+                if(binding.etNewPortfolioTitle.text.isNullOrEmpty() || binding.etNewPortfolioDesc.text.isNullOrEmpty()){
+                    Toast.makeText(this, "Please Fill All Required field before pick an image !", Toast.LENGTH_SHORT).show()
                 }
                 else{
-                    //permission already granted
                     pickImageFromGallery();
                 }
             }
-            else{
-                //system OS is < Marshmallow
-                pickImageFromGallery();
-             }
         }
 
         binding.btNewPortfolioDone.setOnClickListener {
@@ -117,9 +120,14 @@ class CreatePortfolioActivity : AppCompatActivity() {
             val filePath = data?.data?.let { getPath(this, it) }
             val file = File(filePath)
 
-            val portfolioName = createPartFromString(binding.etNewPortfolioTitle.text.toString())
-            val portfolioDesc = createPartFromString(binding.etNewPortfolioDesc.text.toString())
-            val portfolioRepository = createPartFromString(binding.etNewPortfolioRepository.text.toString())
+            // Take Data
+            val portfolioTitle = binding.etNewPortfolioTitle.text.toString()
+            val portfolioDescription = binding.etNewPortfolioDesc.text.toString()
+            val portfolioRepositories = binding.etNewPortfolioRepository.text.toString()
+
+            val portfolioName = createPartFromString(portfolioTitle)
+            val portfolioDesc = createPartFromString(portfolioDescription)
+            val portfolioRepository = createPartFromString(portfolioRepositories)
             var portfolioImage: MultipartBody.Part? = null
             val mediaTypeImg = "image/jpeg".toMediaType()
             val inputStream = data?.data?.let { contentResolver.openInputStream(it) }
@@ -139,8 +147,6 @@ class CreatePortfolioActivity : AppCompatActivity() {
                     }
                 }
             }
-
-            subscribeLiveData()
         }
     }
 
@@ -168,6 +174,10 @@ class CreatePortfolioActivity : AppCompatActivity() {
     }
 
     private fun subscribeLiveData() {
+        viewModel.isLoading.observe(this, {
+            binding.loadingScreen.visibility = View.VISIBLE
+        })
+
         viewModel.isSuccess.observe(this, {
             if (viewModel.isSuccess.value == "Success") {
                 Toast.makeText(this, "Portfolio Added to your profile !", Toast.LENGTH_SHORT).show()

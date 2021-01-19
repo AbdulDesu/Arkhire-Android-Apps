@@ -7,32 +7,27 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.Menu
+import android.view.View
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.annotation.NonNull
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.loader.content.CursorLoader
 import com.sizdev.arkhirefortalent.R
-import com.sizdev.arkhirefortalent.administration.register.RegisterResponse
 import com.sizdev.arkhirefortalent.databinding.ActivityProfileEditBinding
-import com.sizdev.arkhirefortalent.homepage.item.account.profile.portfolio.create.CreatePortfolioActivity
 import com.sizdev.arkhirefortalent.networking.ArkhireApiClient
 import com.sizdev.arkhirefortalent.networking.ArkhireApiService
 import com.squareup.picasso.Picasso
-import kotlinx.coroutines.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
-import kotlin.math.log
 
 class EditProfileActivity : AppCompatActivity() {
 
@@ -40,31 +35,27 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var viewModel: EditProfileViewModel
 
     companion object {
-        private const val IMAGE_PICK_CODE = 1000;
-        private const val PERMISSION_CODE = 1001;
+        private const val IMAGE_PICK_CODE = 1000
+        private const val PERMISSION_CODE = 1001
     }
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profile_edit)
-        viewModel = ViewModelProvider(this).get(EditProfileViewModel::class.java)
 
-        val service = ArkhireApiClient.getApiClient(this)?.create(ArkhireApiService::class.java)
-        if (service != null) {
-            viewModel.setService(service)
-        }
+        // Set Service
+        setService()
+
+        // ObserveLiveData(
+        subscribeLiveData()
 
         // Get Saved Data
         var talentID = intent.getStringExtra("talentID")
-        val accountID = intent.getStringExtra("accountID")
-        val talentName = intent.getStringExtra("talentName")
         val talentTitle = intent.getStringExtra("talentTitle")
-        val talentTime = intent.getStringExtra("talentTime")
+        val talentTime = intent.getStringExtra("talentWorkTime")
         val talentLocation = intent.getStringExtra("talentLocation")
         val talentDesc = intent.getStringExtra("talentDesc")
-        val talentEmail = intent.getStringExtra("talentEmail")
-        val talentPhone = intent.getStringExtra("talentPhone")
         val talentImage = intent.getStringExtra("talentImage")
         val talentGithub = intent.getStringExtra("talentGithub")
         val talentSkill1 = intent.getStringExtra("talentSkill1")
@@ -72,6 +63,20 @@ class EditProfileActivity : AppCompatActivity() {
         val talentSkill3 = intent.getStringExtra("talentSkill3")
         val talentSkill4 = intent.getStringExtra("talentSkill4")
         val talentSkill5 = intent.getStringExtra("talentSkill5")
+        val editCode = intent.getStringExtra("editCode")
+
+        // Set Data Default
+        binding.etNewProfileJobTitle.text = talentTitle
+        binding.etNewProfileLocation.setText(talentLocation)
+        binding.etNewProfileWorkTime.text = talentTime
+        binding.etNewProfileDesc.setText(talentDesc)
+        binding.etNewProfileGithub.setText(talentGithub)
+
+        binding.etNewProfileSkill1.text = talentSkill1
+        binding.etNewProfileSkill2.text = talentSkill2
+        binding.etNewProfileSkill3.text = talentSkill3
+        binding.etNewProfileSkill4.text = talentSkill4
+        binding.etNewProfileSkill5.text = talentSkill5
 
         //Set Image Default
         if(talentImage != null){
@@ -93,18 +98,6 @@ class EditProfileActivity : AppCompatActivity() {
         jobTitle.menu.add(Menu.NONE, 2 ,2, "Fullstack Web")
         jobTitle.menu.add(Menu.NONE, 3 ,3, "Devops Engineer")
 
-        //Talent City Pop Up Menu
-        val city = PopupMenu(this, binding.etNewProfileLocation)
-
-        city.menu.add(Menu.NONE, 0 ,0, "Jakarta")
-        city.menu.add(Menu.NONE, 1 ,1, "Bandung")
-        city.menu.add(Menu.NONE, 2 ,2, "Lampung")
-        city.menu.add(Menu.NONE, 3 ,3, "Bali")
-        city.menu.add(Menu.NONE, 4 ,4, "Aceh")
-        city.menu.add(Menu.NONE, 5 ,5, "Cimahi")
-        city.menu.add(Menu.NONE, 6 ,6, "Nagreg")
-        city.menu.add(Menu.NONE, 7 ,7, "Cicalengka")
-
         //Work Time Pop Up Menu
         val workTime = PopupMenu(this, binding.etNewProfileWorkTime)
 
@@ -121,6 +114,12 @@ class EditProfileActivity : AppCompatActivity() {
         talentSKill1.menu.add(Menu.NONE, 4 ,4, "React")
         talentSKill1.menu.add(Menu.NONE, 5 ,5, "Python")
         talentSKill1.menu.add(Menu.NONE, 6 ,6, "Golang")
+        talentSKill1.menu.add(Menu.NONE, 7 ,7, "PHP")
+        talentSKill1.menu.add(Menu.NONE, 8 ,8, "C#")
+        talentSKill1.menu.add(Menu.NONE, 9 ,9, "C++")
+        talentSKill1.menu.add(Menu.NONE,  10,10, "Ruby")
+        talentSKill1.menu.add(Menu.NONE,  11,11, "Shell")
+
 
         val talentSKill2 = PopupMenu(this, binding.etNewProfileSkill2)
 
@@ -131,6 +130,11 @@ class EditProfileActivity : AppCompatActivity() {
         talentSKill2.menu.add(Menu.NONE, 4 ,4, "React")
         talentSKill2.menu.add(Menu.NONE, 5 ,5, "Python")
         talentSKill2.menu.add(Menu.NONE, 6 ,6, "Golang")
+        talentSKill2.menu.add(Menu.NONE, 7 ,7, "PHP")
+        talentSKill2.menu.add(Menu.NONE, 8 ,8, "C#")
+        talentSKill2.menu.add(Menu.NONE, 9 ,9, "C++")
+        talentSKill2.menu.add(Menu.NONE,  10,10, "Ruby")
+        talentSKill2.menu.add(Menu.NONE,  11,11, "Shell")
 
         val talentSKill3 = PopupMenu(this, binding.etNewProfileSkill3)
 
@@ -141,6 +145,11 @@ class EditProfileActivity : AppCompatActivity() {
         talentSKill3.menu.add(Menu.NONE, 4 ,4, "React")
         talentSKill3.menu.add(Menu.NONE, 5 ,5, "Python")
         talentSKill3.menu.add(Menu.NONE, 6 ,6, "Golang")
+        talentSKill3.menu.add(Menu.NONE, 7 ,7, "PHP")
+        talentSKill3.menu.add(Menu.NONE, 8 ,8, "C#")
+        talentSKill3.menu.add(Menu.NONE, 9 ,9, "C++")
+        talentSKill3.menu.add(Menu.NONE,  10,10, "Ruby")
+        talentSKill3.menu.add(Menu.NONE,  11,11, "Shell")
 
         val talentSKill4 = PopupMenu(this, binding.etNewProfileSkill4)
 
@@ -151,6 +160,11 @@ class EditProfileActivity : AppCompatActivity() {
         talentSKill4.menu.add(Menu.NONE, 4 ,4, "React")
         talentSKill4.menu.add(Menu.NONE, 5 ,5, "Python")
         talentSKill4.menu.add(Menu.NONE, 6 ,6, "Golang")
+        talentSKill4.menu.add(Menu.NONE, 7 ,7, "PHP")
+        talentSKill4.menu.add(Menu.NONE, 8 ,8, "C#")
+        talentSKill4.menu.add(Menu.NONE, 9 ,9, "C++")
+        talentSKill4.menu.add(Menu.NONE,  10,10, "Ruby")
+        talentSKill4.menu.add(Menu.NONE,  11,11, "Shell")
 
         val talentSKill5 = PopupMenu(this, binding.etNewProfileSkill5)
 
@@ -161,44 +175,26 @@ class EditProfileActivity : AppCompatActivity() {
         talentSKill5.menu.add(Menu.NONE, 4 ,4, "React")
         talentSKill5.menu.add(Menu.NONE, 5 ,5, "Python")
         talentSKill5.menu.add(Menu.NONE, 6 ,6, "Golang")
+        talentSKill5.menu.add(Menu.NONE, 7 ,7, "PHP")
+        talentSKill5.menu.add(Menu.NONE, 8 ,8, "C#")
+        talentSKill5.menu.add(Menu.NONE, 9 ,9, "C++")
+        talentSKill5.menu.add(Menu.NONE,  10,10, "Ruby")
+        talentSKill5.menu.add(Menu.NONE,  11,11, "Shell")
 
         //Job Title Listener
         jobTitle.setOnMenuItemClickListener { menuItem ->
-            val id = menuItem.itemId
-
-            when (id) {
+            when (menuItem.itemId) {
                 0 -> {binding.etNewProfileJobTitle.text ="Android Developer"}
                 1 -> {binding.etNewProfileJobTitle.text ="Fullstack Mobile"}
                 2 -> {binding.etNewProfileJobTitle.text ="Fullstack Web"}
                 3 -> {binding.etNewProfileJobTitle.text ="Devops Engineer"}
             }
-
-            false
-        }
-
-        //City Listener
-        city.setOnMenuItemClickListener { menuItem ->
-            val id = menuItem.itemId
-
-            when (id) {
-                0 -> {binding.etNewProfileLocation.text = "Jakarta"}
-                1 -> {binding.etNewProfileLocation.text = "Bandung"}
-                2 -> {binding.etNewProfileLocation.text = "Lampung"}
-                3 -> {binding.etNewProfileLocation.text = "Bali"}
-                4 -> {binding.etNewProfileLocation.text = "Aceh"}
-                5 -> {binding.etNewProfileLocation.text = "Cimahi"}
-                6 -> {binding.etNewProfileLocation.text = "Nagreg"}
-                7 -> {binding.etNewProfileLocation.text = "Cicalengka"}
-            }
-
             false
         }
 
         //Work Time Listener
         workTime.setOnMenuItemClickListener { menuItem ->
-            val id = menuItem.itemId
-
-            when (id) {
+            when (menuItem.itemId) {
                 0 -> {binding.etNewProfileWorkTime.text = "Fulltime"}
                 1 -> {binding.etNewProfileWorkTime.text = "Freelance"}
             }
@@ -218,6 +214,11 @@ class EditProfileActivity : AppCompatActivity() {
                 4 -> {binding.etNewProfileSkill1.text = "React"}
                 5 -> {binding.etNewProfileSkill1.text = "Python"}
                 6 -> {binding.etNewProfileSkill1.text = "Golang"}
+                7 -> {binding.etNewProfileSkill1.text = "PHP"}
+                8 -> {binding.etNewProfileSkill1.text = "C#"}
+                9 -> {binding.etNewProfileSkill1.text = "C++"}
+                10 -> {binding.etNewProfileSkill1.text = "Ruby"}
+                11 -> {binding.etNewProfileSkill1.text = "Shell"}
             }
 
             false
@@ -235,6 +236,11 @@ class EditProfileActivity : AppCompatActivity() {
                 4 -> {binding.etNewProfileSkill2.text = "React "}
                 5 -> {binding.etNewProfileSkill2.text = "Python"}
                 6 -> {binding.etNewProfileSkill2.text = "Golang"}
+                7 -> {binding.etNewProfileSkill2.text = "PHP"}
+                8 -> {binding.etNewProfileSkill2.text = "C#"}
+                9 -> {binding.etNewProfileSkill2.text = "C++"}
+                10 -> {binding.etNewProfileSkill2.text = "Ruby"}
+                11 -> {binding.etNewProfileSkill2.text = "Shell"}
             }
 
             false
@@ -252,6 +258,11 @@ class EditProfileActivity : AppCompatActivity() {
                 4 -> {binding.etNewProfileSkill3.text = "React"}
                 5 -> {binding.etNewProfileSkill3.text = "Python"}
                 6 -> {binding.etNewProfileSkill3.text = "Golang"}
+                7 -> {binding.etNewProfileSkill3.text = "PHP"}
+                8 -> {binding.etNewProfileSkill3.text = "C#"}
+                9 -> {binding.etNewProfileSkill3.text = "C++"}
+                10 -> {binding.etNewProfileSkill3.text = "Ruby"}
+                11 -> {binding.etNewProfileSkill3.text = "Shell"}
             }
 
             false
@@ -269,6 +280,11 @@ class EditProfileActivity : AppCompatActivity() {
                 4 -> {binding.etNewProfileSkill4.text = "React"}
                 5 -> {binding.etNewProfileSkill4.text = "Python"}
                 6 -> {binding.etNewProfileSkill4.text = "Golang"}
+                7 -> {binding.etNewProfileSkill4.text = "PHP"}
+                8 -> {binding.etNewProfileSkill4.text = "C#"}
+                9 -> {binding.etNewProfileSkill4.text = "C++"}
+                10 -> {binding.etNewProfileSkill4.text = "Ruby"}
+                11 -> {binding.etNewProfileSkill4.text = "Shell"}
             }
 
             false
@@ -286,6 +302,11 @@ class EditProfileActivity : AppCompatActivity() {
                 4 -> {binding.etNewProfileSkill5.text = "React"}
                 5 -> {binding.etNewProfileSkill5.text = "Python"}
                 6 -> {binding.etNewProfileSkill5.text = "Golang"}
+                7 -> {binding.etNewProfileSkill5.text = "PHP"}
+                8 -> {binding.etNewProfileSkill5.text = "C#"}
+                9 -> {binding.etNewProfileSkill5.text = "C++"}
+                10 -> {binding.etNewProfileSkill5.text = "Ruby"}
+                11 -> {binding.etNewProfileSkill5.text = "Shell"}
             }
 
             false
@@ -294,10 +315,6 @@ class EditProfileActivity : AppCompatActivity() {
         //Show Pop Up when clicked
         binding.etNewProfileJobTitle.setOnClickListener {
             jobTitle.show()
-        }
-
-        binding.etNewProfileLocation.setOnClickListener {
-            city.show()
         }
 
         binding.etNewProfileWorkTime.setOnClickListener {
@@ -325,41 +342,48 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         binding.btEditProfileImage.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                    PackageManager.PERMISSION_DENIED){
-                    //permission denied
-                    val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
-                    //show popup to request runtime permission
-                    requestPermissions(permissions, EditProfileActivity.PERMISSION_CODE);
-                }
-                else{
-                    //permission already granted
-                    pickImageFromGallery();
-                }
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                PackageManager.PERMISSION_DENIED){
+                //permission denied
+                val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
+                //show popup to request runtime permission
+                requestPermissions(permissions, EditProfileActivity.PERMISSION_CODE);
             }
             else{
-                //system OS is < Marshmallow
+                //permission already granted
                 pickImageFromGallery();
             }
         }
 
-        binding.btNewProfileDone.setOnClickListener {
-
-            if(binding.etNewProfileJobTitle.text.isEmpty() || binding.etNewProfileWorkTime.text.isEmpty() || binding.etNewProfileLocation.text.isEmpty() || binding.etNewProfileDesc.text.isEmpty()){
-                Toast.makeText(this, "Please Fill All Field", Toast.LENGTH_LONG).show()
+        if(editCode == "0") {
+            binding.btNewProfileDone.setOnClickListener {
+                Toast.makeText(this, "Please Select An Image Profile", Toast.LENGTH_LONG).show()
             }
-            else{
-                if(talentImage != "null"){
-                    /*val savedTalentTitle = createPartFromString(binding.etNewProfileJobTitle.text.toString())
-                    val savedTalentTime = createPartFromString(binding.etNewProfileWorkTime.text.toString())
-                    val savedTalentCity = createPartFromString(binding.etNewProfileLocation.text.toString())
-                    val savedTalentDesc = createPartFromString(binding.etNewProfileDesc.text.toString())
-                    val savedTalentImage = createPartFromString(talentImage!!)
-                    viewModel.updateBasicInfo(talentID!!, savedTalentTitle, savedTalentTime, savedTalentCity, savedTalentDesc, savedTalentImage)*/
+        }
+        else {
+            binding.btNewProfileDone.setOnClickListener {
+                if(binding.etNewProfileJobTitle.text.isEmpty() || binding.etNewProfileWorkTime.text.isEmpty() || binding.etNewProfileLocation.text.isEmpty() || binding.etNewProfileDesc.text.isEmpty()){
+                    Toast.makeText(this, "Please Fill All Required Field", Toast.LENGTH_LONG).show()
+                }
+
+                else{
+                    viewModel.updateBasicInfoWithoutImage(talentID!!, binding.etNewProfileJobTitle.text.toString(), binding.etNewProfileWorkTime.text.toString(), binding.etNewProfileLocation.text.toString(), binding.etNewProfileDesc.text.toString(), talentImage!!)
+                    viewModel.updateSkill(talentID!!, binding.etNewProfileSkill1.text.toString(), binding.etNewProfileSkill2.text.toString(), binding.etNewProfileSkill3.text.toString(), binding.etNewProfileSkill4.text.toString(), binding.etNewProfileSkill5.text.toString())
+
+                    if (binding.etNewProfileGithub.text.isNotEmpty()){
+                        viewModel.updateGithub(talentID, binding.etNewProfileGithub.text.toString())
+                    }
                 }
             }
         }
+
+    }
+
+    private fun setService() {
+        viewModel = ViewModelProvider(this).get(EditProfileViewModel::class.java)
+        val service = ArkhireApiClient.getApiClient(this)?.create(ArkhireApiService::class.java)
+        viewModel.setService(service!!)
+
     }
 
     override fun onRequestPermissionsResult(
@@ -419,12 +443,19 @@ class EditProfileActivity : AppCompatActivity() {
                 else {
                     if (talentImage != null) {
                     viewModel.updateBasicInfo(talentID!!, talentTitle, talentTime, talentCity, talentDesc, talentImage)
-                    viewModel.updateSkill(talentID!!, binding.etNewProfileSkill1.text.toString(), binding.etNewProfileSkill2.text.toString(), binding.etNewProfileSkill3.text.toString(), binding.etNewProfileSkill4.text.toString(), binding.etNewProfileSkill5.text.toString())
+                    viewModel.updateSkill(
+                            talentID, binding.etNewProfileSkill1.text.toString(),
+                            binding.etNewProfileSkill2.text.toString(),
+                            binding.etNewProfileSkill3.text.toString(),
+                            binding.etNewProfileSkill4.text.toString(),
+                            binding.etNewProfileSkill5.text.toString())
+
+                        if (binding.etNewProfileGithub.text.isNotEmpty()) {
+                            viewModel.updateGithub(talentID, binding.etNewProfileGithub.text.toString())
+                        }
                     }
                 }
             }
-
-            subscribeLiveData()
         }
     }
 
@@ -452,6 +483,10 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun subscribeLiveData() {
+        viewModel.isLoading.observe(this, {
+            binding.loadingScreen.visibility = View.VISIBLE
+        })
+
         viewModel.isSuccess.observe(this, {
             if (viewModel.isSuccess.value == "Success") {
                 Toast.makeText(this, "Profile Updated !", Toast.LENGTH_SHORT).show()

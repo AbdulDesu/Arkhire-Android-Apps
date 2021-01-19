@@ -3,6 +3,7 @@ package com.sizdev.arkhirefortalent.homepage.item.company
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -30,7 +31,13 @@ class SearchCompanyAdapter : RecyclerView.Adapter<SearchCompanyAdapter.SearchCom
     override fun onBindViewHolder(holder: SearchCompanyHolder, position: Int) {
         val item = items[position]
         holder.binding.tvCompanyName.text = item.companyName
-        holder.binding.tvCompanyType.text = item.companyType
+        when(item.companyType){
+            null -> holder.binding.showAllCompanyItem.visibility = View.GONE
+            else -> {
+                holder.binding.showAllCompanyItem.visibility = View.VISIBLE
+                holder.binding.tvCompanyType.text = item.companyType
+            }
+        }
         holder.binding.tvCompanyLocation.text = item.companyLocation
 
         Picasso.get()

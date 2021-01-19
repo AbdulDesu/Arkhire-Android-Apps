@@ -13,6 +13,9 @@ import kotlin.coroutines.CoroutineContext
 class CreatePortfolioViewModel: ViewModel(), CoroutineScope {
 
     val isSuccess = MutableLiveData<String>()
+    val onFail = MutableLiveData<String>()
+    val isLoading = MutableLiveData<Boolean>()
+
     private lateinit var service: ArkhireApiService
 
     override val coroutineContext: CoroutineContext
@@ -24,6 +27,7 @@ class CreatePortfolioViewModel: ViewModel(), CoroutineScope {
 
     fun uploadPortfolio(portfolioOwner: RequestBody, portfolioTitle: RequestBody, portfolioDesc: RequestBody, portfolioRepository: RequestBody, portfolioImage: MultipartBody.Part) {
         launch {
+            isLoading.value = true
             val result = withContext(Dispatchers.IO) {
                 try {
                     service?.createPortfolio(portfolioOwner, portfolioTitle, portfolioDesc, portfolioRepository, portfolioImage)
@@ -36,6 +40,7 @@ class CreatePortfolioViewModel: ViewModel(), CoroutineScope {
             }
 
             if (result is CreatePortfolioResponse) {
+                isLoading.value = false
                 if (result.success) {
                     isSuccess.value = "Success"
                 }

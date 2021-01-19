@@ -48,8 +48,6 @@ class ExploreAdapter : RecyclerView.Adapter<ExploreAdapter.ProjectExploreHolder>
         holder.binding.tvProjectSalary.text = format.format(item.projectSalary?.toDouble())
         holder.binding.tvPostedAt.text = "${dateSplitter[0]} - ${timeSplitter[0]}"
 
-
-
         when (item.projectImage){
             null -> holder.binding.ivProjectImage.setImageResource(R.drawable.ic_project_bg)
             else -> {
@@ -76,7 +74,6 @@ class ExploreAdapter : RecyclerView.Adapter<ExploreAdapter.ProjectExploreHolder>
             intent.putExtra("projectDesc", item.projectDesc)
 
             context.startActivity(intent)
-
         }
     }
 

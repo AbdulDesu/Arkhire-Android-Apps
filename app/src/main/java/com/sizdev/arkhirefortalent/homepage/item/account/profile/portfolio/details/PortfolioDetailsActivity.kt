@@ -38,10 +38,6 @@ class PortfolioDetailsActivity : AppCompatActivity() {
         // Get ID Portfolio
         val portfolioID = intent.getStringExtra("portfolioID")
 
-        // Show Current Loged in Account Name
-        val sharedPrefData = this.getSharedPreferences("Token", Context.MODE_PRIVATE)
-        val accountID = sharedPrefData.getString("accID", null)
-
         // Set FAB
         binding.backButton.setOnClickListener {
             finish()
@@ -88,6 +84,11 @@ class PortfolioDetailsActivity : AppCompatActivity() {
                     .resize(512, 512)
                     .centerCrop()
                     .into(binding.ivPortfolioImage)
+
+                if(result.data[0].portfolioRepository == null || result.data[0].portfolioRepository == ""){
+                   binding.tvTitlePortfolioRepo.visibility = View.GONE
+                   binding.tvPortfolioRepo.visibility = View.GONE
+                }
 
                 // End Of Loading
                 binding.loadingScreen.visibility = View.GONE

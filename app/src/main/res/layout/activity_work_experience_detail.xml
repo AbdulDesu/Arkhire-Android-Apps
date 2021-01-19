@@ -14,7 +14,7 @@
         <TextView
             android:id="@+id/tv_titleExperience"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="66dp"
             android:text="@string/experienced_as"
             android:textColor="@color/black"
             android:textStyle="bold"

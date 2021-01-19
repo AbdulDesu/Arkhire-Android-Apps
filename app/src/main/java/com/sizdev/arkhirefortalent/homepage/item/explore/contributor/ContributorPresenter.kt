@@ -52,7 +52,7 @@ class ContributorPresenter (private val coroutineScope: CoroutineScope,
                 if (result is ContributorResponse) {
                     if(result.success){
                         val list = result.data?.map {
-                            ContributorModel(it.accountName, it.accountTitle, it.talentImage)
+                            ContributorModel(it.talentID, it.talentAccountID, it.accountName, it.accountTitle, it.talentImage)
                         }
                         view?.hideProgressBar()
                         view?.addListContributor(list)

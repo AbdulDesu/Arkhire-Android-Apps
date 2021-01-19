@@ -7,6 +7,7 @@ interface TalentProfileContract {
         fun showProgressBar()
         fun getSavedData()
         fun setTalentData(talentID: String?,
+                          accountID: String?,
                           accountName: String?,
                           accountEmail: String?,
                           accountPhone: String?,

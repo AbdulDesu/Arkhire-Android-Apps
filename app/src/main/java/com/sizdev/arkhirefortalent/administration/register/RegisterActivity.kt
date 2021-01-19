@@ -15,6 +15,7 @@ import com.sizdev.arkhirefortalent.homepage.HomeActivity
 import com.sizdev.arkhirefortalent.networking.ArkhireApiClient
 import com.sizdev.arkhirefortalent.networking.ArkhireApiService
 import kotlinx.coroutines.*
+import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -31,7 +32,7 @@ class RegisterActivity : AppCompatActivity() {
         subscribeLiveData()
 
         binding.btRegister.setOnClickListener {
-            val fullName = binding.etFullName.text.toString()
+            val fullName = binding.etFullName.text.toString().capitalize(Locale.ROOT)
             val registerEmail = binding.etRegistEmail.text.toString()
             val registerPhoneNumber = binding.etRegistPhone.text.toString()
             val registerPassword = binding.etRegistPassword.text.toString()
@@ -41,18 +42,25 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please Fill All Field", Toast.LENGTH_LONG).show()
             }
             else {
-
                  if (registerPassword != confirmRegisterPassword){
                      Toast.makeText(this, "Password not match", Toast.LENGTH_LONG).show()
                  }
-
                  else {
-                     viewModel.startRegister(fullName, registerEmail, registerPhoneNumber, registerPassword, 0)
+                     if (registerPassword.length >= 8){
+                         viewModel.startRegister(fullName, registerEmail, registerPhoneNumber, registerPassword, 0)
+                     }
+                     else {
+                         Toast.makeText(this, "Password Must Contain 8 Character !", Toast.LENGTH_SHORT).show()
+                     }
                  }
             }
         }
 
         binding.tvBackLogin.setOnClickListener {
+            finish()
+        }
+
+        binding.backButton.setOnClickListener {
             finish()
         }
     }

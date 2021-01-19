@@ -1,10 +1,14 @@
 package com.sizdev.arkhirefortalent.homepage.item.account
 
+import android.accounts.Account
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +17,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.sizdev.arkhirefortalent.R
+import com.sizdev.arkhirefortalent.administration.email.ResetEmailActivity
 import com.sizdev.arkhirefortalent.administration.login.LoginActivity
 import com.sizdev.arkhirefortalent.administration.password.ResetPasswordActivity
 import com.sizdev.arkhirefortalent.databinding.FragmentAccountBinding
 import com.sizdev.arkhirefortalent.homepage.item.account.profile.TalentProfileActivity
+import com.sizdev.arkhirefortalent.homepage.item.account.profile.editingprofile.EditProfileActivity
 import com.sizdev.arkhirefortalent.networking.ArkhireApiClient
 import com.sizdev.arkhirefortalent.networking.ArkhireApiService
+import com.sizdev.arkhirefortalent.webviewer.ArkhireWebViewerActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.alert_logout_confirmation.view.*
 import kotlinx.android.synthetic.main.alert_session_expired.view.*
@@ -59,13 +66,61 @@ class AccountFragment : Fragment(), AccountContract.View {
             dialog.show()
         }
 
-        binding.tvMyProfile.setOnClickListener {
-            Toast.makeText(activity, "Loading, Please Wait..", Toast.LENGTH_LONG).show()
+        binding.tvMyEmail.setOnClickListener {
+            val intent = Intent(activity, ResetEmailActivity::class.java)
+            startActivity(intent)
         }
 
         binding.tvMyPassword.setOnClickListener {
             val intent = Intent(activity, ResetPasswordActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.tvMyProfile.setOnClickListener {
+            Toast.makeText(activity, "Loading, Please Wait..", Toast.LENGTH_LONG).show()
+        }
+
+        binding.tvMyLanguage.setOnClickListener {
+            Toast.makeText(activity, "Coming Soon", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.tvCostumerService.setOnClickListener {
+            val sendEmail = Intent(Intent.ACTION_SENDTO)
+            sendEmail.putExtra(Intent.EXTRA_EMAIL, "abdul.richard@outlook.com")
+            sendEmail.putExtra(Intent.EXTRA_SUBJECT, "Arkhire Feedback")
+            sendEmail.data = Uri.parse("mailto: abdul.richard@outlook.com")
+            activity?.intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            activity?.intent?.addFlags(Intent.FLAG_FROM_BACKGROUND)
+            try {
+                startActivity(sendEmail)
+            } catch (e: ActivityNotFoundException) {
+                e.printStackTrace()
+                Log.d("Email error:", e.toString())
+            }
+        }
+
+        binding.tvPrivacyPolicy.setOnClickListener {
+            val intent = Intent(activity, ArkhireWebViewerActivity::class.java)
+            intent.putExtra("url", "http://bit.ly/arkhire-privacy-policy")
+            startActivity(intent)
+        }
+
+        binding.tvRateUs.setOnClickListener {
+            try {
+                startActivity(
+                        Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("market://details?id=Arkhire")
+                        )
+                )
+            } catch (e: ActivityNotFoundException) {
+                startActivity(
+                        Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://play.google.com/store/apps/details?id=Arkhire")
+                        )
+                )
+            }
         }
 
         return  binding.root
@@ -130,8 +185,17 @@ class AccountFragment : Fragment(), AccountContract.View {
 
         binding.tvMyProfile.setOnClickListener {
             val intent = Intent(activity, TalentProfileActivity::class.java)
-            intent.putExtra("talentID", talentID)
-            startActivity(intent)
+            if(AccountTitle == null){
+                val intent2 = Intent(activity, EditProfileActivity::class.java)
+                intent2.putExtra("talentID", talentID)
+                intent2.putExtra("editCode", "0")
+                startActivity(intent2)
+            }
+            else {
+                intent.putExtra("talentID", talentID)
+                intent.putExtra("editCode", "1")
+                startActivity(intent)
+            }
         }
     }
 
@@ -140,7 +204,7 @@ class AccountFragment : Fragment(), AccountContract.View {
         handler.post(object : Runnable {
             override fun run() {
                 presenter?.getAccountData(accountID!!)
-                handler.postDelayed(this, 10000)
+                handler.postDelayed(this, 5000)
             }
         })
     }

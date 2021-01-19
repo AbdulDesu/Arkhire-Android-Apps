@@ -79,7 +79,7 @@
     <string name="add_work_experience">Add Work Experience</string>
     <string name="configure_profile_so_people_can_recognize_you">Configure Profile so people can recognize you</string>
     <string name="profile_settings">Profile Settings</string>
-    <string name="portfolio_title">Portfolio title :</string>
+    <string name="portfolio_title">Portfolio Title :</string>
     <string name="portfolio_description">Portfolio Description :</string>
     <string name="link_repository_of_this_portfolio">Link Repository Of This Portfolio :</string>
     <string name="edit_project">EDIT PROJECT</string>
@@ -95,7 +95,19 @@
     <string name="started">Started</string>
     <string name="about_experience">About Experience</string>
     <string name="delete_experience">DELETE EXPERIENCE</string>
-    <string name="loging_in">Loging In...</string>
-    <string name="creating_account">Creating Account...</string>
+    <string name="loging_in">Loging In…</string>
+    <string name="creating_account">Creating Account…</string>
+    <string name="menu">menu</string>
+    <string name="email_settings">Email Settings</string>
+    <string name="please_verify_your_identity_to_continue">Please Verify your identity to continue</string>
+    <string name="new_email_address">New Email Address..</string>
+    <string name="updatingEmail">Updating Email…</string>
+    <string name="password_settings">Password Settings</string>
+    <string name="sign_up_question">Sign Up</string>
+    <string name="let_s_get_started_by_creating_your_account">Let\'s Get Started!</string>
+    <string name="create_account_to_join_arkhire">Create account to become partner and start exploring</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="uploading_portfolio">Uploading Portfolio...</string>
+
 
 </resources>

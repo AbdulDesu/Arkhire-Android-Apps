@@ -23,7 +23,8 @@
 
     <EditText
         android:id="@+id/et_replyMsg"
-        android:textSize="12sp"
+        android:textSize="16sp"
+        android:padding="8dp"
         android:hint="Message of this reply.. (Max: 250)"
         android:gravity="start"
         android:maxLength="250"

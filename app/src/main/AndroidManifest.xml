@@ -20,8 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ArkhireTalent"
         android:usesCleartextTraffic="true">
-        <activity android:name=".homepage.item.explore.contributor.ContributorActivity"></activity>
-        <activity android:name=".homepage.item.account.profile.workexperience.add.AddWorkExperienceActivity"></activity>
+        <activity android:name=".homepage.item.account.profile.curiculumvitae.CurriculumVitaeActivity"></activity>
+        <activity android:name=".homepage.item.account.profile.previewer.TalentPreviewActivity" />
+        <activity android:name=".homepage.item.explore.contributor.ContributorActivity" />
+        <activity android:name=".homepage.item.account.profile.workexperience.add.AddWorkExperienceActivity" />
         <activity android:name=".homepage.item.account.profile.portfolio.create.CreatePortfolioActivity" />
         <activity android:name=".homepage.item.account.profile.workexperience.details.WorkExperienceDetailActivity" />
         <activity android:name=".homepage.item.account.profile.portfolio.details.PortfolioDetailsActivity" />
@@ -50,7 +52,7 @@
         <activity android:name=".administration.password.ResetPasswordActivity" />
         <activity android:name=".homepage.item.account.profile.editingprofile.EditProfileActivity" />
         <activity android:name=".homepage.item.account.profile.TalentProfileActivity" />
-        <activity android:name=".administration.password.ForgetPasswordActivity" />
+        <activity android:name=".administration.email.ResetEmailActivity" />
         <activity android:name=".administration.login.LoginActivity" />
         <activity android:name=".administration.register.RegisterActivity" />
         <activity android:name=".homepage.HomeActivity" />

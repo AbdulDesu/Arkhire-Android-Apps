@@ -43,7 +43,10 @@ class CompanyProfileActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMa
         val companyLongitude = intent.getStringExtra("companyLongitude")
 
         if (companyLatitude != "null" && companyLongitude != "null") {
-            if (companyLatitude != null && companyLongitude != null) {
+            if (companyLatitude == "" || companyLongitude == ""){
+
+            }
+            else if (companyLatitude != null && companyLongitude != null) {
                 defaultLocation = LatLng(companyLatitude.toDouble(), companyLongitude.toDouble())
             }
         }
@@ -73,37 +76,39 @@ class CompanyProfileActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMa
             }
         }
 
-        binding.ivCompanyLinkedIn.setOnClickListener {
-            if(companyLinkedin == "null"){
-                Toast.makeText(this, "This company not publish that info", Toast.LENGTH_SHORT).show()
-            }
-            else {
-                val intent = Intent(this, ArkhireWebViewerActivity::class.java)
-                intent.putExtra("url", companyLinkedin)
-                startActivity(intent)
-            }
-
-        }
-
-        binding.ivCompanyInstagram.setOnClickListener {
-            if (companyInstagram == "null"){
-                Toast.makeText(this, "This company not publish that info", Toast.LENGTH_SHORT).show()
-            }
-            else {
-                val intent = Intent(this, ArkhireWebViewerActivity::class.java)
-                intent.putExtra("url", companyInstagram)
-                startActivity(intent)
+        when(companyLinkedin){
+            null -> binding.ivCompanyLinkedIn.setImageResource(R.drawable.ic_linkedin_disabled)
+            "" -> binding.ivCompanyLinkedIn.setImageResource(R.drawable.ic_linkedin_disabled)
+            else -> {
+                binding.ivCompanyLinkedIn.setOnClickListener {
+                    val intent = Intent(this, ArkhireWebViewerActivity::class.java)
+                    intent.putExtra("url", "http://linkedin.com/company/$companyLinkedin")
+                    startActivity(intent)
+                }
             }
         }
 
-        binding.ivCompanyFacebook.setOnClickListener {
-            if (companyFacebook == "null"){
-                Toast.makeText(this, "This company not publish that info", Toast.LENGTH_SHORT).show()
+        when(companyInstagram){
+            null -> binding.ivCompanyInstagram.setImageResource(R.drawable.ic_instagram_disabled)
+            "" -> binding.ivCompanyInstagram.setImageResource(R.drawable.ic_instagram_disabled)
+            else -> {
+                binding.ivCompanyInstagram.setOnClickListener {
+                    val intent = Intent(this, ArkhireWebViewerActivity::class.java)
+                    intent.putExtra("url", "http://instagram.com/$companyInstagram")
+                    startActivity(intent)
+                }
             }
-            else {
-                val intent = Intent(this, ArkhireWebViewerActivity::class.java)
-                intent.putExtra("url", companyFacebook)
-                startActivity(intent)
+        }
+
+        when(companyFacebook){
+            null -> binding.ivCompanyFacebook.setImageResource(R.drawable.ic_facebook_disabled)
+            "" -> binding.ivCompanyFacebook.setImageResource(R.drawable.ic_facebook_disabled)
+            else -> {
+                binding.ivCompanyFacebook.setOnClickListener {
+                    val intent = Intent(this, ArkhireWebViewerActivity::class.java)
+                    intent.putExtra("url", "http://facebook.com/$companyFacebook")
+                    startActivity(intent)
+                }
             }
         }
 

@@ -9,6 +9,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -154,7 +155,7 @@ class HomeFragment : Fragment(), HomeContract.View {
         }
 
         else {
-            val lastName = nameSplitter[1]
+            val lastName = nameSplitter.last()
             when (timeOfDay){
                 in 0..11 -> binding.tvUserGreeting.text = "Good Morning, $lastName"
                 in 12..15 -> binding.tvUserGreeting.text = "Good Afternoon, $lastName"
@@ -166,11 +167,17 @@ class HomeFragment : Fragment(), HomeContract.View {
 
     override fun setError(error: String) {
         if (error == "Session Expired !"){
+            handler.removeCallbacksAndMessages(null)
             sessionExpiredAlert()
             dialog.show()
         }
-        else {
+
+        else if(error == "Nothing Found !"){
+            binding.loadingScreen.visibility = View.GONE
             binding.emptyHighlight.visibility = View.VISIBLE
+        }
+        else {
+            Toast.makeText(activity, "Unknown Error", Toast.LENGTH_LONG).show()
         }
     }
 

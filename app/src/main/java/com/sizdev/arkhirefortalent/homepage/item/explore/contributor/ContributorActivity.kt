@@ -1,5 +1,6 @@
 package com.sizdev.arkhirefortalent.homepage.item.explore.contributor
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +27,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
+import java.text.NumberFormat
+import java.util.*
 
 class ContributorActivity : AppCompatActivity(), ContributorContract.View {
 
@@ -37,6 +40,7 @@ class ContributorActivity : AppCompatActivity(), ContributorContract.View {
     private var presenter: ContributorPresenter? = null
     private var projectTag: String? = null
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_contributor)
@@ -54,12 +58,17 @@ class ContributorActivity : AppCompatActivity(), ContributorContract.View {
         val projectImage = intent.getStringExtra("projectImage")
         val companyImage = intent.getStringExtra("companyImage")
 
+        // Currency Converter
+        val format = NumberFormat.getCurrencyInstance()
+        format.maximumFractionDigits = 0
+        format.currency = Currency.getInstance("IDR")
+
         // Set Data
         projectTag = projectID!!
         binding.tvProjectTitle.text = projectName
         binding.tvCompanyName.text = projectOwner
-        binding.tvCompanyProjectDuration.text = projectDuration
-        binding.tvCompanyProjectSalary.text = projectSalary
+        binding.tvCompanyProjectDuration.text = "Deadline: $projectDuration"
+        binding.tvCompanyProjectSalary.text = format.format(projectSalary!!.toDouble())
         binding.tvProjectDesc.text = projectDesc
 
         // Set Image

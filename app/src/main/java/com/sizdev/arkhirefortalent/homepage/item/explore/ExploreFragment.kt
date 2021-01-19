@@ -15,11 +15,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.sizdev.arkhireforcompany.homepage.item.explore.ExploreResponse
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.administration.login.LoginActivity
 import com.sizdev.arkhirefortalent.databinding.FragmentExploreBinding
-import com.sizdev.arkhirefortalent.homepage.item.home.HomePresenter
 import com.sizdev.arkhirefortalent.networking.ArkhireApiClient
 import com.sizdev.arkhirefortalent.networking.ArkhireApiService
 import kotlinx.android.synthetic.main.alert_session_expired.view.*

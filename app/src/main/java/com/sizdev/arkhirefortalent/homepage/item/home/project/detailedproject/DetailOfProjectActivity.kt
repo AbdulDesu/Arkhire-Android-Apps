@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -39,6 +40,12 @@ class DetailOfProjectActivity : AppCompatActivity() {
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         service = ArkhireApiClient.getApiClient(this)!!.create(ArkhireApiService::class.java)
 
+        // Set Status Bar
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+
         val format = NumberFormat.getCurrencyInstance()
         format.maximumFractionDigits = 0
         format.currency = Currency.getInstance("IDR")
@@ -59,7 +66,7 @@ class DetailOfProjectActivity : AppCompatActivity() {
 
         Picasso.get()
                 .load("http://54.82.81.23:911/image/$projectImage")
-                .resize(512, 512)
+                .resize(1280, 720)
                 .centerCrop()
                 .into(binding.ivProjectCompanyPhoto)
 

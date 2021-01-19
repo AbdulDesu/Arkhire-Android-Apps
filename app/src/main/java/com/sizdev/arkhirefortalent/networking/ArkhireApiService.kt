@@ -1,9 +1,12 @@
 package com.sizdev.arkhirefortalent.networking
 
-import com.sizdev.arkhireforcompany.homepage.item.explore.ExploreResponse
+import com.sizdev.arkhirefortalent.homepage.item.explore.ExploreResponse
+import com.sizdev.arkhirefortalent.administration.email.ResetEmailResponse
 import com.sizdev.arkhirefortalent.administration.login.LoginResponse
+import com.sizdev.arkhirefortalent.administration.password.ResetPasswordResponse
 import com.sizdev.arkhirefortalent.administration.register.RegisterResponse
 import com.sizdev.arkhirefortalent.homepage.item.account.AccountResponse
+import com.sizdev.arkhirefortalent.homepage.item.account.profile.curiculumvitae.CurriculumVitaeResponse
 import com.sizdev.arkhirefortalent.homepage.item.account.profile.editingprofile.EditAchivementResponse
 import com.sizdev.arkhirefortalent.homepage.item.account.profile.editingprofile.EditProfileResponse
 import com.sizdev.arkhirefortalent.homepage.item.account.profile.editingprofile.EditProfileSkillResponse
@@ -42,6 +45,16 @@ interface ArkhireApiService {
 
     @GET("/talent/{talentID}")
     suspend fun getTalentProfileResponse(@Path("talentID") talentID: String): AccountResponse
+
+    @FormUrlEncoded
+    @PUT("/account/{accountID}")
+    suspend fun updateEmailResponse(@Path("accountID") accountID: String,
+                                    @Field("account_email") accountEmail: String): ResetEmailResponse
+
+    @FormUrlEncoded
+    @PUT("/account/password/{accountID}")
+    suspend fun updatePasswordResponse(@Path("accountID") accountID: String,
+                                       @Field("password") newPassword: String): ResetPasswordResponse
 
     // Home Service
     @GET("/talent/talentaccount/{accountID}")
@@ -99,6 +112,16 @@ interface ArkhireApiService {
         @Part talentImage: MultipartBody.Part) : EditProfileResponse
 
     @FormUrlEncoded
+    @PUT("/talent/text/{talentID}")
+    suspend fun updateTalentInfoWithoutImage(
+            @Path("talentID") talentID: String,
+            @Field("talent_tittle") talentTitle: String,
+            @Field("talent_time") talentTime: String,
+            @Field("talent_city") talentCity: String,
+            @Field("talent_profile") talentDesc: String,
+            @Field("talent_image") talentImage: String) : EditProfileResponse
+
+    @FormUrlEncoded
     @PUT("talentskill/{talentID}")
     suspend fun updateTalentSkill(
         @Path("talentID") talentID: String,
@@ -108,12 +131,16 @@ interface ArkhireApiService {
         @Field("skill_4") talentSkill4: String,
         @Field("skill_5") talentSkill5: String) : EditProfileSkillResponse
 
+    @FormUrlEncoded
+    @PUT("/achivement/github/{talentID}")
+    suspend fun updateTalentGithub(
+        @Path("talentID") talentID: String,
+        @Field("talent_github") talentGithub: String) : EditAchivementResponse
+
     @Multipart
     @PUT("/achivement/{talentID}")
-    suspend fun updateTalentAchivement(
-        @Path("talentID") talentID: String,
-        @Part("talent_github") talentGithub: RequestBody,
-        @Part talentCv: MultipartBody.Part) : EditAchivementResponse
+    suspend fun updateCurriculumVitae(@Path("talentID") talentID: String,
+                                      @Part cvImage: MultipartBody.Part ) : CurriculumVitaeResponse
 
     // Portfolio Service
     @GET("portfolio/owner/{accountID}")

@@ -68,10 +68,9 @@
                 android:layout_below="@id/tv_titlePortfolioTitle"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
-                android:text=""
                 android:textSize="14sp"
                 android:layout_width="380dp"
-                android:layout_height="14dp"/>
+                android:layout_height="25dp"/>
 
             <TextView
                 android:id="@+id/tv_titlePortfolioDesc"

@@ -16,9 +16,12 @@ import androidx.databinding.DataBindingUtil
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.administration.login.LoginActivity
 import com.sizdev.arkhirefortalent.databinding.ActivityTalentProfileBinding
+import com.sizdev.arkhirefortalent.homepage.item.account.profile.curiculumvitae.CurriculumVitaeActivity
 import com.sizdev.arkhirefortalent.homepage.item.account.profile.editingprofile.EditProfileActivity
+import com.sizdev.arkhirefortalent.homepage.item.account.profile.previewer.TalentPreviewActivity
 import com.sizdev.arkhirefortalent.networking.ArkhireApiClient
 import com.sizdev.arkhirefortalent.networking.ArkhireApiService
+import com.sizdev.arkhirefortalent.webviewer.ArkhireWebViewerActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.alert_session_expired.view.*
 import kotlinx.coroutines.*
@@ -33,7 +36,6 @@ class TalentProfileActivity : AppCompatActivity(), TalentProfileContract.View {
 
     private var talentID: String? = null
     private var presenter: TalentProfilePresenter? = null
-
 
     @SuppressLint("IntentReset")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,7 +92,7 @@ class TalentProfileActivity : AppCompatActivity(), TalentProfileContract.View {
         talentID = intent.getStringExtra("talentID")
     }
 
-    override fun setTalentData(talentID: String?, accountName: String?, accountEmail: String?, accountPhone: String?, talentTitle: String?, talentTime: String?, talentCity: String?, talentDesc: String?, talentImage: String?, talentGithub: String?, talentCv: String?, talentSkill1: String?, talentSkill2: String?, talentSkill3: String?, talentSkill4: String?, talentSkill5: String?) {
+    override fun setTalentData(talentID: String?, accountID: String?,accountName: String?, accountEmail: String?, accountPhone: String?, talentTitle: String?, talentTime: String?, talentCity: String?, talentDesc: String?, talentImage: String?, talentGithub: String?, talentCv: String?, talentSkill1: String?, talentSkill2: String?, talentSkill3: String?, talentSkill4: String?, talentSkill5: String?) {
         binding.tvProfileTalentName.text = accountName
         binding.tvProfileTalentTitle.text = talentTitle
         binding.tvProfileTalentDesc.text = talentDesc
@@ -104,60 +106,97 @@ class TalentProfileActivity : AppCompatActivity(), TalentProfileContract.View {
 
         if (talentTime == "Freelance") {
             binding.ivTalentProfileCover.setImageResource(R.drawable.ic_freelancer)
+            binding.btWorkTime.setImageResource(R.drawable.ic_time_freelancer)
+            binding.btWorkTime.setOnClickListener {
+                Toast.makeText(this, "You Are Freelancer", Toast.LENGTH_LONG).show()
+            }
         } else {
             binding.ivTalentProfileCover.setImageResource(R.drawable.ic_fulltimework)
+            binding.btWorkTime.setImageResource(R.drawable.ic_worktime)
+            binding.btWorkTime.setOnClickListener {
+                Toast.makeText(this, "You Are Full Time Worker", Toast.LENGTH_LONG).show()
+            }
         }
 
         //Validate Skill Null or not
-        if (talentSkill1 != null) {
-            binding.tvTitleProfileTalentSkill1.text = talentSkill1
-        } else {
+        if (talentSkill1 == null || talentSkill1 == "") {
             binding.tvTitleProfileTalentSkill1.visibility = View.INVISIBLE
+        } else {
+            binding.tvTitleProfileTalentSkill1.text = talentSkill1
         }
 
-        if (talentSkill2 != null) {
-            binding.tvTitleProfileTalentSkill2.text = talentSkill2
-        } else {
+        if (talentSkill2 == null || talentSkill2 == "") {
             binding.tvTitleProfileTalentSkill2.visibility = View.INVISIBLE
+        } else {
+            binding.tvTitleProfileTalentSkill2.text = talentSkill2
         }
 
-        if (talentSkill3 != null) {
-            binding.tvTitleProfileTalentSkill3.text = talentSkill3
-        } else {
+        if (talentSkill3 == null || talentSkill3 == "") {
             binding.tvTitleProfileTalentSkill3.visibility = View.INVISIBLE
+        } else {
+            binding.tvTitleProfileTalentSkill3.text = talentSkill3
         }
 
-        if (talentSkill4 != null) {
-            binding.tvTitleProfileTalentSkill4.text = talentSkill4
-        } else {
+        if (talentSkill4 == null || talentSkill4 == "") {
             binding.tvTitleProfileTalentSkill4.visibility = View.INVISIBLE
+        } else {
+            binding.tvTitleProfileTalentSkill4.text = talentSkill4
         }
 
-        if (talentSkill5 != null) {
-            binding.tvTitleProfileTalentSkill5.text = talentSkill5
-        } else {
+        if (talentSkill5 == null || talentSkill5 == "") {
             binding.tvTitleProfileTalentSkill5.visibility = View.INVISIBLE
+        } else {
+            binding.tvTitleProfileTalentSkill5.text = talentSkill5
         }
 
         binding.menuButton.setOnClickListener {
             val showMenu = PopupMenu(this@TalentProfileActivity, binding.menuButton)
-            showMenu.menu.add(Menu.NONE, 0, 0, "Edit Profile")
-            showMenu.menu.add(Menu.NONE, 1, 1, "Preview Profile")
+            showMenu.menu.add(Menu.NONE, 0, 0, "Edit CV")
+            showMenu.menu.add(Menu.NONE, 1, 1, "Preview CV")
+            showMenu.menu.add(Menu.NONE, 2, 2, "Edit Profile")
+            showMenu.menu.add(Menu.NONE, 3, 3, "Preview Profile")
             showMenu.show()
 
             showMenu.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
+
                     0 -> {
+                        val intent = Intent(this, CurriculumVitaeActivity::class.java)
+                        intent.putExtra("talentID", talentID)
+                        intent.putExtra("talentCv", talentCv)
+                        startActivity(intent)
+                    }
+
+                    1 -> {
+                        val intent =Intent(this, ArkhireWebViewerActivity::class.java)
+                        intent.putExtra("url", "http://54.82.81.23:911/image/$talentCv")
+                        intent.putExtra("webScale", "70")
+                        startActivity(intent)
+                    }
+
+                    2 -> {
                         val intent = Intent(this@TalentProfileActivity, EditProfileActivity::class.java)
                         intent.putExtra("talentID", talentID)
                         intent.putExtra("talentLocation", talentCity)
                         intent.putExtra("talentTitle", talentTitle)
                         intent.putExtra("talentDesc", talentDesc)
                         intent.putExtra("talentImage", talentImage)
+                        intent.putExtra("talentWorkTime", talentTime)
+                        intent.putExtra("talentGithub", talentGithub)
+                        intent.putExtra("talentSkill1", talentSkill1)
+                        intent.putExtra("talentSkill2", talentSkill2)
+                        intent.putExtra("talentSkill3", talentSkill3)
+                        intent.putExtra("talentSkill4", talentSkill4)
+                        intent.putExtra("talentSkill5", talentSkill5)
                         startActivity(intent)
                     }
-                    1 -> {
-                        Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
+                    3 -> {
+                        val intent = Intent(this, TalentPreviewActivity::class.java)
+                        intent.putExtra("talentID", talentID)
+                        intent.putExtra("guestAccountID", accountID)
+                        intent.putExtra("previewCode", "owner")
+                        intent.putExtra("talentCv", talentCv)
+                        startActivity(intent)
                     }
                 }
                 false
@@ -172,8 +211,14 @@ class TalentProfileActivity : AppCompatActivity(), TalentProfileContract.View {
             Toast.makeText(this@TalentProfileActivity, "Your Phone Number is: $accountPhone", Toast.LENGTH_SHORT).show()
         }
 
-        binding.ivTalentGithub.setOnClickListener {
-            Toast.makeText(this@TalentProfileActivity, "Your Github is: https://github.com/$talentGithub", Toast.LENGTH_SHORT).show()
+        when(talentGithub) {
+            "" -> binding.ivTalentGithub.setImageResource(R.drawable.ic_github_disabled)
+            null -> binding.ivTalentGithub.setImageResource(R.drawable.ic_github_disabled)
+            else -> {
+                binding.ivTalentGithub.setOnClickListener {
+                    Toast.makeText(this@TalentProfileActivity, "Your Github is: https://github.com/$talentGithub", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
