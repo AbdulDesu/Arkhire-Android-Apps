@@ -25,3 +25,14 @@ student. Company can Hire the best prospective workers based on their criteria, 
 - Added Hiring Status Management
 - Added Some Improvement on Layout and Performance
 - And many more..</br>
+
+# Stable version
+- Added Design Pattern
+- Added Data Refresh management
+- Added Portfolio Feature
+- Added Work Experience Feature
+- Improved Update Profile
+- Added Update Password & Email Feauture
+- Added Privacy Policy 
+- Added Rate Us
+- And many more..</br>
