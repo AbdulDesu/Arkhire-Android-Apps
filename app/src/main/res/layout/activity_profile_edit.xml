@@ -215,7 +215,7 @@
 
                 <EditText
                     android:id="@+id/et_newProfileGithub"
-                    android:layout_width="349dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="16dp"
@@ -259,12 +259,12 @@
 
                 <android.widget.Button
                     android:id="@+id/bt_newProfileDone"
-                    android:layout_width="349dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="32dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="26dp"
                     android:background="@drawable/round_bg"
                     android:text="@string/done"
                     android:textColor="@android:color/white"
