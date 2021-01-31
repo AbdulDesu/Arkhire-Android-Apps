@@ -232,6 +232,7 @@
                         tools:context="Talent title" />
 
                     <ImageView
+                        android:id="@+id/iv_helpAboutYou"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_gravity="center"
@@ -273,6 +274,7 @@
                         tools:context="Talent title" />
 
                     <ImageView
+                        android:id="@+id/iv_helpSkillYou"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_gravity="center"

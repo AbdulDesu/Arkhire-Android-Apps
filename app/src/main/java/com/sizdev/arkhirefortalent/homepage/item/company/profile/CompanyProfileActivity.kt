@@ -112,6 +112,19 @@ class CompanyProfileActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMa
             }
         }
 
+        binding.ivHelpLookingFor.setOnClickListener {
+            Toast.makeText(this, "Company Criteria Skill Looking For", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.ivHelpCompanyDescription.setOnClickListener {
+            Toast.makeText(this, "Description About This Company", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.ivHelpCompanyLocation.setOnClickListener {
+            Toast.makeText(this, "Detail Location Of This Company", Toast.LENGTH_SHORT).show()
+        }
+
+        //Set Map
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)

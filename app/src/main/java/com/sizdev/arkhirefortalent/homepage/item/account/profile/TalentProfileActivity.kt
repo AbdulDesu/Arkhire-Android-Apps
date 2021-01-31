@@ -220,6 +220,14 @@ class TalentProfileActivity : AppCompatActivity(), TalentProfileContract.View {
                 }
             }
         }
+
+        binding.ivHelpAboutYou.setOnClickListener {
+            Toast.makeText(this, "Tell Company About Your Profile", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.ivHelpSkillYou.setOnClickListener {
+            Toast.makeText(this, "Tell Company About Your Skill", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun setRefreshManager() {
