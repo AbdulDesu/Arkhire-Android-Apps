@@ -1,17 +1,16 @@
-package com.sizdev.arkhirefortalent.homepage.item.account.profile.portfolio
+package com.sizdev.arkhirefortalent.homepage.item.account.profile.previewer
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.ItemPortfolioBinding
-import com.sizdev.arkhirefortalent.homepage.item.account.profile.portfolio.details.PortfolioDetailsActivity
+import com.sizdev.arkhirefortalent.homepage.item.account.profile.portfolio.PortfolioModel
 import com.squareup.picasso.Picasso
 
-class PortfolioAdapter : RecyclerView.Adapter<PortfolioAdapter.ShowPortfolioHolder>() {
+class PreviewPortfolioAdapter : RecyclerView.Adapter<PreviewPortfolioAdapter.ShowPortfolioHolder>() {
     private var items = mutableListOf<PortfolioModel>()
 
     fun addList(list: List<PortfolioModel>) {
@@ -38,15 +37,6 @@ class PortfolioAdapter : RecyclerView.Adapter<PortfolioAdapter.ShowPortfolioHold
                         .centerCrop()
                         .into(holder.binding.ivPortfolio)
             }
-        }
-
-        holder.itemView.setOnClickListener {
-            val context = holder.binding.itemPortfolioHolder.context
-            val intent = Intent(context, PortfolioDetailsActivity::class.java)
-
-            intent.putExtra("portfolioID", item.portfolioID)
-
-            context.startActivity(intent)
         }
     }
 

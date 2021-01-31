@@ -53,7 +53,7 @@ class WorkExperienceGuestFragment : Fragment() {
         val accountID = activity?.intent?.getStringExtra("guestAccountID")
 
         // Set Up RecyclerView
-        binding.rvTalentWorkExperience.adapter = WorkExperienceAdapter()
+        binding.rvTalentWorkExperience.adapter = PreviewWorkExperienceAdapter()
         binding.rvTalentWorkExperience.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
         // Data Refresh Management
@@ -98,7 +98,7 @@ class WorkExperienceGuestFragment : Fragment() {
                 WorkExperienceModel(it.experienceID, it.experienceOwner, it.experienceTitle, it.experienceSource, it.experienceStart, it.experienceEnd, it.experienceDesc)
                 }
 
-                (binding.rvTalentWorkExperience.adapter as WorkExperienceAdapter).addList(list)
+                (binding.rvTalentWorkExperience.adapter as PreviewWorkExperienceAdapter).addList(list)
 
                 // End Of Loading
                 binding.loadingScreen.visibility = View.GONE

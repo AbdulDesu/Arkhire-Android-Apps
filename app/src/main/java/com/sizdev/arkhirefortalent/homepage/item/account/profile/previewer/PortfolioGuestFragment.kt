@@ -61,7 +61,7 @@ class PortfolioGuestFragment : Fragment() {
         })
 
         // Set Recycler View
-        binding.rvPortfolio.adapter = PortfolioAdapter()
+        binding.rvPortfolio.adapter = PreviewPortfolioAdapter()
         binding.rvPortfolio.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
         // Upload Portfolio
@@ -96,7 +96,7 @@ class PortfolioGuestFragment : Fragment() {
                     PortfolioModel(it.portfolioID, it.portfolioOwner, it.portfolioTitle, it.portfolioDesc, it.portfolioRepository, it.portfolioImage)
                 }
 
-                (binding.rvPortfolio.adapter as PortfolioAdapter).addList(list)
+                (binding.rvPortfolio.adapter as PreviewPortfolioAdapter).addList(list)
 
                 // End Of Loading
                 binding.loadingScreen.visibility = View.GONE
