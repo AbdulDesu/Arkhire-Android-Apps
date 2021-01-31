@@ -87,7 +87,7 @@ interface ArkhireApiService {
     @GET("company")
     suspend fun getAllCompany(): SearchCompanyResponse
 
-    @GET("company")
+    @GET("company/filter/name")
     suspend fun searchCompany(@Query("search") companyName:String): SearchCompanyResponse
 
     // Explore Service

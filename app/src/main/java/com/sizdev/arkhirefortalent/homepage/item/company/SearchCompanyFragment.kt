@@ -66,7 +66,7 @@ class SearchCompanyFragment : Fragment(), SearchCompanyContract.View {
         handler.post(object : Runnable {
             override fun run() {
                 presenter?.getCompanyList()
-                handler.postDelayed(this, 5000)
+                handler.postDelayed(this, 15000)
             }
         })
 
@@ -88,7 +88,9 @@ class SearchCompanyFragment : Fragment(), SearchCompanyContract.View {
                     handler.removeCallbacksAndMessages(null)
                     binding.lnNotFound.visibility = View.GONE
                     binding.rvCompany.visibility = View.VISIBLE
-                    presenter?.searchCompany(newText)
+                    if(newText.length >= 3){
+                        presenter?.searchCompany(newText)
+                    }
                 }
                 return false
             }
@@ -162,6 +164,5 @@ class SearchCompanyFragment : Fragment(), SearchCompanyContract.View {
     override fun onDestroy() {
         super.onDestroy()
         coroutineScope.cancel()
-        presenter = null
     }
 }
