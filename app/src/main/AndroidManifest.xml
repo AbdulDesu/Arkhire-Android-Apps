@@ -20,13 +20,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ArkhireTalent"
         android:usesCleartextTraffic="true">
-        <activity android:name=".homepage.item.account.profile.curiculumvitae.CurriculumVitaeActivity"></activity>
-        <activity android:name=".homepage.item.account.profile.previewer.TalentPreviewActivity" />
-        <activity android:name=".homepage.item.explore.contributor.ContributorActivity" />
-        <activity android:name=".homepage.item.account.profile.workexperience.add.AddWorkExperienceActivity" />
-        <activity android:name=".homepage.item.account.profile.portfolio.create.CreatePortfolioActivity" />
-        <activity android:name=".homepage.item.account.profile.workexperience.details.WorkExperienceDetailActivity" />
-        <activity android:name=".homepage.item.account.profile.portfolio.details.PortfolioDetailsActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -35,27 +28,75 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="${mapsApiKey}" />
 
-        <activity android:name=".homepage.item.company.profile.CompanyProfileActivity" />
-        <activity android:name=".homepage.item.home.project.detailedproject.DetailOfProjectActivity" />
-        <activity android:name=".homepage.item.home.project.waitingproject.ShowWaitingProjectActivity" />
-        <activity android:name=".homepage.item.home.project.declinedproject.ShowDeclinedProjectActivity" />
-        <activity android:name=".homepage.item.home.project.approvedproject.ShowApprovedProjectActivity" />
-        <activity android:name=".homepage.item.home.project.allproject.ShowAllProjectActivity" />
-        <activity android:name=".webviewer.ArkhireWebViewerActivity" />
-        <activity android:name=".onboarding.OnBoardingActivity">
+        <activity
+            android:name=".homepage.item.account.profile.curiculumvitae.CurriculumVitaeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".homepage.item.account.profile.previewer.TalentPreviewActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".homepage.item.explore.contributor.ContributorActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".homepage.item.account.profile.workexperience.add.AddWorkExperienceActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".homepage.item.account.profile.portfolio.create.CreatePortfolioActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".homepage.item.account.profile.workexperience.details.WorkExperienceDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".homepage.item.account.profile.portfolio.details.PortfolioDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".homepage.item.company.profile.CompanyProfileActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".homepage.item.home.project.detailedproject.DetailOfProjectActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".homepage.item.home.project.waitingproject.ShowWaitingProjectActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".homepage.item.home.project.declinedproject.ShowDeclinedProjectActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".homepage.item.home.project.approvedproject.ShowApprovedProjectActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".homepage.item.home.project.allproject.ShowAllProjectActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".webviewer.ArkhireWebViewerActivity"/>
+        <activity
+            android:name=".onboarding.OnBoardingActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".administration.password.ResetPasswordActivity" />
-        <activity android:name=".homepage.item.account.profile.editingprofile.EditProfileActivity" />
-        <activity android:name=".homepage.item.account.profile.TalentProfileActivity" />
-        <activity android:name=".administration.email.ResetEmailActivity" />
-        <activity android:name=".administration.login.LoginActivity" />
-        <activity android:name=".administration.register.RegisterActivity" />
-        <activity android:name=".homepage.HomeActivity" />
+        <activity
+            android:name=".administration.password.ResetPasswordActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".homepage.item.account.profile.editingprofile.EditProfileActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".homepage.item.account.profile.TalentProfileActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".administration.email.ResetEmailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".administration.login.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".administration.register.RegisterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".homepage.HomeActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
