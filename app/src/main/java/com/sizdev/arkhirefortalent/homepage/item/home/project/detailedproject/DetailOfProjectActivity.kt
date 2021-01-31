@@ -51,7 +51,7 @@ class DetailOfProjectActivity : AppCompatActivity() {
         format.currency = Currency.getInstance("IDR")
 
         val projectTitle = intent.getStringExtra("projectTitle")
-        val offeredSalary = format.format(intent.getStringExtra("projectSalary")?.toDouble())
+        val offeredSalary = format.format(intent.getStringExtra("offeredSalary")?.toDouble())
         val projectDesc = intent.getStringExtra("projectDesc")
         val projectDuration = intent.getStringExtra("projectDuration")
         val projectStatus = intent.getStringExtra("projectStatus")

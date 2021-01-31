@@ -127,6 +127,8 @@ class HomeFragment : Fragment(), HomeContract.View {
 
     override fun addHighlightProject(list: List<ProjectModel>) {
         (binding.rvProjectHighlight.adapter as HighLightProjectAdapter).addList(list)
+        binding.rvProjectHighlight.visibility = View.VISIBLE
+        binding.emptyHighlight.visibility = View.GONE
     }
 
     @SuppressLint("SimpleDateFormat", "WeekBasedYear")

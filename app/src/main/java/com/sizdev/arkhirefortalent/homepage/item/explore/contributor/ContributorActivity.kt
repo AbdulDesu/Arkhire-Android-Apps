@@ -77,7 +77,7 @@ class ContributorActivity : AppCompatActivity(), ContributorContract.View {
             else -> {
                 Picasso.get()
                         .load("http://54.82.81.23:911/image/$projectImage")
-                        .resize(1280, 500)
+                        .resize(1920, 1080)
                         .centerCrop()
                         .into(binding.ivProjectImage)
 

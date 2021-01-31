@@ -98,6 +98,8 @@ class PortofolioFragment : Fragment() {
 
                 // End Of Loading
                 binding.loadingScreen.visibility = View.GONE
+                binding.emptyData.visibility = View.GONE
+                binding.rvPortfolio.visibility = View.VISIBLE
             }
 
             else {

@@ -103,6 +103,7 @@
             android:drawablePadding="16dp"
             android:ems="10"
             android:hint="@string/start_from"
+            android:inputType="number"
             android:padding="16dp"
             android:textSize="14sp" />
 
@@ -117,6 +118,7 @@
             android:drawablePadding="16dp"
             android:ems="10"
             android:hint="@string/end_at_present"
+            android:inputType="number"
             android:padding="16dp"
             android:textSize="14sp" />
 

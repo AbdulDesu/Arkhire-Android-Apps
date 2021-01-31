@@ -38,7 +38,7 @@ class HighLightProjectAdapter : RecyclerView.Adapter<HighLightProjectAdapter.Pro
         format.currency = Currency.getInstance("IDR")
 
         holder.binding.tvHighLightProjectName.text = item.projectTittle
-        holder.binding.tvHighlightProjectDeadline.text = "Expired At: ${item.projectDuration?.capitalize(Locale.ROOT)}"
+        holder.binding.tvHighlightProjectDeadline.text = "Deadline At: ${item.projectDuration?.capitalize(Locale.ROOT)}"
         holder.binding.tvHighlightProjectSallary.text = format.format(item.offeredSalary?.toDouble())
         holder.binding.tvHighlightHiringStatus.text = "(${item.hiringStatus})"
 

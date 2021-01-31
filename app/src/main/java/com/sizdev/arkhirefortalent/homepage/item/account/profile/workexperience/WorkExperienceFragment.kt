@@ -100,6 +100,8 @@ class WorkExperienceFragment : Fragment() {
 
                 // End Of Loading
                 binding.loadingScreen.visibility = View.GONE
+                binding.emptyData.visibility = View.GONE
+                binding.rvTalentWorkExperience.visibility = View.VISIBLE
             }
 
             else {
