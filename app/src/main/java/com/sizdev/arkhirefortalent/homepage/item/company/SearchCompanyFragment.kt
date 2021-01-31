@@ -66,7 +66,7 @@ class SearchCompanyFragment : Fragment(), SearchCompanyContract.View {
         handler.post(object : Runnable {
             override fun run() {
                 presenter?.getCompanyList()
-                handler.postDelayed(this, 5000)
+                handler.postDelayed(this, 3000)
             }
         })
 
