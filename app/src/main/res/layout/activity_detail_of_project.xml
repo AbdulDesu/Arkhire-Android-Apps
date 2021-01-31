@@ -10,6 +10,66 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/backButton"
+            app:backgroundTint="#5E000000"
+            app:tint="@color/white"
+            android:src="@drawable/ic_back"
+            app:fabCustomSize="38dp"
+            app:maxImageSize="24dp"
+            app:elevation="0.01dp"
+            app:pressedTranslationZ="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/back" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/shareButton"
+            app:backgroundTint="#5E000000"
+            android:layout_alignParentEnd="true"
+            app:tint="@color/white"
+            android:src="@drawable/ic_share"
+            app:fabCustomSize="38dp"
+            app:maxImageSize="24dp"
+            app:elevation="0.01dp"
+            app:pressedTranslationZ="0dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/back"
+            tools:ignore="RelativeOverlap" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bt_declineProject"
+            android:textSize="12sp"
+            android:text="Decline"
+            android:visibility="invisible"
+            android:textColor="@color/white"
+            android:layout_marginTop="130dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="32dp"
+            android:background="#C9FF0000"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bt_approveProject"
+            android:textSize="12sp"
+            android:visibility="invisible"
+            android:text="Approve"
+            android:textColor="@color/white"
+            android:layout_marginTop="130dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="32dp"
+            android:background="#A487FB00"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"/>
+
+
         <ImageView
             android:id="@+id/iv_projectCompanyPhoto"
             android:src="@drawable/ic_project_bg"
@@ -181,7 +241,7 @@
                         android:lineSpacingExtra="6dp"
                         android:textSize="14sp"
                         android:maxLength="250"
-                        android:layout_marginBottom="54dp"
+                        android:layout_marginBottom="84dp"
                         android:text="@string/lite_lorem_ipsum"
                         android:layout_below="@id/tv_titleReplyMsg"
                         android:layout_width="match_parent"
@@ -190,63 +250,6 @@
             </RelativeLayout>
             </ScrollView>
         </androidx.cardview.widget.CardView>
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/backButton"
-            app:backgroundTint="#5E000000"
-            app:tint="@color/white"
-            android:src="@drawable/ic_back"
-            app:fabCustomSize="38dp"
-            app:maxImageSize="24dp"
-            app:elevation="0.01dp"
-            app:pressedTranslationZ="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/back" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/shareButton"
-            app:backgroundTint="#5E000000"
-            android:layout_alignParentEnd="true"
-            app:tint="@color/white"
-            android:src="@drawable/ic_share"
-            app:fabCustomSize="38dp"
-            app:maxImageSize="24dp"
-            app:elevation="0.01dp"
-            app:pressedTranslationZ="0dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/back"
-            tools:ignore="RelativeOverlap" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/bt_declineProject"
-            android:textSize="12sp"
-            android:text="Decline"
-            android:visibility="invisible"
-            android:textColor="@color/white"
-            android:layout_marginTop="130dp"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="32dp"
-            android:background="#C9FF0000"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/bt_approveProject"
-            android:textSize="12sp"
-            android:visibility="invisible"
-            android:text="Approve"
-            android:textColor="@color/white"
-            android:layout_marginTop="130dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="32dp"
-            android:background="#A487FB00"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"/>
 
     </RelativeLayout>
 

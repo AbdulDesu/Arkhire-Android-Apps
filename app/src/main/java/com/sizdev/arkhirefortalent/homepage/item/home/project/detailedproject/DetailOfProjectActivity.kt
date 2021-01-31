@@ -90,8 +90,8 @@ class DetailOfProjectActivity : AppCompatActivity() {
         if(projectStatus == "Waiting"){
             binding.btDeclineProject.visibility = View.VISIBLE
             binding.btApproveProject.visibility = View.VISIBLE
-            binding.tvTitleReplyMsg.visibility = View.GONE
-            binding.tvReplyMsg.visibility = View.GONE
+            binding.tvTitleReplyMsg.visibility = View.INVISIBLE
+            binding.tvReplyMsg.visibility = View.INVISIBLE
         }
 
         binding.btApproveProject.setOnClickListener {
