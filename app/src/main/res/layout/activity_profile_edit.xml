@@ -91,7 +91,7 @@
 
                 <TextView
                     android:id="@+id/et_newProfileJobTitle"
-                    android:layout_width="349dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="28dp"
@@ -104,7 +104,7 @@
 
                 <EditText
                     android:id="@+id/et_newProfileLocation"
-                    android:layout_width="349dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="16dp"
@@ -118,7 +118,7 @@
 
                 <TextView
                     android:id="@+id/et_newProfileWorkTime"
-                    android:layout_width="349dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="16dp"
@@ -131,7 +131,7 @@
 
                 <EditText
                     android:id="@+id/et_newProfileDesc"
-                    android:layout_width="349dp"
+                    android:layout_width="match_parent"
                     android:layout_height="160dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="16dp"

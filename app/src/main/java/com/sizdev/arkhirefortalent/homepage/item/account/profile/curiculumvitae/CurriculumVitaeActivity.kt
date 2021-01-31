@@ -48,13 +48,13 @@ class CurriculumVitaeActivity : AppCompatActivity() {
         subscribeLiveData()
 
         // Set Default Image
-        when(intent.getStringExtra("talentID")){
-            "" -> Toast.makeText(this, "Pick And Image To Finish Editing !", Toast.LENGTH_SHORT).show()
-            null -> Toast.makeText(this, "Pick And Image To Finish Editing !", Toast.LENGTH_SHORT).show()
+        when(intent.getStringExtra("talentCv")){
+            "" -> Toast.makeText(this, "Pick Image To Finish Editing !", Toast.LENGTH_SHORT).show()
+            null -> Toast.makeText(this, "Pick Image To Finish Editing !", Toast.LENGTH_SHORT).show()
             else -> {
                 Picasso.get()
                     .load("http://54.82.81.23:911/image/${intent.getStringExtra("talentCv")}")
-                    .resize(512, 512)
+                    .resize(720, 1080)
                     .centerCrop()
                     .into(binding.ivCv)
             }
