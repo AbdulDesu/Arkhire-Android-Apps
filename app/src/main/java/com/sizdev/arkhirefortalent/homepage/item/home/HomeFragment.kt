@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.administration.login.LoginActivity
 import com.sizdev.arkhirefortalent.databinding.FragmentHomeBinding
+import com.sizdev.arkhirefortalent.homepage.item.account.profile.editingprofile.EditProfileActivity
 import com.sizdev.arkhirefortalent.homepage.item.home.project.ProjectAdapter
 import com.sizdev.arkhirefortalent.homepage.item.home.project.ProjectModel
 import com.sizdev.arkhirefortalent.homepage.item.home.project.allproject.ShowAllProjectActivity
@@ -27,6 +28,7 @@ import com.sizdev.arkhirefortalent.homepage.item.home.project.highlightproject.H
 import com.sizdev.arkhirefortalent.homepage.item.home.project.waitingproject.ShowWaitingProjectActivity
 import com.sizdev.arkhirefortalent.networking.ArkhireApiClient
 import com.sizdev.arkhirefortalent.networking.ArkhireApiService
+import kotlinx.android.synthetic.main.alert_must_complete_data.view.*
 import kotlinx.android.synthetic.main.alert_session_expired.view.*
 import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
@@ -40,7 +42,9 @@ class HomeFragment : Fragment(), HomeContract.View {
     private lateinit var handler: Handler
     private lateinit var coroutineScope: CoroutineScope
 
-    private var accountID : String ? = null
+    private var accountID: String? = null
+    private var talentTag: String? = null
+    private var accountName: String? = null
     private var presenter: HomePresenter? = null
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
@@ -139,7 +143,12 @@ class HomeFragment : Fragment(), HomeContract.View {
     }
 
     @SuppressLint("SetTextI18n")
-    override fun setGreeting(name: String) {
+    override fun setGreeting(name: String, talentID: String, talentTitle: String) {
+
+        // Set Data
+        accountName = name
+        talentTag = talentID
+
         // Split The Name
         val nameSplitter = name.split(" ")
 
@@ -163,6 +172,14 @@ class HomeFragment : Fragment(), HomeContract.View {
                 in 12..15 -> binding.tvUserGreeting.text = "Good Afternoon, $lastName"
                 in 16..20 -> binding.tvUserGreeting.text = "Good Evening, $lastName"
                 in 21..23 -> binding.tvUserGreeting.text = "Good Night, $lastName"
+            }
+        }
+
+        when(talentTitle){
+            "null" -> {
+                handler.removeCallbacksAndMessages(null)
+                alertMustCompleteData()
+                dialog.show()
             }
         }
     }
@@ -190,6 +207,26 @@ class HomeFragment : Fragment(), HomeContract.View {
 
     override fun hideProgressBar() {
         binding.loadingScreen.visibility = View.GONE
+    }
+
+    override fun alertMustCompleteData() {
+        val view: View = layoutInflater.inflate(R.layout.alert_must_complete_data, null)
+
+        dialog = activity?.let {
+            AlertDialog.Builder(it)
+                    .setView(view)
+                    .setCancelable(false)
+                    .create()
+        }!!
+
+        view.tv_ownerName.text = "Welcome $accountName"
+        view.bt_goComplete.setOnClickListener {
+            val intent = Intent(activity, EditProfileActivity::class.java)
+            intent.putExtra("talentID", talentTag)
+            intent.putExtra("editCode", "0")
+            startActivity(intent)
+            dialog.dismiss()
+        }
     }
 
     private fun sessionExpiredAlert() {

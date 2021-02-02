@@ -91,6 +91,7 @@
 
                 <TextView
                     android:id="@+id/et_newProfileJobTitle"
+                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -118,6 +119,7 @@
 
                 <TextView
                     android:id="@+id/et_newProfileWorkTime"
+                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -154,6 +156,7 @@
 
                     <TextView
                         android:id="@+id/et_newProfileSkill1"
+                        android:textColor="@color/black"
                         android:layout_marginTop="16dp"
                         android:layout_marginStart="16sp"
                         android:layout_width="90dp"
@@ -165,6 +168,7 @@
 
                     <TextView
                         android:id="@+id/et_newProfileSkill2"
+                        android:textColor="@color/black"
                         android:layout_toRightOf="@id/et_newProfileSkill1"
                         android:layout_marginTop="16dp"
                         android:layout_marginStart="16sp"
@@ -177,6 +181,7 @@
 
                     <TextView
                         android:id="@+id/et_newProfileSkill3"
+                        android:textColor="@color/black"
                         android:layout_toRightOf="@id/et_newProfileSkill2"
                         android:layout_marginTop="16dp"
                         android:layout_marginStart="16sp"
@@ -189,6 +194,7 @@
 
                     <TextView
                         android:id="@+id/et_newProfileSkill4"
+                        android:textColor="@color/black"
                         android:layout_below="@id/et_newProfileSkill1"
                         android:layout_marginTop="16dp"
                         android:layout_marginStart="16sp"
@@ -201,6 +207,7 @@
 
                     <TextView
                         android:id="@+id/et_newProfileSkill5"
+                        android:textColor="@color/black"
                         android:layout_below="@id/et_newProfileSkill2"
                         android:layout_toRightOf="@id/et_newProfileSkill4"
                         android:layout_marginTop="16dp"

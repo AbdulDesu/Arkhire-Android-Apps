@@ -5,9 +5,10 @@ interface HomeContract {
 
     interface View {
         fun addHighlightProject(list: List<ProjectModel>)
-        fun setGreeting(name: String)
+        fun setGreeting(name: String, talentID: String, talentTitle: String)
         fun setError(error: String)
         fun hideProgressBar()
+        fun alertMustCompleteData()
     }
 
     interface Presenter{

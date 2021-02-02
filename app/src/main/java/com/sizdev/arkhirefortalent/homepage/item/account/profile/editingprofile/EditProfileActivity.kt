@@ -34,12 +34,15 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileEditBinding
     private lateinit var viewModel: EditProfileViewModel
 
+    private var talentID: String? = null
+    private var editCode: String? = null
+    private var talentImage: String? = null
+
     companion object {
         private const val IMAGE_PICK_CODE = 1000
         private const val PERMISSION_CODE = 1001
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profile_edit)
@@ -50,20 +53,66 @@ class EditProfileActivity : AppCompatActivity() {
         // ObserveLiveData(
         subscribeLiveData()
 
+        // Set Current Data
+        setCurrentData()
+
+        // Set Pop Up Menu
+        setPopUpMenu()
+
+        binding.btEditProfileImage.setOnClickListener {
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                PackageManager.PERMISSION_DENIED){
+                //permission denied
+                val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
+                //show popup to request runtime permission
+                requestPermissions(permissions, EditProfileActivity.PERMISSION_CODE);
+            }
+            else{
+                //permission already granted
+                pickImageFromGallery();
+            }
+        }
+
+        if(editCode == "0") {
+            binding.btNewProfileDone.setOnClickListener {
+                Toast.makeText(this, "Please Select An Image Profile", Toast.LENGTH_LONG).show()
+            }
+        }
+        else {
+            binding.btNewProfileDone.setOnClickListener {
+                if(binding.etNewProfileJobTitle.text.isEmpty() || binding.etNewProfileWorkTime.text.isEmpty() || binding.etNewProfileLocation.text.isEmpty() || binding.etNewProfileDesc.text.isEmpty()){
+                    Toast.makeText(this, "Please Fill All Required Field", Toast.LENGTH_LONG).show()
+                }
+
+                else{
+                    viewModel.updateBasicInfoWithoutImage(talentID!!, binding.etNewProfileJobTitle.text.toString(), binding.etNewProfileWorkTime.text.toString(), binding.etNewProfileLocation.text.toString(), binding.etNewProfileDesc.text.toString(), talentImage!!)
+                    viewModel.updateSkill(talentID!!, binding.etNewProfileSkill1.text.toString(), binding.etNewProfileSkill2.text.toString(), binding.etNewProfileSkill3.text.toString(), binding.etNewProfileSkill4.text.toString(), binding.etNewProfileSkill5.text.toString())
+
+                    if (binding.etNewProfileGithub.text.isNotEmpty()){
+                        viewModel.updateGithub(talentID!!, binding.etNewProfileGithub.text.toString())
+                    }
+                }
+            }
+        }
+
+    }
+
+    private fun setCurrentData() {
+
         // Get Saved Data
-        var talentID = intent.getStringExtra("talentID")
+        talentID = intent.getStringExtra("talentID")
         val talentTitle = intent.getStringExtra("talentTitle")
         val talentTime = intent.getStringExtra("talentWorkTime")
         val talentLocation = intent.getStringExtra("talentLocation")
         val talentDesc = intent.getStringExtra("talentDesc")
-        val talentImage = intent.getStringExtra("talentImage")
+        talentImage = intent.getStringExtra("talentImage")
         val talentGithub = intent.getStringExtra("talentGithub")
         val talentSkill1 = intent.getStringExtra("talentSkill1")
         val talentSkill2 = intent.getStringExtra("talentSkill2")
         val talentSkill3 = intent.getStringExtra("talentSkill3")
         val talentSkill4 = intent.getStringExtra("talentSkill4")
         val talentSkill5 = intent.getStringExtra("talentSkill5")
-        val editCode = intent.getStringExtra("editCode")
+        editCode = intent.getStringExtra("editCode")
 
         // Set Data Default
         binding.etNewProfileJobTitle.text = talentTitle
@@ -90,6 +139,10 @@ class EditProfileActivity : AppCompatActivity() {
             binding.ivEditProfileImage.setImageResource(R.drawable.ic_empty_image)
         }
 
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setPopUpMenu() {
         //Job Tittle Pop Up Menu
         val jobTitle = PopupMenu(this, binding.etNewProfileJobTitle)
 
@@ -318,7 +371,7 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         binding.etNewProfileWorkTime.setOnClickListener {
-           workTime.show()
+            workTime.show()
         }
 
         binding.etNewProfileSkill1.setOnClickListener {
@@ -340,43 +393,6 @@ class EditProfileActivity : AppCompatActivity() {
         binding.etNewProfileSkill5.setOnClickListener {
             talentSKill5.show()
         }
-
-        binding.btEditProfileImage.setOnClickListener {
-            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                PackageManager.PERMISSION_DENIED){
-                //permission denied
-                val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
-                //show popup to request runtime permission
-                requestPermissions(permissions, EditProfileActivity.PERMISSION_CODE);
-            }
-            else{
-                //permission already granted
-                pickImageFromGallery();
-            }
-        }
-
-        if(editCode == "0") {
-            binding.btNewProfileDone.setOnClickListener {
-                Toast.makeText(this, "Please Select An Image Profile", Toast.LENGTH_LONG).show()
-            }
-        }
-        else {
-            binding.btNewProfileDone.setOnClickListener {
-                if(binding.etNewProfileJobTitle.text.isEmpty() || binding.etNewProfileWorkTime.text.isEmpty() || binding.etNewProfileLocation.text.isEmpty() || binding.etNewProfileDesc.text.isEmpty()){
-                    Toast.makeText(this, "Please Fill All Required Field", Toast.LENGTH_LONG).show()
-                }
-
-                else{
-                    viewModel.updateBasicInfoWithoutImage(talentID!!, binding.etNewProfileJobTitle.text.toString(), binding.etNewProfileWorkTime.text.toString(), binding.etNewProfileLocation.text.toString(), binding.etNewProfileDesc.text.toString(), talentImage!!)
-                    viewModel.updateSkill(talentID!!, binding.etNewProfileSkill1.text.toString(), binding.etNewProfileSkill2.text.toString(), binding.etNewProfileSkill3.text.toString(), binding.etNewProfileSkill4.text.toString(), binding.etNewProfileSkill5.text.toString())
-
-                    if (binding.etNewProfileGithub.text.isNotEmpty()){
-                        viewModel.updateGithub(talentID, binding.etNewProfileGithub.text.toString())
-                    }
-                }
-            }
-        }
-
     }
 
     private fun setService() {

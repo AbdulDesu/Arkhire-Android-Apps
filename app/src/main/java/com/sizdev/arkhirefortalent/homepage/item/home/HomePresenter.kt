@@ -45,7 +45,7 @@ class HomePresenter (private val coroutineScope: CoroutineScope,
 
             if (result is HomeResponse) {
                 if (result.success){
-                    view?.setGreeting(result.data[0].accountName)
+                    view?.setGreeting(result.data[0].accountName, result.data[0].talentID, result.data[0].talentTitle.toString())
                 }
                 else {
                     view?.hideProgressBar()

@@ -1,15 +1,15 @@
 package com.sizdev.arkhirefortalent.onboarding.item
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.sizdev.arkhirefortalent.R
 import com.sizdev.arkhirefortalent.databinding.FragmentWelcomeViewPagerBinding
 
-class WelcomeViewPagerAdapter : Fragment() {
+class WelcomeFragment : Fragment() {
 
     private lateinit var binding: FragmentWelcomeViewPagerBinding
 
@@ -31,6 +31,7 @@ class WelcomeViewPagerAdapter : Fragment() {
         )
 
         binding.welcomeViewPager.adapter = adapter
+        binding.indicator.setViewPager2(binding.welcomeViewPager)
         return  binding.root
     }
 

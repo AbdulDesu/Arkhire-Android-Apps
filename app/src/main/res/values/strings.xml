@@ -108,6 +108,7 @@
     <string name="create_account_to_join_arkhire">Create account to become partner and start exploring</string>
     <string name="sign_up">Sign Up</string>
     <string name="uploading_portfolio">Uploading Portfolio...</string>
+    <string name="this_is_first_time_you_loged_in_to_continue_please_finish_your_profile">This is first time you loged in, To continue please finish your profile</string>
 
 
 </resources>

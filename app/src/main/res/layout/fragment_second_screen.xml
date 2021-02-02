@@ -6,22 +6,17 @@
     tools:context=".onboarding.item.FirstScreen"
     >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/iv_connectCompany"
             android:layout_width="188dp"
             android:layout_height="157dp"
-            android:layout_marginTop="220dp"
-            android:src="@drawable/companyvector"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:src="@drawable/companyvector"/>
 
         <TextView
             android:id="@+id/tv_connectCompany"
@@ -30,25 +25,17 @@
             android:layout_marginTop="28dp"
             android:text="@string/connect_company"
             android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/iv_connectCompany"
-            app:layout_constraintHorizontal_bias="0.493"
-            app:layout_constraintStart_toStartOf="@+id/iv_connectCompany"
-            app:layout_constraintTop_toBottomOf="@+id/iv_connectCompany" />
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tv_descConnectCompany"
             android:layout_width="290dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="@string/connect_companyDesc"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/tv_connectCompany"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/tv_connectCompany"
-            app:layout_constraintTop_toTopOf="@+id/tv_connectCompany" />
+            android:textSize="16sp"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </layout>
