@@ -25,7 +25,7 @@
         android:id="@+id/welcomeViewPager2"
         android:name="com.sizdev.arkhirefortalent.onboarding.item.WelcomeFragment"
         android:label="fragment_welcome_view_pager"
-        tools:layout="@layout/fragment_welcome_view_pager" >
+        tools:layout="@layout/fragment_welcome" >
         <action
             android:id="@+id/action_welcomeViewPager2_to_loginActivity"
             app:destination="@id/loginActivity"

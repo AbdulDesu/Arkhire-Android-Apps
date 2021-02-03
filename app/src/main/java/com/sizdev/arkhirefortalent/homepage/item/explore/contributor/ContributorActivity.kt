@@ -71,16 +71,11 @@ class ContributorActivity : AppCompatActivity(), ContributorContract.View {
         binding.tvCompanyProjectSalary.text = format.format(projectSalary!!.toDouble())
         binding.tvProjectDesc.text = projectDesc
 
-        // Set Image
-        when (projectImage){
-            "null" -> binding.ivProjectImage.setImageResource(R.drawable.ic_project_bg)
+        // Set Company Image
+        when (companyImage){
+            "null" -> binding.ivCompanyImage.setImageResource(R.drawable.ic_empty_image)
+            null -> binding.ivCompanyImage.setImageResource(R.drawable.ic_empty_image)
             else -> {
-                Picasso.get()
-                        .load("http://54.82.81.23:911/image/$projectImage")
-                        .resize(1920, 1080)
-                        .centerCrop()
-                        .into(binding.ivProjectImage)
-
                 Picasso.get()
                         .load("http://54.82.81.23:911/image/$companyImage")
                         .resize(512, 512)
@@ -88,6 +83,14 @@ class ContributorActivity : AppCompatActivity(), ContributorContract.View {
                         .into(binding.ivCompanyImage)
             }
         }
+
+        // Set Project Image
+        Picasso.get()
+            .load("http://54.82.81.23:911/image/$projectImage")
+            .resize(1920, 1080)
+            .centerCrop()
+            .into(binding.ivProjectImage)
+
 
 
         // Set Up Recycler View
