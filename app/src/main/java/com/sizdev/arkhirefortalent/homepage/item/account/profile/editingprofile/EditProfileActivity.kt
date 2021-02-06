@@ -69,12 +69,12 @@ class EditProfileActivity : AppCompatActivity() {
             }
             else{
                 //permission already granted
-                if (binding.etNewProfileSkill1.text.isEmpty() || binding.etNewProfileSkill2.text.isEmpty() || binding.etNewProfileSkill3.text.isEmpty() || binding.etNewProfileSkill4.text.isEmpty() || binding.etNewProfileSkill5.text.isEmpty()){
-                    Toast.makeText(this, "Add Best 5 Skills To Your Profile !", Toast.LENGTH_SHORT).show()
+                if(binding.etNewProfileJobTitle.text.isEmpty() || binding.etNewProfileWorkTime.text.isEmpty() || binding.etNewProfileLocation.text.isEmpty() || binding.etNewProfileDesc.text.isEmpty()){
+                    Toast.makeText(this, "Please Fill All Required Field before pick an image !", Toast.LENGTH_LONG).show()
                 }
                 else {
-                    if(binding.etNewProfileJobTitle.text.isEmpty() || binding.etNewProfileWorkTime.text.isEmpty() || binding.etNewProfileLocation.text.isEmpty() || binding.etNewProfileDesc.text.isEmpty()){
-                        Toast.makeText(this, "Please Fill All Required Field", Toast.LENGTH_LONG).show()
+                    if (binding.etNewProfileSkill1.text.isEmpty() || binding.etNewProfileSkill2.text.isEmpty() || binding.etNewProfileSkill3.text.isEmpty() || binding.etNewProfileSkill4.text.isEmpty() || binding.etNewProfileSkill5.text.isEmpty()){
+                        Toast.makeText(this, "Add Best 5 Skills To Your Profile First!", Toast.LENGTH_SHORT).show()
                     }
                     else {
                         pickImageFromGallery()
