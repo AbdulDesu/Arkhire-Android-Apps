@@ -1,12 +1,11 @@
 package com.sizdev.arkhirefortalent.homepage.item.company.profile
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,13 +24,32 @@ import com.squareup.picasso.Picasso
 class CompanyProfileActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private lateinit var binding: ActivityCompanyProfileBinding
-    private var defaultLocation = LatLng(-6.200000, 106.816666)
     private lateinit var markerDefault: Marker
+
+    private var defaultLocation = LatLng(-6.200000, 106.816666)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_company_profile)
 
+        // Set Data
+        setData()
+
+        // Set Recycler View
+        setRecyclerView()
+
+        // Set FAB
+        setFloatingButton()
+
+        // Set Button
+        setButton()
+
+        // Set Map
+        setMap()
+
+    }
+
+    private fun setData() {
         val companyName = intent.getStringExtra("companyName")
         val companyType = intent.getStringExtra("companyType")
         val companyImage = intent.getStringExtra("companyImage")
@@ -42,17 +60,7 @@ class CompanyProfileActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMa
         val companyLatitude = intent.getStringExtra("companyLatitude")
         val companyLongitude = intent.getStringExtra("companyLongitude")
 
-        if (companyLatitude != "null" && companyLongitude != "null") {
-            if (companyLatitude == "" || companyLongitude == ""){
-
-            }
-            else if (companyLatitude != null && companyLongitude != null) {
-                defaultLocation = LatLng(companyLatitude.toDouble(), companyLongitude.toDouble())
-            }
-        }
-
-        binding.rvCompanyLookingFor.adapter = CompanyLookingForAdapter()
-        binding.rvCompanyLookingFor.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        defaultLocation = LatLng(companyLatitude!!.toDouble(), companyLongitude!!.toDouble())
 
         //Set Data
         binding.tvCompanyProfileName.text = companyName
@@ -111,7 +119,15 @@ class CompanyProfileActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMa
                 }
             }
         }
+    }
 
+    private fun setMap() {
+        val mapFragment = supportFragmentManager
+                .findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+    }
+
+    private fun setButton() {
         binding.ivHelpLookingFor.setOnClickListener {
             Toast.makeText(this, "Company Criteria Skill Looking For", Toast.LENGTH_SHORT).show()
         }
@@ -123,12 +139,9 @@ class CompanyProfileActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMa
         binding.ivHelpCompanyLocation.setOnClickListener {
             Toast.makeText(this, "Detail Location Of This Company", Toast.LENGTH_SHORT).show()
         }
+    }
 
-        //Set Map
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-
+    private fun setFloatingButton() {
         binding.backButton.setOnClickListener {
             finish()
         }
@@ -151,6 +164,11 @@ class CompanyProfileActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMa
         }
     }
 
+    private fun setRecyclerView() {
+        binding.rvCompanyLookingFor.adapter = CompanyLookingForAdapter()
+        binding.rvCompanyLookingFor.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+    }
+
     override fun onMapReady(googleMap: GoogleMap) {
         googleMap.uiSettings.isZoomControlsEnabled = true
         googleMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
@@ -163,6 +181,16 @@ class CompanyProfileActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMa
 
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 12f))
         googleMap.setOnMarkerClickListener(this)
+
+        googleMap.setOnCameraMoveStartedListener {
+            binding.map.parent.requestDisallowInterceptTouchEvent(true)
+
+        }
+
+        googleMap.setOnCameraIdleListener {
+            binding.map.parent.requestDisallowInterceptTouchEvent(false)
+        }
+
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {

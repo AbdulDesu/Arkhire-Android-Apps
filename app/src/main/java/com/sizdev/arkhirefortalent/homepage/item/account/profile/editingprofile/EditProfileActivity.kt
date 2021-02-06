@@ -69,7 +69,18 @@ class EditProfileActivity : AppCompatActivity() {
             }
             else{
                 //permission already granted
-                pickImageFromGallery();
+                if (binding.etNewProfileSkill1.text.isEmpty() || binding.etNewProfileSkill2.text.isEmpty() || binding.etNewProfileSkill3.text.isEmpty() || binding.etNewProfileSkill4.text.isEmpty() || binding.etNewProfileSkill5.text.isEmpty()){
+                    Toast.makeText(this, "Add Best 5 Skills To Your Profile !", Toast.LENGTH_SHORT).show()
+                }
+                else {
+                    if(binding.etNewProfileJobTitle.text.isEmpty() || binding.etNewProfileWorkTime.text.isEmpty() || binding.etNewProfileLocation.text.isEmpty() || binding.etNewProfileDesc.text.isEmpty()){
+                        Toast.makeText(this, "Please Fill All Required Field", Toast.LENGTH_LONG).show()
+                    }
+                    else {
+                        pickImageFromGallery()
+                    }
+                }
+
             }
         }
 
@@ -139,6 +150,125 @@ class EditProfileActivity : AppCompatActivity() {
             binding.ivEditProfileImage.setImageResource(R.drawable.ic_empty_image)
         }
 
+    }
+
+
+    private fun setService() {
+        viewModel = ViewModelProvider(this).get(EditProfileViewModel::class.java)
+        val service = ArkhireApiClient.getApiClient(this)?.create(ArkhireApiService::class.java)
+        viewModel.setService(service!!)
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when(requestCode) {
+            EditProfileActivity.PERMISSION_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED){
+                    //permission from popup granted
+                    pickImageFromGallery()
+                }
+                else{
+                    //permission from popup denied
+                    Toast.makeText(this, "Please Allow Permission", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun pickImageFromGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, EditProfileActivity.IMAGE_PICK_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK && requestCode == EditProfileActivity.IMAGE_PICK_CODE) {
+            binding.ivEditProfileImage.setImageURI(data?.data)
+
+            val talentID = intent.getStringExtra("talentID")
+
+            val filePath = data?.data?.let { getPath(this, it) }
+            val file = File(filePath)
+
+            val talentTitle = createPartFromString(binding.etNewProfileJobTitle.text.toString())
+            val talentTime = createPartFromString(binding.etNewProfileWorkTime.text.toString())
+            val talentCity = createPartFromString(binding.etNewProfileLocation.text.toString())
+            val talentDesc = createPartFromString(binding.etNewProfileDesc.text.toString())
+            var talentImage: MultipartBody.Part? = null
+            val mediaTypeImg = "image/jpeg".toMediaType()
+            val inputStream = data?.data?.let { contentResolver.openInputStream(it) }
+            val reqFile: RequestBody? = inputStream?.readBytes()?.toRequestBody(mediaTypeImg)
+
+            talentImage = reqFile?.let { it1 ->
+                MultipartBody.Part.createFormData("talent_image", file.name, it1)
+            }
+
+            binding.btNewProfileDone.setOnClickListener {
+                if(binding.etNewProfileJobTitle.text.isEmpty() || binding.etNewProfileWorkTime.text.isEmpty() || binding.etNewProfileLocation.text.isEmpty() || binding.etNewProfileDesc.text.isEmpty()){
+                    Toast.makeText(this, "Please Fill All Field!", Toast.LENGTH_SHORT).show()
+                }
+                else {
+                    if (talentImage != null) {
+                    viewModel.updateBasicInfo(talentID!!, talentTitle, talentTime, talentCity, talentDesc, talentImage)
+                    viewModel.updateSkill(
+                            talentID, binding.etNewProfileSkill1.text.toString(),
+                            binding.etNewProfileSkill2.text.toString(),
+                            binding.etNewProfileSkill3.text.toString(),
+                            binding.etNewProfileSkill4.text.toString(),
+                            binding.etNewProfileSkill5.text.toString())
+
+                        if (binding.etNewProfileGithub.text.isNotEmpty()) {
+                            viewModel.updateGithub(talentID, binding.etNewProfileGithub.text.toString())
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun getPath(context: Context, contentUri: Uri) : String? {
+        var result: String? = null
+        val data = arrayOf(MediaStore.Images.Media.DATA)
+
+        val cursorLoader = CursorLoader(context, contentUri, data, null, null, null)
+        val cursor = cursorLoader.loadInBackground()
+
+        if (cursor != null) {
+            val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            cursor.moveToFirst()
+            result = cursor.getString(columnIndex)
+            cursor.close()
+        }
+        return result
+    }
+
+    @NonNull
+    private fun createPartFromString(json: String): RequestBody {
+        val mediaType = "multipart/form-data".toMediaType()
+        return json
+            .toRequestBody(mediaType)
+    }
+
+    private fun subscribeLiveData() {
+        viewModel.isLoading.observe(this, {
+            binding.loadingScreen.visibility = View.VISIBLE
+        })
+
+        viewModel.isSuccess.observe(this, {
+            if (viewModel.isSuccess.value == "Success") {
+                Toast.makeText(this, "Profile Updated !", Toast.LENGTH_SHORT).show()
+                finish()
+            } else {
+                Toast.makeText(this, "Failed, To Update !", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     @SuppressLint("SetTextI18n")
@@ -394,124 +524,4 @@ class EditProfileActivity : AppCompatActivity() {
             talentSKill5.show()
         }
     }
-
-    private fun setService() {
-        viewModel = ViewModelProvider(this).get(EditProfileViewModel::class.java)
-        val service = ArkhireApiClient.getApiClient(this)?.create(ArkhireApiService::class.java)
-        viewModel.setService(service!!)
-
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when(requestCode) {
-            EditProfileActivity.PERMISSION_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] ==
-                    PackageManager.PERMISSION_GRANTED){
-                    //permission from popup granted
-                    pickImageFromGallery()
-                }
-                else{
-                    //permission from popup denied
-                    Toast.makeText(this, "Please Allow Permission", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
-
-    private fun pickImageFromGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, EditProfileActivity.IMAGE_PICK_CODE)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == Activity.RESULT_OK && requestCode == EditProfileActivity.IMAGE_PICK_CODE) {
-            binding.ivEditProfileImage.setImageURI(data?.data)
-
-            var talentID = intent.getStringExtra("talentID")
-
-            val filePath = data?.data?.let { getPath(this, it) }
-            val file = File(filePath)
-
-            val talentTitle = createPartFromString(binding.etNewProfileJobTitle.text.toString())
-            val talentTime = createPartFromString(binding.etNewProfileWorkTime.text.toString())
-            val talentCity = createPartFromString(binding.etNewProfileLocation.text.toString())
-            val talentDesc = createPartFromString(binding.etNewProfileDesc.text.toString())
-            var talentImage: MultipartBody.Part? = null
-            val mediaTypeImg = "image/jpeg".toMediaType()
-            val inputStream = data?.data?.let { contentResolver.openInputStream(it) }
-            val reqFile: RequestBody? = inputStream?.readBytes()?.toRequestBody(mediaTypeImg)
-
-            talentImage = reqFile?.let { it1 ->
-                MultipartBody.Part.createFormData("talent_image", file.name, it1)
-            }
-
-            binding.btNewProfileDone.setOnClickListener {
-                if(binding.etNewProfileJobTitle.text.isEmpty() || binding.etNewProfileWorkTime.text.isEmpty() || binding.etNewProfileLocation.text.isEmpty() || binding.etNewProfileDesc.text.isEmpty()){
-                    Toast.makeText(this, "Please Fill All Field!", Toast.LENGTH_SHORT).show()
-                }
-                else {
-                    if (talentImage != null) {
-                    viewModel.updateBasicInfo(talentID!!, talentTitle, talentTime, talentCity, talentDesc, talentImage)
-                    viewModel.updateSkill(
-                            talentID, binding.etNewProfileSkill1.text.toString(),
-                            binding.etNewProfileSkill2.text.toString(),
-                            binding.etNewProfileSkill3.text.toString(),
-                            binding.etNewProfileSkill4.text.toString(),
-                            binding.etNewProfileSkill5.text.toString())
-
-                        if (binding.etNewProfileGithub.text.isNotEmpty()) {
-                            viewModel.updateGithub(talentID, binding.etNewProfileGithub.text.toString())
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    fun getPath(context: Context, contentUri: Uri) : String? {
-        var result: String? = null
-        val data = arrayOf(MediaStore.Images.Media.DATA)
-
-        val cursorLoader = CursorLoader(context, contentUri, data, null, null, null)
-        val cursor = cursorLoader.loadInBackground()
-
-        if (cursor != null) {
-            val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-            cursor.moveToFirst()
-            result = cursor.getString(columnIndex)
-            cursor.close()
-        }
-        return result
-    }
-
-    @NonNull
-    private fun createPartFromString(json: String): RequestBody {
-        val mediaType = "multipart/form-data".toMediaType()
-        return json
-            .toRequestBody(mediaType)
-    }
-
-    private fun subscribeLiveData() {
-        viewModel.isLoading.observe(this, {
-            binding.loadingScreen.visibility = View.VISIBLE
-        })
-
-        viewModel.isSuccess.observe(this, {
-            if (viewModel.isSuccess.value == "Success") {
-                Toast.makeText(this, "Profile Updated !", Toast.LENGTH_SHORT).show()
-                finish()
-            } else {
-                Toast.makeText(this, "Failed, To Update !", Toast.LENGTH_LONG).show()
-            }
-        })
-    }
-
-
 }
