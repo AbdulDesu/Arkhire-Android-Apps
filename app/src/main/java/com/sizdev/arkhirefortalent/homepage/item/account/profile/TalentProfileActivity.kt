@@ -224,11 +224,11 @@ class TalentProfileActivity : AppCompatActivity(), TalentProfileContract.View {
         }
 
         binding.ivHelpAboutYou.setOnClickListener {
-            Toast.makeText(this, "Tell Company About Your Profile", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Describe your personalities to company", Toast.LENGTH_SHORT).show()
         }
 
         binding.ivHelpSkillYou.setOnClickListener {
-            Toast.makeText(this, "Tell Company About Your Skill", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Show your 5 best skill to company", Toast.LENGTH_SHORT).show()
         }
     }
 
