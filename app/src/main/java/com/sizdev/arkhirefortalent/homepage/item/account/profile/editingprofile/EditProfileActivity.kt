@@ -64,8 +64,18 @@ class EditProfileActivity : AppCompatActivity() {
                 PackageManager.PERMISSION_DENIED){
                 //permission denied
                 val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
-                //show popup to request runtime permission
-                requestPermissions(permissions, EditProfileActivity.PERMISSION_CODE);
+                if(binding.etNewProfileJobTitle.text.isEmpty() || binding.etNewProfileWorkTime.text.isEmpty() || binding.etNewProfileLocation.text.isEmpty() || binding.etNewProfileDesc.text.isEmpty()){
+                    Toast.makeText(this, "Please Fill All Required Field before pick an image !", Toast.LENGTH_LONG).show()
+                }
+                else{
+                    //show popup to request runtime permission
+                    if(binding.etNewProfileSkill1.text.isEmpty() || binding.etNewProfileSkill2.text.isEmpty() || binding.etNewProfileSkill3.text.isEmpty() || binding.etNewProfileSkill4.text.isEmpty() || binding.etNewProfileSkill5.text.isEmpty()){
+                        Toast.makeText(this, "Add Best 5 Skills To Your Profile First!", Toast.LENGTH_SHORT).show()
+                    }
+                    else{
+                        requestPermissions(permissions, EditProfileActivity.PERMISSION_CODE);
+                    }
+                }
             }
             else{
                 //permission already granted

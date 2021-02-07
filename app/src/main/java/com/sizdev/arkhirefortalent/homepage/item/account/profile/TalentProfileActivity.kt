@@ -212,9 +212,11 @@ class TalentProfileActivity : AppCompatActivity(), TalentProfileContract.View {
         }
 
         when(talentGithub) {
+            " " -> binding.ivTalentGithub.setImageResource(R.drawable.ic_github_disabled)
             "" -> binding.ivTalentGithub.setImageResource(R.drawable.ic_github_disabled)
             null -> binding.ivTalentGithub.setImageResource(R.drawable.ic_github_disabled)
             else -> {
+                binding.ivTalentGithub.setImageResource(R.drawable.ic_github)
                 binding.ivTalentGithub.setOnClickListener {
                     Toast.makeText(this@TalentProfileActivity, "Your Github is: https://github.com/$talentGithub", Toast.LENGTH_SHORT).show()
                 }
